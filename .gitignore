@@ -301,5 +301,12 @@ __pycache__/
 !.vscode/extensions.json
 .history
 
+### Code ###
+# Visual Studio Code - https://code.visualstudio.com/
+.settings/
+.vscode/
+tsconfig.json
+jsconfig.json
+
 
 # End of https://www.gitignore.io/api/csharp,visualstudiocode
