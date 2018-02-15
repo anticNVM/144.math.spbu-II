@@ -1,7 +1,8 @@
 ﻿using System;
 
-namespace t1_factorial
+namespace T1_factorial
 {
+    // Посчитать факториал
     class Program
     {
         static void Main(string[] args)
