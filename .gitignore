@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/csharp,visualstudiocode
 
 ### Csharp ###
@@ -25,7 +24,7 @@ x64/
 x86/
 bld/
 [Bb]in/
-# [Oo]bj/
+[Oo]bj/
 [Ll]og/
 
 # Visual Studio 2015 cache/options directory
@@ -293,20 +292,11 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history
-
 ### Code ###
 # Visual Studio Code - https://code.visualstudio.com/
 .settings/
 .vscode/
 tsconfig.json
 jsconfig.json
-
 
 # End of https://www.gitignore.io/api/csharp,visualstudiocode
