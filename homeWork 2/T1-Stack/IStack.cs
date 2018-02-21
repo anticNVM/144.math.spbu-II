@@ -6,6 +6,6 @@ namespace T1_Stack
         int Pop();
         int Peek();
         void Clear();
-        //int Count {get;}
+        int Count { get; }
     }
 }
