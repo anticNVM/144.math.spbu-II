@@ -1,3 +1,5 @@
+using System;
+
 namespace T2_LinkedList
 {
     public class LinkedList : ILinkedList
@@ -150,7 +152,7 @@ namespace T2_LinkedList
 
         public bool IsEmpty() => Count == 0;
 
-        public LinkedList GetCopy()
+        public LinkedList Copy()
         {
             var copyList = new LinkedList();
             Node current = head;
@@ -164,11 +166,11 @@ namespace T2_LinkedList
             return copyList;
         }
 
-        public int GetFirst() => head != null ? head.Value : default(int);
+        public int GetHead() => head != null ? head.Value : default(int);
         
         public LinkedList GetTail()
         {
-            var tailList = this.GetCopy();
+            var tailList = this.Copy();
             if (!tailList.IsEmpty())
             {
                 tailList.head = head.Next;
@@ -176,6 +178,21 @@ namespace T2_LinkedList
             }
 
             return tailList;
+        }
+
+        public override string ToString()
+        {
+            string list = "[";
+
+            Node current = head;
+            while (current != null)
+            {
+                list += $"{current.Value}, ";
+                current = current.Next;
+            }
+
+            list += "]";
+            return list;
         }
     }
 }
