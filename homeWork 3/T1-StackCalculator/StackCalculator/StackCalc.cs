@@ -34,8 +34,15 @@ namespace StackCalculator
                         return null;
                     }
 
-                    int result = CalcBinary(Convert.ToInt32(left), Convert.ToInt32(right), token);
-                    _stack.Push(result);
+                    int? result = CalcBinary(Convert.ToInt32(left), Convert.ToInt32(right), token);
+                    if (result.HasValue)
+                    {
+                        _stack.Push(Convert.ToInt32(result));
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 else
                 {
@@ -54,7 +61,7 @@ namespace StackCalculator
             }
         }
 
-        private int CalcBinary(int leftOperand, int rightOperand, string op)
+        private int? CalcBinary(int leftOperand, int rightOperand, string op)
         {
             switch (op)
             {
@@ -65,9 +72,14 @@ namespace StackCalculator
                 case "*":
                     return leftOperand * rightOperand;
                 case "/":
+                    if (rightOperand == 0)
+                    {
+                        return null;
+                    }
+
                     return leftOperand / rightOperand;
                 default:
-                    return default(int);
+                    return null;
             }
         }
     }

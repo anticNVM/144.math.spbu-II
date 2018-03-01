@@ -77,5 +77,24 @@ namespace StackCalculator.Test
 
             Assert.AreEqual(expected, result);
         }
+
+        [TestMethod]
+        public void ZeroDivision()
+        {
+            string expression = "1 0 /";
+            var result = _calc.Calculate(expression);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void NegativeNumbers()
+        {
+            string expression = "-9 -6 - -1 -2 + * -2 /";
+            int expected = -4;
+            var result = _calc.Calculate(expression);
+
+            Assert.AreEqual(expected, result);
+        }
     }
 }
