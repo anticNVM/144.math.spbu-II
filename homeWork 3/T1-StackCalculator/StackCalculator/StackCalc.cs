@@ -4,7 +4,7 @@ namespace StackCalculator
 {
     public class StackCalc : ICalculator
     {
-        private IStack _stack;
+        private readonly IStack _stack;
         private static readonly string _operators = "+ - * /";
 
         public StackCalc(IStack stack)
@@ -61,7 +61,7 @@ namespace StackCalculator
             }
         }
 
-        private int? CalcBinary(int leftOperand, int rightOperand, string op)
+        private static int? CalcBinary(int leftOperand, int rightOperand, string op)
         {
             switch (op)
             {

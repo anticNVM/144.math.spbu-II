@@ -5,7 +5,7 @@ namespace StackCalculator.Test
     [TestClass]
     public class StackCalcTest
     {
-        private static ICalculator _calc;
+        private ICalculator _calc;
 
         [TestInitialize]
         public void Init()

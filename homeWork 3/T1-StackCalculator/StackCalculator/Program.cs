@@ -43,7 +43,7 @@ namespace StackCalculator
             Console.WriteLine("Введите тип используемого стека: ");
             Console.Write("  0 - стек на указателях\n  1 - стек на массиве\n>>> ");
             var input = Console.ReadLine();
-            int type = 4;
+            int type;
             while (!(int.TryParse(input, out type) && (type == 0 || type == 1)))
             {
                 Console.Write("Пожалуйста, введите корректное значение: ");
