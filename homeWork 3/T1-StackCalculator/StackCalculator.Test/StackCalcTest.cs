@@ -96,5 +96,14 @@ namespace StackCalculator.Test
 
             Assert.AreEqual(expected, result);
         }
+
+        [TestMethod]
+        public void TooManySpacesReturnsNull()
+        {
+            string expression = "1    2 +";
+            var result = _calc.Calculate(expression);
+
+            Assert.IsNull(result);
+        }
     }
 }

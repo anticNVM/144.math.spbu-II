@@ -44,6 +44,11 @@ namespace StackCalculator
 
         public int? Peek()
         {
+            if (this.IsEmpty())
+            {
+                return null;
+            }
+            
             return head.Value;
         }
 

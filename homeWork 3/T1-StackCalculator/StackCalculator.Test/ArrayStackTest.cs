@@ -5,10 +5,12 @@ namespace StackCalculator.Test
     [TestClass]
     public class ArrayStackTest
     {
+        private IStack _stack;
+
         [TestMethod]
         public void StackResizingTest()
         {
-            var _stack = new ArrayStack(2);
+            _stack = new ArrayStack(2);
 
             _stack.Push(1);
             _stack.Push(2);
@@ -20,7 +22,7 @@ namespace StackCalculator.Test
         [TestMethod]
         public void PopFromEmptyStackShouldReturnsNull()
         {
-            var _stack = new ArrayStack();
+            _stack = new ArrayStack();
 
             var result = _stack.Pop();
 
@@ -30,18 +32,18 @@ namespace StackCalculator.Test
         [TestMethod]
         public void RightBehaviorOfStack()
         {
-            var _stack = new ArrayStack();
+            _stack = new ArrayStack();
 
-            _stack.Push(1);
-            _stack.Push(2);
-            _stack.Push(3);
-            var value1 = _stack.Pop();
-            var value2 = _stack.Pop();
-            var value3 = _stack.Pop();
+            for (var i = 0; i <= 100; ++i)
+            {
+                _stack.Push(i);
+            }
 
-            Assert.AreEqual(3, value1);
-            Assert.AreEqual(2, value2);
-            Assert.AreEqual(1, value3);
+            for (var i = 100; i >= 0; --i)
+            {
+                var result = _stack.Pop();
+                Assert.AreEqual(i, result);
+            }
         }
     }
 }
