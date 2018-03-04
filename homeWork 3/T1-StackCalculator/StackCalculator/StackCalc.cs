@@ -10,7 +10,7 @@ namespace StackCalculator
         public StackCalc(IStack stack)
         {
             _stack = stack;
-            stack.Clear();
+            _stack.Clear();
         }
 
         public int? Calculate(string expression)
