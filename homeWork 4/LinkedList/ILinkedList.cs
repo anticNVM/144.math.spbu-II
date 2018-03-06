@@ -1,5 +1,8 @@
-namespace T2_LinkedList
+namespace LinkedList
 {
+    /// <summary>
+    /// Интерфейс, реализующий функциональность связного списка
+    /// </summary>
     public interface ILinkedList
     {
         /// <summary>
@@ -20,20 +23,20 @@ namespace T2_LinkedList
         /// <param name="value"> Добавляемое значение </param>
         /// <param name="after"> Индекс списка </param>
         /// <returns> .true, если значение было успешно добавлено, .false иначе </returns>
-        bool Insert(int value, int after);
+        void Insert(int value, int after);
 
         /// <summary>
         /// Удаляет первое вхождение указанного значения в списке
         /// </summary>
         /// <param name="value"> Удаляемое значение </param>
         /// <returns> .false если знасение не найденно в списке, .true иначе </returns>
-        bool Remove(int value);
+        void Remove(int value);
 
         /// <summary>
         /// Проверяет, сожержится ли значение в списке
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">Проверяемое значение</param>
+        /// <returns>.true, если содержится, .false иначе</returns>
         bool Contains(int value);
 
         /// <summary>
@@ -44,31 +47,31 @@ namespace T2_LinkedList
         /// <summary>
         /// Проверяет список на пустоту
         /// </summary>
-        /// <returns></returns>
+        /// <returns>.true, если список пуст, .false иначе</returns>
         bool IsEmpty();
 
         /// <summary>
         /// Возвращает неполную копию списка
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Неполную копию списка</returns>
         LinkedList Copy();
 
         /// <summary>
         /// Возвращает значение головы списка
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Значение головы списка</returns>
         int GetHead();
 
         /// <summary>
         /// Возвращает неполную копию списка, состоящего из всех элементов, кроме первого
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Неполную копию списка, состоящего из всех элементов, кроме первого</returns>
         LinkedList GetTail();
 
         /// <summary>
         /// Длина списка
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Кол-во элементов в списке</returns>
         int Count { get; }
     }
 }

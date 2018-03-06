@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace T2_LinkedList
+namespace LinkedList
 {
     public class LinkedList : ILinkedList
     {
-        private class Node
+        protected class Node
         {
             public int Value { get; }
             public Node Next { get; set; }
@@ -16,8 +16,8 @@ namespace T2_LinkedList
             }
         }
 
-        private Node head;
-        private Node tail;
+        protected Node head;
+        protected Node tail;
         public int Count { get; private set; }
 
         public LinkedList()
@@ -58,11 +58,11 @@ namespace T2_LinkedList
             Count++;
         }
 
-        public bool Insert(int value, int after)
+        public void Insert(int value, int after)
         {
             if (after < 0 || after >= Count)
             {
-                return false;
+                throw new IndexOutOfRangeException("Выход за границы списка");
             }
 
             if (after == (Count - 1))
@@ -83,11 +83,9 @@ namespace T2_LinkedList
                 current.Next = new Node(value, current.Next);
                 Count++;
             }
-
-            return true;
         }
 
-        public bool Remove(int value)
+        public void Remove(int value)
         {
             Node previous = null;
             Node current = head;
@@ -117,14 +115,15 @@ namespace T2_LinkedList
                     }
 
                     Count--;
-                    return true;
                 }
 
                 previous = current;
                 current = current.Next;
             }
 
-            return false;
+            throw new Exceptions.ValueIsNotInListException(
+                String.Format($"Значения параметра {nameof(value)} не существует в списке")
+            );
         }
 
         public bool Contains(int value)
