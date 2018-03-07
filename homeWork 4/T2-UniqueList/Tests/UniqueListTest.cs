@@ -19,7 +19,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ValueAlreadyInListException))]
-        public void AppendingValueThatExistsShallThrowExpectedException()
+        public void AppendExistedShouldThrowException()
         {
             _uList.Append(1);
 
@@ -28,7 +28,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ValueAlreadyInListException))]
-        public void AddingToBeginValueThatExistsShallThrowExpectedException()
+        public void AddToBeginExistedShouldThrowException()
         {
             _uList.AddToBegin(1);
 
@@ -37,7 +37,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ValueAlreadyInListException))]
-        public void InsertionValueThatExistsShallThrowExpectedException()
+        public void InsertExistedShouldThrowException()
         {
             _uList.Append(1);
             _uList.Append(2);

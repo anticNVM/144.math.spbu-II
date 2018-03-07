@@ -4,7 +4,7 @@ namespace UList
 {
     public class UniqueList : LinkedList.LinkedList
     {
-        new public void Append(int value)
+        public override void Append(int value)
         {
             if (this.Contains(value))
             {
@@ -16,7 +16,7 @@ namespace UList
             base.Append(value);
         }
 
-        new public void AddToBegin(int value)
+        public override void AddToBegin(int value)
         {
             if (this.Contains(value))
             {
@@ -28,7 +28,7 @@ namespace UList
             base.AddToBegin(value);
         }
 
-        new public void Insert(int value, int after)
+        public override void Insert(int value, int after)
         {
             if (this.Contains(value))
             {

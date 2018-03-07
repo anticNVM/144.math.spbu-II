@@ -4,6 +4,9 @@ namespace LinkedList
 {
     public class LinkedList : ILinkedList
     {
+        /// <summary>
+        /// Узел списка
+        /// </summary>
         protected class Node
         {
             public int Value { get; }
@@ -24,6 +27,7 @@ namespace LinkedList
         {
             get
             {
+                
                 if (index < 0 || index >= Count)
                 {
                     throw new IndexOutOfRangeException("Выход за границы списка");
@@ -41,12 +45,9 @@ namespace LinkedList
 
         public LinkedList()
         {
-            head = null;
-            tail = null;
-            Count = 0;
         }
 
-        public void Append(int value)
+        public virtual void Append(int value)
         {
             var newNode = new Node(value, null);
             if (head == null)
@@ -63,7 +64,7 @@ namespace LinkedList
             Count++;
         }
 
-        public void AddToBegin(int value)
+        public virtual void AddToBegin(int value)
         {
             if (head == null)
             {
@@ -77,7 +78,7 @@ namespace LinkedList
             Count++;
         }
 
-        public void Insert(int value, int after)
+        public virtual void Insert(int value, int after)
         {
             if (after < 0 || after >= Count)
             {

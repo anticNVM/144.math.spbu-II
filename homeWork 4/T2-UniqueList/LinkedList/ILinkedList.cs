@@ -21,17 +21,16 @@ namespace LinkedList
 
         /// <summary>
         /// Добавляет значение в список после указаного индекса
+        /// Бросает исключение IndexOutOfRangeException, если параметр after некорректен
         /// </summary>
         /// <param name="value"> Добавляемое значение </param>
         /// <param name="after"> Индекс списка </param>
-        /// <returns> .true, если значение было успешно добавлено, .false иначе </returns>
         void Insert(int value, int after);
 
         /// <summary>
         /// Удаляет первое вхождение указанного значения в списке
         /// </summary>
         /// <param name="value"> Удаляемое значение </param>
-        /// <returns> .false если знасение не найденно в списке, .true иначе </returns>
         void Remove(int value);
 
         /// <summary>

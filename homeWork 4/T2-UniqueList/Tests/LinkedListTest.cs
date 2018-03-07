@@ -18,7 +18,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void IndexerShallWorkCorrectlyWithCorrectIndexes()
+        public void IndexerWithCorrectIndexesBehaviorCheck()
         {
             int size = 10;
             for (var i = 0; i < size; ++i)
@@ -34,7 +34,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void IfIndexInIndexerBiggerThanSizeOfList()
+        public void IndexerWithBiggerThanSizeIndexShouldThrowException()
         {
             int size = 10;
             for (var i = 0; i < size; ++i)
@@ -47,7 +47,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void IfIndexInIndexerLessThanZero()
+        public void IndexerWithLessThanZeroIndexShouldThrowException()
         {
             int size = 10;
             for (var i = 0; i < size; ++i)
@@ -59,7 +59,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void CorrectAddToBeginBehavior()
+        public void AddToBeginBehaviorCheck()
         {
             int size = 10;
             for (var i = 0; i < size; ++i)
@@ -75,7 +75,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void IfIndexIsBiggerWhenInsertion()
+        public void InsertionWithBiggerThanSizeAfterParamShouldThrowException()
         {
             int size = 10;
             for (var i = 0; i < size; ++i)
@@ -88,7 +88,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void IfIndexIsLessThanZeroWhenInsertion()
+        public void InsertionWithLessThanZeroAfterParamShouldThrowException()
         {
             int size = 10;
             for (var i = 0; i < size; ++i)
@@ -101,7 +101,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ValueIsNotInListException))]
-        public void RemovingNonExistentValueShallThrowExpectedException()
+        public void RemovingNonExistentValueShouldThrowException()
         {
             int size = 10;
             for (var i = 0; i < size; ++i)
@@ -129,7 +129,7 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ValueIsNotInListException))]
-        public void RemovingFromEmptyListShallThrowExpectedException()
+        public void RemovingFromEmptyListShouldThrowException()
         {
             _list.Clear();
 
