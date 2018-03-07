@@ -20,6 +20,25 @@ namespace LinkedList
         protected Node tail;
         public int Count { get; private set; }
 
+        public int this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= Count)
+                {
+                    throw new IndexOutOfRangeException("Выход за границы списка");
+                }
+
+                var current = head;
+                for (var _ = 0; _ < index; ++_)
+                {
+                    current = current.Next;
+                }
+
+                return current.Value;
+            }
+        }
+
         public LinkedList()
         {
             head = null;
@@ -115,6 +134,7 @@ namespace LinkedList
                     }
 
                     Count--;
+                    return;
                 }
 
                 previous = current;

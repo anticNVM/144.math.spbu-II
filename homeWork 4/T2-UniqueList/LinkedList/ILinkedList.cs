@@ -5,6 +5,8 @@ namespace LinkedList
     /// </summary>
     public interface ILinkedList
     {
+        int this[int index] { get; }
+
         /// <summary>
         /// Добавляет значение в конец списка
         /// </summary>

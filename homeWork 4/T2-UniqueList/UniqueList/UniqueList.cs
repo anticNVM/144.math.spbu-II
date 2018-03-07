@@ -1,28 +1,9 @@
 ﻿using System;
 
-namespace UniqueList
+namespace UList
 {
     public class UniqueList : LinkedList.LinkedList
     {
-        public int this[int index]
-        {
-            get
-            {
-                if (index < 0 || index >= Count)
-                {
-                    throw new IndexOutOfRangeException("Выход за границы списка");
-                }
-
-                var current = head;
-                for (var _ = 0; _ < index; ++_)
-                {
-                    current = head.Next;
-                }
-
-                return current.Value;
-            }
-        }
-
         new public void Append(int value)
         {
             if (this.Contains(value))

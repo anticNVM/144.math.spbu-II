@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UniqueList\UniqueList.csproj" />
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj" />
+    <ProjectReference Include="..\LinkedList\LinkedList.csproj" />
   </ItemGroup>
 
 </Project>
