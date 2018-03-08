@@ -2,6 +2,9 @@
 
 namespace Exceptions
 {
+    /// <summary>
+    /// Исключение, бросаемое при попытке добваить в список уже существующий элемент.
+    /// </summary>
     [Serializable]
     public class ValueAlreadyInListException : Exception
     {

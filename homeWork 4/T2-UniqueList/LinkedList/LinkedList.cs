@@ -19,8 +19,8 @@ namespace LinkedList
             }
         }
 
-        protected Node head;
-        protected Node tail;
+        private Node head;
+        private Node tail;
         public int Count { get; private set; }
 
         public int this[int index]
@@ -41,10 +41,6 @@ namespace LinkedList
 
                 return current.Value;
             }
-        }
-
-        public LinkedList()
-        {
         }
 
         public virtual void Append(int value)
@@ -172,7 +168,7 @@ namespace LinkedList
 
         public bool IsEmpty() => Count == 0;
 
-        public LinkedList Copy()
+        public ILinkedList Copy()
         {
             var copyList = new LinkedList();
             Node current = head;
@@ -188,9 +184,9 @@ namespace LinkedList
 
         public int GetHead() => head != null ? head.Value : default(int);
         
-        public LinkedList GetTail()
+        public ILinkedList GetTail()
         {
-            var tailList = this.Copy();
+            var tailList = this.Copy() as LinkedList;
             if (!tailList.IsEmpty())
             {
                 tailList.head = head.Next;

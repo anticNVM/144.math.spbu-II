@@ -5,6 +5,9 @@ namespace LinkedList
     /// </summary>
     public interface ILinkedList
     {
+        /// <summary>
+        /// Получение значения элемента спика по индексу
+        /// </summary>
         int this[int index] { get; }
 
         /// <summary>
@@ -21,16 +24,21 @@ namespace LinkedList
 
         /// <summary>
         /// Добавляет значение в список после указаного индекса
-        /// Бросает исключение IndexOutOfRangeException, если параметр after некорректен
         /// </summary>
         /// <param name="value"> Добавляемое значение </param>
         /// <param name="after"> Индекс списка </param>
+        /// <exception cref="IndexOutOfRangeException">
+        /// Бросается некорректном значении after
+        /// </exception>
         void Insert(int value, int after);
 
         /// <summary>
         /// Удаляет первое вхождение указанного значения в списке
         /// </summary>
         /// <param name="value"> Удаляемое значение </param>
+        /// <exception cref="Exception.ValueIsNotInListException">
+        /// Бросается при попытке удалить несуществующее значение.
+        /// </exception>
         void Remove(int value);
 
         /// <summary>
@@ -55,7 +63,7 @@ namespace LinkedList
         /// Возвращает неполную копию списка
         /// </summary>
         /// <returns>Неполную копию списка</returns>
-        LinkedList Copy();
+        ILinkedList Copy();
 
         /// <summary>
         /// Возвращает значение головы списка
@@ -67,7 +75,7 @@ namespace LinkedList
         /// Возвращает неполную копию списка, состоящего из всех элементов, кроме первого
         /// </summary>
         /// <returns>Неполную копию списка, состоящего из всех элементов, кроме первого</returns>
-        LinkedList GetTail();
+        ILinkedList GetTail();
 
         /// <summary>
         /// Длина списка
