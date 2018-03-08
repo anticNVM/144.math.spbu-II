@@ -1,9 +1,12 @@
 using System;
 
-namespace T2_LinkedList
+namespace LinkedList
 {
     public class LinkedList : ILinkedList
     {
+        /// <summary>
+        /// Узел списка
+        /// </summary>
         private class Node
         {
             public int Value { get; }
@@ -20,14 +23,26 @@ namespace T2_LinkedList
         private Node tail;
         public int Count { get; private set; }
 
-        public LinkedList()
+        public int this[int index]
         {
-            head = null;
-            tail = null;
-            Count = 0;
+            get
+            {
+                if (index < 0 || index >= Count)
+                {
+                    throw new IndexOutOfRangeException("Выход за границы списка");
+                }
+
+                var current = head;
+                for (var _ = 0; _ < index; ++_)
+                {
+                    current = current.Next;
+                }
+
+                return current.Value;
+            }
         }
 
-        public void Append(int value)
+        public virtual void Append(int value)
         {
             var newNode = new Node(value, null);
             if (head == null)
@@ -44,7 +59,7 @@ namespace T2_LinkedList
             Count++;
         }
 
-        public void AddToBegin(int value)
+        public virtual void AddToBegin(int value)
         {
             if (head == null)
             {
@@ -58,11 +73,11 @@ namespace T2_LinkedList
             Count++;
         }
 
-        public bool Insert(int value, int after)
+        public virtual void Insert(int value, int after)
         {
             if (after < 0 || after >= Count)
             {
-                return false;
+                throw new IndexOutOfRangeException("Выход за границы списка");
             }
 
             if (after == (Count - 1))
@@ -83,11 +98,9 @@ namespace T2_LinkedList
                 current.Next = new Node(value, current.Next);
                 Count++;
             }
-
-            return true;
         }
 
-        public bool Remove(int value)
+        public void Remove(int value)
         {
             Node previous = null;
             Node current = head;
@@ -117,14 +130,16 @@ namespace T2_LinkedList
                     }
 
                     Count--;
-                    return true;
+                    return;
                 }
 
                 previous = current;
                 current = current.Next;
             }
 
-            return false;
+            throw new Exceptions.ValueIsNotInListException(
+                String.Format($"Значения параметра {nameof(value)} не существует в списке")
+            );
         }
 
         public bool Contains(int value)
@@ -152,7 +167,7 @@ namespace T2_LinkedList
 
         public bool IsEmpty() => Count == 0;
 
-        public LinkedList Copy()
+        public ILinkedList Copy()
         {
             var copyList = new LinkedList();
             Node current = head;
@@ -168,9 +183,9 @@ namespace T2_LinkedList
 
         public int GetHead() => head != null ? head.Value : default(int);
         
-        public LinkedList GetTail()
+        public ILinkedList GetTail()
         {
-            var tailList = this.Copy();
+            var tailList = this.Copy() as LinkedList;
             if (!tailList.IsEmpty())
             {
                 tailList.head = head.Next;
