@@ -14,14 +14,16 @@ namespace StackCalculator
         /// <summary>
         /// Забирает значение из вершины стека.
         /// </summary>
-        /// <returns>Элемент на вершине стека (.null если стек пуст).</returns>
-        int? Pop();
+        /// <exception cref="EmptyStackException">Если стек пуст</exception>
+        /// <returns>Элемент на вершине стека.</returns>
+        int Pop();
 
         /// <summary>
         /// Возвращает значение из вершины стека (не удаляя его).
         /// </summary>
-        /// <returns>Элемент на вершине стека (.null если стек пуст).</returns>
-        int? Peek();
+        /// <exception cref="EmptyStackException">Если стек пуст</exception>
+        /// <returns>Элемент на вершине стека.</returns>
+        int Peek();
 
         /// <summary>
         /// Очищает стек, удаляя из него все элементы.

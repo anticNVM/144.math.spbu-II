@@ -1,7 +1,54 @@
+using System;
+using Exceptions;
+
 namespace StackCalculator
 {
     public class LinkedStack : IStack
     {
+        public int Count { get; private set; }
+        private StackElement head;
+
+        public void Push(int value)
+        {
+            head = new StackElement(value, head);
+            Count++;
+        }
+
+        public int Pop()
+        {
+            if (this.IsEmpty())
+            {
+                throw new EmptyStackException(
+                    "Попытка доступа к элементам пустого стека"
+                );
+            }
+
+            var tempValue = head.Value;
+            head = head.Next;
+            Count--;
+            return tempValue;
+        }
+
+        public int Peek()
+        {
+            if (this.IsEmpty())
+            {
+                throw new EmptyStackException(
+                    "Попытка доступа к элементам пустого стека"
+                );
+            }
+
+            return head.Value;
+        }
+
+        public void Clear()
+        {
+            Count = 0;
+            head = null;
+        }
+
+        public bool IsEmpty() => head == null;
+
         private class StackElement
         {
             public int Value { get; }
@@ -13,53 +60,5 @@ namespace StackCalculator
                 Next = next;
             }
         }
-
-        public int Count { get; private set; }
-        private StackElement head;
-
-        public LinkedStack()
-        {
-            Count = 0;
-            head = null;
-        }
-
-        public void Push(int value)
-        {
-            head = new StackElement(value, head);
-            Count++;
-        }
-
-        public int? Pop()
-        {
-            if (this.IsEmpty())
-            {
-                return null;
-            }
-            
-            var tempValue = head.Value;
-            head = head.Next;
-            Count--;
-            return tempValue;
-        }
-
-        public int? Peek()
-        {
-            if (this.IsEmpty())
-            {
-                return null;
-            }
-            
-            return head.Value;
-        }
-
-        public void Clear()
-        {
-            while (Count > 0)
-            {
-                this.Pop();
-            }
-        }
-
-        public bool IsEmpty() => head == null;
     }
 }

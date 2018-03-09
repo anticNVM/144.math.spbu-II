@@ -1,4 +1,5 @@
 using System;
+using Exceptions;
 
 namespace StackCalculator
 {
@@ -26,15 +27,20 @@ namespace StackCalculator
                 }
                 else if (_operators.Contains(token))
                 {
-                    int? right = _stack.Pop();
-                    int? left = _stack.Pop();
-
-                    if (left == null || right == null)
+                    int right = 0;
+                    int left = 0;
+                    try
+                    {
+                        right = _stack.Pop();
+                        left = _stack.Pop();
+                    }
+                    catch (EmptyStackException e)
                     {
                         return null;
+                        throw;
                     }
 
-                    int? result = CalcBinary(Convert.ToInt32(left), Convert.ToInt32(right), token);
+                    int? result = CalcBinary(left, right, token);
                     if (result.HasValue)
                     {
                         _stack.Push(Convert.ToInt32(result));

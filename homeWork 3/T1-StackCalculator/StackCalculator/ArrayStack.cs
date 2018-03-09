@@ -1,10 +1,28 @@
+using System;
+using Exceptions;
+
 namespace StackCalculator
 {
     public class ArrayStack : IStack
     {
-        private static readonly int _defaultSize = 10;
+        /// <summary>
+        /// Дефолтное значение размера стека
+        /// </summary>
+        private const int _defaultSize = 10;
+
+        /// <summary>
+        /// Размер массива под стек в данный момент
+        /// </summary>
         private int _capacity;
+
+        /// <summary>
+        /// Индекс массива сразу за последним жлементом стека (свободная)
+        /// </summary>
         private int _positionAfterTop;
+        
+        /// <summary>
+        /// Стек
+        /// </summary>
         private int[] _stack;
 
         public ArrayStack() : this(_defaultSize)
@@ -15,7 +33,10 @@ namespace StackCalculator
         {
             if (size <= 0)
             {
-                size = _defaultSize;
+                throw new ArgumentOutOfRangeException(
+                    paramName: nameof(size),
+                    message: "Размер стека должен задаваться натуральным числом."
+                );
             }
 
             _stack = new int[size];
@@ -34,11 +55,13 @@ namespace StackCalculator
             }
         }
 
-        public int? Pop()
+        public int Pop()
         {
             if (_positionAfterTop == 0)
             {
-                return null;
+                throw new EmptyStackException(
+                    "Попытка доступа к элементам пустого стека"
+                );
             }
             else
             {
@@ -46,11 +69,13 @@ namespace StackCalculator
             }
         }
 
-        public int? Peek()
+        public int Peek()
         {
             if (_positionAfterTop == 0)
             {
-                return null;
+                throw new EmptyStackException(
+                    "Попытка доступа к элементам пустого стека"
+                );
             }
             else
             {
@@ -62,11 +87,11 @@ namespace StackCalculator
 
         public bool IsEmpty() => Count == 0;
 
-        public int Count
-        {
-            get => _positionAfterTop;
-        }
+        public int Count => _positionAfterTop;
 
+        /// <summary>
+        /// Увеличивает capacity стека вдвое (размер массива)
+        /// </summary>
         private void Resize()
         {
             int factor = 2;
