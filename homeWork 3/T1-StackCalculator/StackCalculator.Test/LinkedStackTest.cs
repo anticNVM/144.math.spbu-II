@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Exceptions;
 
 namespace StackCalculator.Test
 {
@@ -14,19 +15,17 @@ namespace StackCalculator.Test
         }
 
         [TestMethod]
-        public void PopFromEmptyStackShouldReturnNull()
+        [ExpectedException(typeof(EmptyStackException))]
+        public void PopFromEmptyStackShouldThrowException()
         {
             var value = _stack.Pop();
-
-            Assert.IsNull(value);
         }
 
         [TestMethod]
-        public void PeekFromEmptyStackShouldReturnNull()
+        [ExpectedException(typeof(EmptyStackException))]        
+        public void PeekFromEmptyStackShouldThrowException()
         {
             var value = _stack.Peek();
-
-            Assert.IsNull(value);
         }
 
         [TestMethod]

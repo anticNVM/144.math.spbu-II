@@ -42,7 +42,7 @@ namespace StackCalculator
                     }
                     catch (DivideByZeroException e)
                     {
-                        throw new InvalidExpressionException(
+                        throw new DivideByZeroException(
                             "В выражении присутсвует деление на ноль", e
                         );
                     }

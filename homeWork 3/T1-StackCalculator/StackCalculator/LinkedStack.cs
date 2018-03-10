@@ -3,14 +3,19 @@ using Exceptions;
 
 namespace StackCalculator
 {
+    /// <summary>
+    /// Класс, реализующий стек на остнове связного списка
+    /// </summary>
     public class LinkedStack : IStack
     {
-        public int Count { get; private set; }
-        private StackElement head;
+        /// <summary>
+        /// Голова стека (ссылка на верхний элемент)
+        /// </summary>
+        private StackElement _head;
 
         public void Push(int value)
         {
-            head = new StackElement(value, head);
+            _head = new StackElement(value, _head);
             Count++;
         }
 
@@ -23,8 +28,8 @@ namespace StackCalculator
                 );
             }
 
-            var tempValue = head.Value;
-            head = head.Next;
+            var tempValue = _head.Value;
+            _head = _head.Next;
             Count--;
             return tempValue;
         }
@@ -38,17 +43,20 @@ namespace StackCalculator
                 );
             }
 
-            return head.Value;
+            return _head.Value;
         }
 
         public void Clear()
         {
             Count = 0;
-            head = null;
+            _head = null;
         }
 
-        public bool IsEmpty() => head == null;
+        public int Count { get; private set; }                
 
+        /// <summary>
+        /// Класс, реализующий элемент стека, хранит целочисленные значения
+        /// </summary>
         private class StackElement
         {
             public int Value { get; }

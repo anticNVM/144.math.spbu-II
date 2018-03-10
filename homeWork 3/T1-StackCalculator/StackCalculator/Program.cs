@@ -38,6 +38,13 @@ namespace StackCalculator
                 // если throw вместо return, то unhandled exception
                 return;
             }
+            catch (DivideByZeroException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.InnerException.Message);
+                Console.WriteLine(e.StackTrace);
+                return;
+            }
         }
 
         private static int GetStackType()

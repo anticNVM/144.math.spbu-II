@@ -3,6 +3,9 @@ using Exceptions;
 
 namespace StackCalculator
 {
+    /// <summary>
+    /// Класс, реализующий стек на основе массива
+    /// </summary>
     public class ArrayStack : IStack
     {
         /// <summary>
@@ -84,8 +87,6 @@ namespace StackCalculator
         }
 
         public void Clear() => _positionAfterTop = 0;
-
-        public bool IsEmpty() => Count == 0;
 
         public int Count => _positionAfterTop;
 

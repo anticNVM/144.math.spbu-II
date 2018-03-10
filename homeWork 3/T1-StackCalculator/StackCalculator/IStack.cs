@@ -31,15 +31,25 @@ namespace StackCalculator
         void Clear();
 
         /// <summary>
-        /// Проверяет стек на пустоту.
-        /// </summary>
-        /// <returns>.true если стек пуст, иначе .false</returns>
-        bool IsEmpty();
-
-        /// <summary>
         /// Свойство, определяющее размер стека (кол-во элементов в нем).
         /// </summary>
         /// <returns>Количество элементов в стеке.</returns>
         int Count { get; }
+    }
+
+
+    // Экстеншн класс, который реализует методы, общие для всех потомков интерфейса
+    // (можно переопределять в классах даже без override)    
+    // https://metanit.com/sharp/tutorial/3.18.php
+    public static class IStackExtensions
+    {
+        /// <summary>
+        /// Проверяет стек на пустоту.
+        /// </summary>
+        /// <returns>.true если стек пуст, иначе .false</returns>
+        public static bool IsEmpty(this IStack obj)
+        {
+            return obj.Count == 0;
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace StackCalculator
         /// </summary>
         /// <param name="expression">Вычисляемое арифметическое выражение.</param>
         /// <exceptions cref="InvalidExpressionException">Бросается в случае некоректности expression</exception>
+        /// <exceptions cref="DivideByZeroException">Бросается, если в выражении выполняется деление на ноль</exception>
         /// <returns>Целочистенный результат выражения.`</returns>
         int Calculate(string expression);
     }

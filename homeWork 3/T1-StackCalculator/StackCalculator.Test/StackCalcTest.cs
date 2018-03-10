@@ -1,7 +1,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Exceptions;
+using System;
 
 namespace StackCalculator.Test
 {
+    /// <summary>
+    /// Тесты, проверяющие работоспособность калькулятора
+    /// </summary>
     [TestClass]
     public class StackCalcTest
     {
@@ -14,12 +19,11 @@ namespace StackCalculator.Test
         }
 
         [TestMethod]
-        public void DontUse_PlusMinus_AsOperator()
+        [ExpectedException(typeof(InvalidExpressionException))]
+        public void PlusMinusAsOperatorShouldThrowException()
         {
             string expression = "1 2 +-";
             var result = _calc.Calculate(expression);
-
-            Assert.IsNull(result);
         }
 
         [TestMethod]
@@ -33,39 +37,35 @@ namespace StackCalculator.Test
         }
 
         [TestMethod]
-        public void LetterInExpr()
+        [ExpectedException(typeof(InvalidExpressionException))]
+        public void LetterInExprShouldThrowException()
         {
             string expression = "1 2 a";
             var result = _calc.Calculate(expression);
-
-            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public void TooManyOperators()
+        [ExpectedException(typeof(InvalidExpressionException))]
+        public void TooManyOperatorsShouldThrowException()
         {
             string expression = "1 2 + -";
             var result = _calc.Calculate(expression);
-
-            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public void TooManyOperands()
+        [ExpectedException(typeof(InvalidExpressionException))]
+        public void TooManyOperandsShouldThrowException()
         {
             string expression = "1 2 3 +";
             var result = _calc.Calculate(expression);
-
-            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public void NothingInInput()
+        [ExpectedException(typeof(InvalidExpressionException))]        
+        public void NothingInInputShouldThrowException()
         {
             string expression = "";
             var result = _calc.Calculate(expression);
-
-            Assert.IsNull(result);
         }
 
         [TestMethod]
@@ -79,12 +79,11 @@ namespace StackCalculator.Test
         }
 
         [TestMethod]
-        public void ZeroDivision()
+        [ExpectedException(typeof(DivideByZeroException))]        
+        public void ZeroDivisionShouldThrowException()
         {
             string expression = "1 0 /";
             var result = _calc.Calculate(expression);
-
-            Assert.IsNull(result);
         }
 
         [TestMethod]
@@ -98,12 +97,11 @@ namespace StackCalculator.Test
         }
 
         [TestMethod]
-        public void TooManySpacesReturnsNull()
+        [ExpectedException(typeof(InvalidExpressionException))]        
+        public void TooManySpacesShouldThrowException()
         {
             string expression = "1    2 +";
             var result = _calc.Calculate(expression);
-
-            Assert.IsNull(result);
         }
     }
 }
