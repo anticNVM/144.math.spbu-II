@@ -14,7 +14,7 @@ namespace StackCalculator
             _stack.Clear();
         }
 
-        public int? Calculate(string expression)
+        public int Calculate(string expression)
         {
             _stack.Clear();
 
@@ -25,68 +25,74 @@ namespace StackCalculator
                 {
                     _stack.Push(number);
                 }
-                else if (_operators.Contains(token))
+                else
                 {
-                    int right = 0;
-                    int left = 0;
                     try
                     {
-                        right = _stack.Pop();
-                        left = _stack.Pop();
+                        int right = _stack.Pop();
+                        int left = _stack.Pop();
+                        int result = CalcBinary(left, right, token);
+                        _stack.Push(result);
                     }
                     catch (EmptyStackException e)
                     {
-                        return null;
-                        throw;
+                        throw new InvalidExpressionException(
+                            "Неверное число операторов в выражении", e
+                        );
                     }
-
-                    int? result = CalcBinary(left, right, token);
-                    if (result.HasValue)
+                    catch (DivideByZeroException e)
                     {
-                        _stack.Push(Convert.ToInt32(result));
+                        throw new InvalidExpressionException(
+                            "В выражении присутсвует деление на ноль", e
+                        );
                     }
-                    else
+                    catch (InvalidOperationException e)
                     {
-                        return null;
+                        throw new InvalidExpressionException(
+                            "Неверный оператор!", e
+                        );
                     }
                 }
-                else
-                {
-                    return null;
-                }
             }
 
-            int? value = _stack.Pop();
-            if (value != null && _stack.IsEmpty())
+            int value = _stack.Pop();
+            if (!_stack.IsEmpty())
             {
-                return Convert.ToInt32(value);
+                throw new InvalidExpressionException(
+                    "Неверное число операторов в выражении"
+                );
             }
-            else
-            {
-                return null;
-            }
+
+            return value;
+
         }
 
-        private static int? CalcBinary(int leftOperand, int rightOperand, string op)
+        private static int CalcBinary(int leftOperand, int rightOperand, string op)
         {
+            int result = 0;
             switch (op)
             {
                 case "+":
-                    return leftOperand + rightOperand;
+                    result = leftOperand + rightOperand;
+                    break;
                 case "-":
-                    return leftOperand - rightOperand;
+                    result = leftOperand - rightOperand;
+                    break;
                 case "*":
-                    return leftOperand * rightOperand;
+                    result = leftOperand * rightOperand;
+                    break;
                 case "/":
                     if (rightOperand == 0)
                     {
-                        return null;
+                        throw new DivideByZeroException("Нельзя делить на ноль!");
                     }
-
-                    return leftOperand / rightOperand;
+                    result = leftOperand / rightOperand;
+                    break;
                 default:
-                    return null;
+                    throw new InvalidOperationException($"Можно использовать только операторы {_operators}.");
             }
+
+            return result;
         }
     }
 }

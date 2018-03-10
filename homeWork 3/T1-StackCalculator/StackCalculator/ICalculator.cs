@@ -9,7 +9,8 @@ namespace StackCalculator
         /// Вычисляет результат арифметического выражения
         /// </summary>
         /// <param name="expression">Вычисляемое арифметическое выражение.</param>
-        /// <returns>Целочистенный результат выражения или .null, если выражение некорректно.</returns>
-        int? Calculate(string expression);
+        /// <exceptions cref="InvalidExpressionException">Бросается в случае некоректности expression</exception>
+        /// <returns>Целочистенный результат выражения.`</returns>
+        int Calculate(string expression);
     }
 }

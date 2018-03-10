@@ -25,16 +25,18 @@ namespace StackCalculator
             Console.Write("\nВведите выражение в постфиксной форме для вычисления");
             Console.Write(" (операнды должны разделяться пробелом)\n>>> ");
             var expression = Console.ReadLine();
-            var result = calc.Calculate(expression);
-
-            if (result.HasValue)
+            try
             {
-                Console.WriteLine($"Result: {result.Value}");
+                var result = calc.Calculate(expression);
+                Console.WriteLine($"Result: {result}");
             }
-            else
+            catch (Exceptions.InvalidExpressionException e)
             {
-                Console.WriteLine("Во время работы произошла ошибка.");
-                Console.WriteLine("Проверьте верность введенного выражения!");
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.InnerException.Message);
+                Console.WriteLine(e.StackTrace);
+                // если throw вместо return, то unhandled exception
+                return;
             }
         }
 
