@@ -86,7 +86,6 @@ namespace StackCalculator.Test
             _stack.Clear();
             int actualCount = _stack.Count;
 
-
             Assert.AreEqual(expectedCount, actualCount);
         }
 

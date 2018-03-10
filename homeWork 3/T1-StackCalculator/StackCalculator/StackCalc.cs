@@ -5,7 +5,14 @@ namespace StackCalculator
 {
     public class StackCalc : ICalculator
     {
+        /// <summary>
+        /// Стек
+        /// </summary>
         private readonly IStack _stack;
+
+        /// <summary>
+        /// Допустимые операторы
+        /// </summary>
         private const string _operators = "+ - * /";
 
         public StackCalc(IStack stack)
@@ -64,7 +71,6 @@ namespace StackCalculator
             }
 
             return value;
-
         }
 
         private static int CalcBinary(int leftOperand, int rightOperand, string op)

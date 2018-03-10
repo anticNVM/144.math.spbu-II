@@ -22,7 +22,7 @@ namespace StackCalculator
         /// Индекс массива сразу за последним жлементом стека (свободная)
         /// </summary>
         private int _positionAfterTop;
-        
+
         /// <summary>
         /// Стек
         /// </summary>
@@ -66,10 +66,8 @@ namespace StackCalculator
                     "Попытка доступа к элементам пустого стека"
                 );
             }
-            else
-            {
-                return _stack[--_positionAfterTop];
-            }
+
+            return _stack[--_positionAfterTop];
         }
 
         public int Peek()
@@ -80,10 +78,8 @@ namespace StackCalculator
                     "Попытка доступа к элементам пустого стека"
                 );
             }
-            else
-            {
-                return _stack[_positionAfterTop - 1];
-            }
+            
+            return _stack[_positionAfterTop - 1];
         }
 
         public void Clear() => _positionAfterTop = 0;
