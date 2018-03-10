@@ -3,6 +3,9 @@ using Exceptions;
 
 namespace StackCalculator.Test
 {
+    /// <summary>
+    /// Тесты, проверяющие работоспособность связного стека
+    /// </summary>
     [TestClass]
     public class LinkedStackTest
     {

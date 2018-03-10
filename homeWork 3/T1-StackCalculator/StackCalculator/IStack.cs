@@ -37,7 +37,6 @@ namespace StackCalculator
         int Count { get; }
     }
 
-
     // Экстеншн класс, который реализует методы, общие для всех потомков интерфейса
     // (можно переопределять в классах даже без override)    
     // https://metanit.com/sharp/tutorial/3.18.php

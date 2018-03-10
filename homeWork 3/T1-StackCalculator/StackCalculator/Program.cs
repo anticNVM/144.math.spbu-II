@@ -17,9 +17,10 @@ namespace StackCalculator
                 case (int)StackTypes.ArrayStack:
                     calc = new StackCalc(new ArrayStack());
                     break;
+                // Никогда не дойдет до сюда, по идее
                 default:
-                    calc = null;
-                    break;
+                    Console.WriteLine("Ошибка типа");
+                    return;
             }
 
             Console.Write("\nВведите выражение в постфиксной форме для вычисления");

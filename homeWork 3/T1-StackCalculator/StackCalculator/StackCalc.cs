@@ -6,7 +6,7 @@ namespace StackCalculator
     public class StackCalc : ICalculator
     {
         private readonly IStack _stack;
-        private static readonly string _operators = "+ - * /";
+        private const string _operators = "+ - * /";
 
         public StackCalc(IStack stack)
         {

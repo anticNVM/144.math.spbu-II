@@ -3,6 +3,9 @@ using Exceptions;
 
 namespace StackCalculator.Test
 {
+    /// <summary>
+    /// Тесты, проверяющие работоспособность стека на массиве
+    /// </summary>
     [TestClass]
     public class ArrayStackTest
     {
