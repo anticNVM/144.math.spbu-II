@@ -9,7 +9,7 @@ namespace HashSetSource
         /// Добавляет значение в множество
         /// </summary>
         /// <param name="value">Добавляемое значение</param>
-        /// <exception cref="HashSetSource.ValueIsNotInSetException"></exception>
+        /// <exception cref="HashSetSource.ValueIsAlreadyInSetException"></exception>
         void Add(int value);
 
         /// <summary>
