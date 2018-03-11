@@ -16,7 +16,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void IndexerWithCorrectIndexesBehaviorCheck()
+        public void IndexerWithCorrectIndexesAppendBehaviorCheck()
         {
             int size = 10;
             for (var i = 0; i < size; ++i)
@@ -132,6 +132,116 @@ namespace Tests
             _list.Clear();
 
             _list.Remove(10);
+        }
+
+        [TestMethod]
+        public void ContainsBehaviorTest()
+        {
+            int nums = 10;
+            for (int i = 0; i < nums; ++i)
+            {
+                _list.Append(i);
+            }
+
+            Assert.IsFalse(_list.Contains(nums));
+        }
+
+        [TestMethod]
+        public void ClearBehaviorTest()
+        {
+            int nums = 10;
+            for (int i = 0; i < nums; ++i)
+            {
+                _list.Append(i);
+            }
+
+            _list.Clear();
+
+            Assert.IsTrue(_list.IsEmpty());
+            for (int i = 0; i < nums; ++i)
+            {
+                Assert.IsTrue(!_list.Contains(i));
+            }
+        }
+
+        [TestMethod]
+        public void CopyShouldReturnSameList()
+        {
+            int nums = 10;
+            for (int i = 0; i < nums; ++i)
+            {
+                _list.Append(i);
+            }
+
+            var copied = _list.Copy();
+
+            Assert.AreEqual(_list.Count, copied.Count);
+            for (int i = 0; i < nums; ++i)
+            {
+                Assert.AreEqual(_list[i], copied[i]);
+            }
+        }
+
+        [TestMethod]
+        public void GetTailShouldReturnListWithoutHead()
+        {
+            int nums = 10;
+            for (int i = nums - 1; i >= 0; --i)
+            {
+                _list.AddToBegin(i);
+            }
+
+            var tail = _list.GetTail();
+
+            Assert.AreEqual(_list.Count - 1, tail.Count);
+            for (int i = 1; i < nums; ++i)
+            {
+                Assert.AreEqual(_list[i], tail[i - 1]);
+            }
+        }
+
+        [TestMethod]
+        public void CountShoulReturnAmountOfElemnts()
+        {
+            int nums = 10;
+            for (int i = 0; i <= nums; ++i)
+            {
+                _list.AddToBegin(i);
+            }
+
+            _list.Remove(nums);
+
+            Assert.AreEqual(nums, _list.Count);
+        }
+
+        [TestMethod]
+        public void DoubleForeachBehaviorTest()
+        {
+            int nums = 10;
+            for (int i = 0; i < nums; ++i)
+            {
+                _list.Append(i);
+            }
+
+            int currentVal = 0;
+            foreach (var item in _list)
+            {
+                Assert.AreEqual(currentVal, item);
+                currentVal++;
+            }
+
+            _list.Clear();
+            for (int i = 0; i < nums; ++i)
+            {
+                _list.AddToBegin(i);
+            }
+
+            currentVal = nums - 1;
+            foreach (var item in _list)
+            {
+                Assert.AreEqual(currentVal, item);
+                currentVal--;
+            }
         }
     }
 }

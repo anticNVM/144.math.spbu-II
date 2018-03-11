@@ -63,9 +63,8 @@ namespace LinkedListSource
             else
             {
                 _head = new Node(value, _head);
+                Count++;
             }
-
-            Count++;
         }
 
         public virtual void Insert(int value, int after)
