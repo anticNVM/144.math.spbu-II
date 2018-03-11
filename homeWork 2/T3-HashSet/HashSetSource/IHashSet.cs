@@ -6,10 +6,12 @@ namespace HashSetSource
 
         void Clear();
 
-        bool Contains();
+        bool Contains(int value);
 
         void Remove(int value);
 
         int Count { get; }
+
+        float Factor { get; }
     }
 }

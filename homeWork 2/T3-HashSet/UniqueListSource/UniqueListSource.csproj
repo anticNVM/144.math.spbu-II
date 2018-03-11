@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LinkedListSource\LinkedListSource.csproj" />
-    <ProjectReference Include="..\UniqueListSource\UniqueListSource.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
