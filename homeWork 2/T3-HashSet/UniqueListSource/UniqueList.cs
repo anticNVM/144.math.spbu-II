@@ -3,6 +3,9 @@ using LinkedListSource;
 
 namespace UniqueListSource
 {
+    /// <summary>
+    /// Связный список, не содержащий повторяющихся элементов
+    /// </summary>
     public class UniqueList : LinkedList
     {
         public override void Append(int value)

@@ -3,7 +3,7 @@
 namespace LinkedListSource
 {
     /// <summary>
-    /// Исключение, бросаемое при попытке удалить несуществующий элемент из списка
+    /// Бросается при попытке удалить несуществующий элемент из списка
     /// </summary>
     [Serializable]
     public class ValueIsNotInListException : Exception

@@ -1,5 +1,8 @@
 namespace HashSetSource
 {
+    /// <summary>
+    /// Бросается при попытке добавить в множество уже существующее значение
+    /// </summary>
     [System.Serializable]
     public class ValueIsAlreadyInSetException : System.Exception
     {

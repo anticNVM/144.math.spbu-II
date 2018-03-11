@@ -5,6 +5,9 @@ using UniqueListSource;
 
 namespace HashSetSource
 {
+    /// <summary>
+    /// Множество int`ов на основе хеш-таблицы
+    /// </summary>
     public class HashSet : IHashSet
     {
         /// <summary>
@@ -12,6 +15,7 @@ namespace HashSetSource
         /// </summary>
         private const int _defaultCapacity = 10;
 
+        // надо сделать это отдельным классом
         private ILinkedList[] _buckets;
 
         private int _capacity;

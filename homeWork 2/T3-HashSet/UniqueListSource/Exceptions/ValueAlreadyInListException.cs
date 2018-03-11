@@ -3,7 +3,7 @@
 namespace UniqueListSource
 {
     /// <summary>
-    /// Исключение, бросаемое при попытке добваить в список уже существующий элемент.
+    /// Бросается при попытке добваить в список уже существующий элемент.
     /// </summary>
     [Serializable]
     public class ValueAlreadyInListException : Exception

@@ -1,5 +1,8 @@
 namespace HashSetSource
 {
+    /// <summary>
+    /// Бросается при попытке получить несуществующее значение из множества
+    /// </summary>
     [System.Serializable]
     public class ValueIsNotInSetException : System.Exception
     {

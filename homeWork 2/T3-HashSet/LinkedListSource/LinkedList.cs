@@ -3,11 +3,20 @@ using System.Collections;
 
 namespace LinkedListSource
 {
+    /// <summary>
+    /// Связный список
+    /// </summary>
     public class LinkedList : ILinkedList
     {
+        /// <summary>
+        /// Голова списка
+        /// </summary>
         private Node _head;
+
+        /// <summary>
+        /// Конец списка
+        /// </summary>
         private Node _tail;
-        public int Count { get; private set; }
 
         public int this[int index]
         {
@@ -181,6 +190,8 @@ namespace LinkedListSource
             return tailList;
         }
 
+        public int Count { get; private set; }
+
         public override string ToString()
         {
             string list = "[";
@@ -213,19 +224,31 @@ namespace LinkedListSource
             }
         }
 
+        /// <summary>
+        /// Энумератор для итерации по списку циклом <see langword="foreach"/>
+        /// </summary>
         private class ListEnumerator : IEnumerator
         {
+            /// <summary>
+            /// Стартовая позиция обхода
+            /// </summary>
             private Node _startPosition;
+
+            /// <summary>
+            /// Текущая позиция
+            /// </summary>
             private Node _currentPosition;
 
             public ListEnumerator(Node begin) => _startPosition = begin;
 
             public bool MoveNext()
             {
+                // Если список пустой ИЛИ достигнут конец списка
                 if (_startPosition == null || (_currentPosition != null && _currentPosition.Next == null))
                 {
                     return false;
                 }
+                // Если обход не начался
                 else if (_currentPosition == null)
                 {
                     _currentPosition = _startPosition;
