@@ -15,20 +15,24 @@ namespace HashSetSource
         /// </summary>
         private const int _defaultCapacity = 10;
 
-        // надо сделать это отдельным классом
-        private ILinkedList[] _buckets;
+        /// <summary>
+        /// Сама хеш-таблица
+        /// </summary>
+        private Buckets _buckets;
 
+        /// <summary>
+        /// Размерность таблицы в данный момент
+        /// </summary>
         private int _capacity;
 
+        /// <summary>
+        /// Кол-во элементов в множестве
+        /// </summary>
         private int _count;
 
         public HashSet()
         {
-            _buckets = new ILinkedList[_defaultCapacity];
-            for (var i = 0; i < _buckets.Length; ++i)
-            {
-                _buckets[i] = new UniqueList();
-            }
+            _buckets = new Buckets(_defaultCapacity);
 
             _capacity = _defaultCapacity;
         }
@@ -58,7 +62,7 @@ namespace HashSetSource
         public void Clear()
         {
             _count = 0;
-            foreach (var list in _buckets)
+            foreach (ILinkedList list in _buckets)
             {
                 list.Clear();
             }
@@ -83,6 +87,8 @@ namespace HashSetSource
                     $"Значение параметра {nameof(value)} отсутствует в множестве."
                 );
             }
+
+            _count--;
         }
 
         public int Count => _count;
@@ -93,13 +99,8 @@ namespace HashSetSource
         {
             int factor = 2;
             _capacity *= factor;
-            var newBuckets = new ILinkedList[_capacity];
-            for (var i = 0; i < _buckets.Length; ++i)
-            {
-                newBuckets[i] = new UniqueList();
-            }
-
-            foreach (var list in _buckets)
+            var newBuckets = new Buckets(_capacity);
+            foreach (ILinkedList list in _buckets)
             {
                 foreach (int value in list)
                 {
@@ -109,6 +110,29 @@ namespace HashSetSource
             }
 
             _buckets = newBuckets;
+        }
+
+        /// <summary>
+        /// Масиисв списков
+        /// </summary>
+        private class Buckets : IEnumerable
+        {
+            private ILinkedList[] _array;
+
+            public Buckets(int capacity)
+            {
+                _array = new ILinkedList[capacity];
+                for (var i = 0; i < _array.Length; ++i)
+                {
+                    _array[i] = new UniqueList();
+                }
+            }
+
+            public ILinkedList this[int index] => _array[index];
+
+            public int Length => _array.Length;
+
+            public IEnumerator GetEnumerator() => _array.GetEnumerator();
         }
     }
 }
