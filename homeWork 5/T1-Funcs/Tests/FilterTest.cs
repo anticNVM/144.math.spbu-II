@@ -8,21 +8,29 @@ namespace Tests
     public static class FilterTestData
     {
         private static readonly List<object[]> _data = new List<object[]>
-        {
-            // correct behavior test
+        {   // TEST OF
+            // correct behavior with int
             new object[] {
                 new List<int>() {1, 2, 3},
-                new Predicate<int>(x => x % 2 == 0),
+                new Predicate<int>(num => num % 2 == 0),
                 new List<int>() {2},
             },
+
+            // int?
+            new object[] {
+                new List<int?>() {1, 2, null, 3, null, null, 4},
+                new Predicate<int?>(elem => elem.HasValue),
+                new List<int?>() {1, 2, 3, 4},
+            },
             
-            // empty list test
+            // empty list 
             new object[] {
                 new List<int>() {},
                 new Predicate<int>(x => x == 1),
                 new List<int>() {},
             },
         };
+        
         public static IEnumerable<object[]> TestData => _data;
     }
 

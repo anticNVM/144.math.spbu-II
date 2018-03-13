@@ -8,15 +8,31 @@ namespace Tests
     public static class FoldTestData
     {
         private static readonly List<object[]> _data = new List<object[]>
-        {
-            // correct behavior test
+        {   // TEST OF
+            // correct behavior with int
             new object[] {
                 new List<int>() {1, 2, 3},
                 1,
                 new Func<int, int, int>((acc, elem) => acc * elem),
-                6                
+                6
             },
             
+            // list join
+            new object[] {
+                new List<string>() {"h", "e", "l", "l", "o"},
+                "",
+                new Func<string, string, string>((acc, elem) => acc += elem),
+                "hello",
+            },
+
+            // different types example
+            new object[] {
+                new List<string>() {"Brave", "New", "World"},
+                0,
+                new Func<int, string, int>((acc, word) => acc += word.Length),
+                13,
+            },
+
             // empty list test
             new object[] {
                 new List<int>() {},
@@ -24,15 +40,8 @@ namespace Tests
                 new Func<int, int, int>((acc, elem) => acc * elem),
                 5,
             },
-
-            // 
-            new object[] {
-                new List<string>() {"h", "e", "l", "l"},
-                "",
-                new Func<string, string, string>((acc, elem) => acc += elem),
-                "hell",            
-            },
         };
+
         public static IEnumerable<object[]> TestData => _data;
     }
 
@@ -40,9 +49,10 @@ namespace Tests
     {
         [Theory]
         [MemberData("TestData", MemberType = typeof(FoldTestData))]
-        public void FoldDataDrivenTest<T>(List<T> list, T initValue, Func<T, T, T> function, T expected)
+        public void FoldDataDrivenTest<TIn, TOut>(
+            List<TIn> list, TOut initValue, Func<TOut, TIn, TOut> function, TOut expected)
         {
-            var actual = Funcs.Fold<T>(list, initValue, function);
+            var actual = Funcs.Fold<TIn, TOut>(list, initValue, function);
 
             Assert.Equal(expected, actual);
         }
