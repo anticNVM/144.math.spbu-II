@@ -24,6 +24,14 @@ namespace Tests
                 new Func<int, int, int>((acc, elem) => acc * elem),
                 5,
             },
+
+            // 
+            new object[] {
+                new List<string>() {"h", "e", "l", "l"},
+                "",
+                new Func<string, string, string>((acc, elem) => acc += elem),
+                "hell",            
+            },
         };
         public static IEnumerable<object[]> TestData => _data;
     }
@@ -32,9 +40,9 @@ namespace Tests
     {
         [Theory]
         [MemberData("TestData", MemberType = typeof(FoldTestData))]
-        public void FoldDataDrivenTest(List<int> list, int initValue, Func<int, int, int> function, int expected)
+        public void FoldDataDrivenTest<T>(List<T> list, T initValue, Func<T, T, T> function, T expected)
         {
-            var actual = Funcs<int>.Fold(list, initValue, function);
+            var actual = Funcs.Fold<T>(list, initValue, function);
 
             Assert.Equal(expected, actual);
         }

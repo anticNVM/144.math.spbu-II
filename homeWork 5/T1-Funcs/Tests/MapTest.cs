@@ -30,9 +30,9 @@ namespace Tests
     {
         [Theory]
         [MemberData("TestData", MemberType = typeof(MapTestData))]
-        public void MapDataDrivenTest(List<int> list, Func<int, int> function, List<int> expected)
+        public void MapDataDrivenTest<T>(List<T> list, Func<T, T> function, List<T> expected)
         {
-            var actual = Funcs<int>.Map(list, function);
+            var actual = Funcs.Map<T>(list, function);
 
             Assert.Equal(expected, actual);
         }

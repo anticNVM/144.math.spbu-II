@@ -6,7 +6,7 @@ namespace FuncsLib
     /// <summary>
     /// Класс, реализующий Map, Filter, Fold
     /// </summary>
-    public static class Funcs<T>
+    public static class Funcs
     {
         /// <summary>
         /// Возвращает список, полученный применением переданной функции к каждому элементу переданного списка.
@@ -14,7 +14,7 @@ namespace FuncsLib
         /// <param name="list">Список</param>
         /// <param name="function">Функция, по которой строится новый список</param>
         /// <returns>Полученный список</returns>
-        public static List<T> Map(List<T> list, Func<T, T> function)
+        public static List<T> Map<T>(List<T> list, Func<T, T> function)
         {
             var newList = new List<T>();
             foreach (var element in list)
@@ -31,12 +31,12 @@ namespace FuncsLib
         /// <param name="list">Список</param>
         /// <param name="function">Функция-фильтр</param>
         /// <returns>Фильтрованный список</returns>
-        public static List<T> Filter(List<T> list, Func<T, bool> function)
+        public static List<T> Filter<T>(List<T> list, Predicate<T> predicate)
         {
             var newList = new List<T>();
             foreach (var element in list)
             {
-                if (function(element))
+                if (predicate(element))
                 {
                     newList.Add(element);
                 }
@@ -52,7 +52,7 @@ namespace FuncsLib
         /// <param name="initValue">Начальное значение аккумулятора</param>
         /// <param name="function">Берёт текущее накопленное значение и текущий элемент списка, и возвращает следующее накопленное значение</param>
         /// <returns>Накопленный элемент</returns>
-        public static T Fold(List<T> list, T initValue, Func<T, T, T> function)
+        public static T Fold<T>(List<T> list, T initValue, Func<T, T, T> function)
         {
             T accumulator = initValue;
             foreach (var element in list)
