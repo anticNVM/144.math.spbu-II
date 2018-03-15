@@ -12,7 +12,7 @@ namespace Tests
         [TestInitialize]
         public void Init()
         {
-            _set = new HashSet();
+            _set = new HashSet(x => Math.Abs(x));
         }
 
         [TestMethod]

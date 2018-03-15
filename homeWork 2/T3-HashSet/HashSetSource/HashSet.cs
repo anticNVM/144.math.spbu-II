@@ -30,16 +30,20 @@ namespace HashSetSource
         /// </summary>
         private int _count;
 
-        public HashSet()
+        private Func<int, int> _hashFunc = null;
+
+        public void ChangeHashFunction(Func<int, int> hashFunc) => _hashFunc = hashFunc;
+
+        public HashSet(Func<int, int> hashFunc)
         {
             _buckets = new Buckets(_defaultCapacity);
-
             _capacity = _defaultCapacity;
+            _hashFunc = hashFunc;
         }
 
         public void Add(int value)
         {
-            int index = Math.Abs(value.GetHashCode()) % _capacity;
+            int index = _hashFunc(value) % _capacity;
             try
             {
                 _buckets[index].Append(value);
@@ -70,13 +74,13 @@ namespace HashSetSource
 
         public bool Contains(int value)
         {
-            int index = Math.Abs(value.GetHashCode()) % _capacity;
+            int index = _hashFunc(value) % _capacity;
             return _buckets[index].Contains(value);
         }
 
         public void Remove(int value)
         {
-            int index = Math.Abs(value.GetHashCode()) % _capacity;
+            int index = _hashFunc(value) % _capacity;
             try
             {
                 _buckets[index].Remove(value);
