@@ -9,49 +9,17 @@ namespace ListSource
         private ListNode _head;
         private ListNode _tail;
         private int _count;
-
-        public LinkedList()
-        {
-        }
+        private bool _isReadOnly;
 
         public T this[int index]
         {
-            get
-            {
-                if (index < 0 || index >= Count)
-                {
-                    throw new IndexOutOfRangeException("Выход за границы списка");
-                }
-
-                var current = _head;
-                for (var _ = 0; _ < index; ++_)
-                {
-                    current = current.Next;
-                }
-
-                return current.Value;
-            }
-
-            set
-            {
-                if (index < 0 || index >= Count)
-                {
-                    throw new IndexOutOfRangeException("Выход за границы списка");
-                }
-
-                var current = _head;
-                for (var _ = 0; _ < index; ++_)
-                {
-                    current = current.Next;
-                }
-
-                current.Value = value;
-            }
+            get => GetOnIndex(index).Value;
+            set => GetOnIndex(index).Value = value;
         }
 
         public int Count => _count;
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => _isReadOnly;
 
         public void Add(T item)
         {
@@ -200,7 +168,23 @@ namespace ListSource
             _count--;
         }
 
-        IEnumerator IEnumerable.GetEnumerator() => new ListEnumerator(_head);
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        private ListNode GetOnIndex(int index)
+        {
+            if (index < 0 || index >= Count)
+            {
+                throw new IndexOutOfRangeException("Выход за границы списка");
+            }
+
+            var current = _head;
+            for (var _ = 0; _ < index; ++_)
+            {
+                current = current.Next;
+            }
+
+            return current;
+        }
 
         private class ListNode
         {
