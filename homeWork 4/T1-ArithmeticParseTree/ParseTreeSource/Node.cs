@@ -1,12 +1,10 @@
 namespace ParseTreeSource
 {
-    public abstract class Node
+    public class Node
     {
         public Node LeftNode { get; }
         public Node RightNode { get; }
 
-        public abstract int Evaluate();
-
-        public abstract override string ToString();
+        public virtual int Evaluate() => throw new System.NotImplementedException("ой ой ой");
     }
 }
