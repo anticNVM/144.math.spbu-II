@@ -7,6 +7,5 @@ namespace ParseTreeSource
         public override int Evaluate() => _value;
 
         public override string ToString() => _value.ToString();
-        
     }
 }

@@ -1,15 +1,16 @@
 namespace ParseTreeSource
 {
-    public class ParseTree : Node
+    public class ParseTree : IParseTree
     {
         private Node _root;
 
-        protected ParseTree(string expression)
+        public ParseTree()
         {
         }
 
-        public override int Evaluate() => _root.Evaluate();
-
-        public override string ToString() => $"( {_root.ToString()} )";
+        public int Evaluate()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
