@@ -4,8 +4,8 @@ namespace ParseTreeSource
     {
         private class Node
         {
-            public Node LeftNode { get; }
-            public Node RightNode { get; }
+            public Node _leftNode;
+            public Node _rightNode;
 
             public virtual int Evaluate() => throw new System.NotImplementedException("ой ой ой");
         }

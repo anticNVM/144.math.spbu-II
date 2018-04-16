@@ -12,11 +12,14 @@ namespace ParseTreeSource
 
             public Operator(string op)
             {
+                var bar = new ParseTree();
                 _operator = op;
-                _operation = ParseTree._operations[op];
+                _operation = bar._operations[op];
             }
 
-            public override string ToString() => $"( {_operator} {base.LeftNode} {base.RightNode})";
+            public override int Evaluate() => _operation(base._leftNode.Evaluate(), base._rightNode.Evaluate());
+
+            public override string ToString() => $"({base._leftNode} {_operator} {base._rightNode})";
         }
     }
 }

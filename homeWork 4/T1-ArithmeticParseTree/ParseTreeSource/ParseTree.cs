@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using System;
 
 namespace ParseTreeSource
-{    
+{
     public partial class ParseTree : IParseTree
     {
         private Node _root;
 
         private sealed class MapOfOperations : Dictionary<string, Func<int, int, int>> { }
-
         private MapOfOperations _operations = new MapOfOperations{
             {"+", (x, y) => x + y},
             {"-", (x, y) => x - y},
@@ -16,26 +15,34 @@ namespace ParseTreeSource
             {"/", (x, y) => x / y},
         };
 
+        public ParseTree() { }
+
         public ParseTree(string expression)
         {
             var tokens = expression.Split(' ');
             var iter = GetEnumerator(tokens);
-            BuildTree(_root, iter);
+            BuildTree(ref _root, iter);
         }
 
         public int Evaluate() => _root.Evaluate();
 
         public override string ToString() => _root.ToString();
 
-        private void BuildTree(Node node, IEnumerator<string> iter)
+        public void AddOperation(string op, Func<int, int, int> operation) => _operations.Add(op, operation);
+
+        private void BuildTree(ref Node node, IEnumerator<string> iter)
         {
             var current = iter.GetNext();
-            // тогда след за ним это оператор
+            if (current == ")")
+            {
+                current = iter.GetNext();
+            }
+            // если (, тогда след за ним это оператор
             if (current == "(")
             {
                 node = new Operator(iter.GetNext());
-                BuildTree(node.LeftNode, iter);
-                BuildTree(node.RightNode, iter);
+                BuildTree(ref node._leftNode, iter);
+                BuildTree(ref node._rightNode, iter);
             }
             // тогда это число
             else if (int.TryParse(current, out int value))
