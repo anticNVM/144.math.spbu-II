@@ -1,10 +1,20 @@
 using System.Collections.Generic;
+using System;
 
 namespace ParseTreeSource
-{
-    public class ParseTree : IParseTree
+{    
+    public partial class ParseTree : IParseTree
     {
         private Node _root;
+
+        private sealed class MapOfOperations : Dictionary<string, Func<int, int, int>> { }
+
+        private MapOfOperations _operations = new MapOfOperations{
+            {"+", (x, y) => x + y},
+            {"-", (x, y) => x - y},
+            {"*", (x, y) => x * y},
+            {"/", (x, y) => x / y},
+        };
 
         public ParseTree(string expression)
         {
@@ -14,6 +24,8 @@ namespace ParseTreeSource
         }
 
         public int Evaluate() => _root.Evaluate();
+
+        public override string ToString() => _root.ToString();
 
         private void BuildTree(Node node, IEnumerator<string> iter)
         {
@@ -32,7 +44,7 @@ namespace ParseTreeSource
             }
         }
 
-        public IEnumerator<string> GetEnumerator(string[] tokens)
+        private IEnumerator<string> GetEnumerator(string[] tokens)
         {
             foreach (var token in tokens)
             {

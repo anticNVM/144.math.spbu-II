@@ -1,11 +1,22 @@
-﻿namespace ParseTreeSource
+﻿using System;
+
+namespace ParseTreeSource
 {
-    public class Operator : Node
+    public partial class ParseTree
     {
-        private string _operator;
+        private class Operator : Node
+        {
+            private string _operator;
 
-        public Operator(string op) => _operator = op;
+            private Func<int, int, int> _operation;
 
-        public override string ToString() => $"( {_operator} {base.LeftNode} {base.RightNode})";
+            public Operator(string op)
+            {
+                _operator = op;
+                _operation = ParseTree._operations[op];
+            }
+
+            public override string ToString() => $"( {_operator} {base.LeftNode} {base.RightNode})";
+        }
     }
 }
