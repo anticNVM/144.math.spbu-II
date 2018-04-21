@@ -16,6 +16,12 @@ namespace HashSetSource
         private const int _defaultCapacity = 10;
 
         /// <summary>
+        /// Значение, максимальное для величины заполнения хеш-таблицы
+        /// Если фактор больше этой константы, то необхожимо увеличить размер таблицы
+        /// </summary>
+        private const int _сriticalFactor = 1;
+
+        /// <summary>
         /// Сама хеш-таблица
         /// </summary>
         private Buckets _buckets;
@@ -39,15 +45,15 @@ namespace HashSetSource
 
         public void Add(int value)
         {
-            int index = Math.Abs(value.GetHashCode()) % _capacity;
+            int index = GetIndex(value);
             try
             {
                 _buckets[index].Append(value);
             }
-            catch (ValueAlreadyInListException)
+            catch (ValueAlreadyInListException e)
             {
                 throw new ValueIsAlreadyInSetException(
-                    $"Значение параметра {nameof(value)} уже существует в множестве."
+                    $"Значение параметра {nameof(value)} уже существует в множестве.", e
                 );
             }
 
@@ -62,7 +68,7 @@ namespace HashSetSource
         public void Clear()
         {
             _count = 0;
-            foreach (ILinkedList list in _buckets)
+            foreach (LinkedListSource.IList list in _buckets)
             {
                 list.Clear();
             }
@@ -70,13 +76,13 @@ namespace HashSetSource
 
         public bool Contains(int value)
         {
-            int index = Math.Abs(value.GetHashCode()) % _capacity;
+            int index = GetIndex(value);
             return _buckets[index].Contains(value);
         }
 
         public void Remove(int value)
         {
-            int index = Math.Abs(value.GetHashCode()) % _capacity;
+            int index = GetIndex(value);
             try
             {
                 _buckets[index].Remove(value);
@@ -100,11 +106,11 @@ namespace HashSetSource
             int factor = 2;
             _capacity *= factor;
             var newBuckets = new Buckets(_capacity);
-            foreach (ILinkedList list in _buckets)
+            foreach (LinkedListSource.IList list in _buckets)
             {
                 foreach (int value in list)
                 {
-                    int index = Math.Abs(value.GetHashCode()) % _capacity;
+                    int index = GetIndex(value);
                     newBuckets[index].Append(value);
                 }
             }
@@ -112,23 +118,25 @@ namespace HashSetSource
             _buckets = newBuckets;
         }
 
+        private int GetIndex(int value) => Math.Abs(value.GetHashCode()) % _capacity;
+
         /// <summary>
         /// Масиисв списков
         /// </summary>
         private class Buckets : IEnumerable
         {
-            private ILinkedList[] _array;
+            private LinkedListSource.IList[] _array;
 
             public Buckets(int capacity)
             {
-                _array = new ILinkedList[capacity];
+                _array = new LinkedListSource.IList[capacity];
                 for (var i = 0; i < _array.Length; ++i)
                 {
                     _array[i] = new UniqueList();
                 }
             }
 
-            public ILinkedList this[int index] => _array[index];
+            public LinkedListSource.IList this[int index] => _array[index];
 
             public int Length => _array.Length;
 

@@ -5,7 +5,7 @@ namespace LinkedListSource
     /// <summary>
     /// Интерфейс, реализующий функциональность связного списка.
     /// </summary>
-    public interface ILinkedList : IEnumerable
+    public interface IList : IEnumerable
     {
         /// <summary>
         /// Доступ к значению элемента списка по индексу
@@ -65,7 +65,7 @@ namespace LinkedListSource
         /// Возвращает неполную копию списка
         /// </summary>
         /// <returns>Неполную копию списка</returns>
-        ILinkedList Copy();
+        IList Copy();
 
         /// <summary>
         /// Возвращает значение головы списка
@@ -77,7 +77,7 @@ namespace LinkedListSource
         /// Возвращает неполную копию списка, состоящего из всех элементов, кроме первого
         /// </summary>
         /// <returns>Неполную копию списка, состоящего из всех элементов, кроме первого</returns>
-        ILinkedList GetTail();
+        IList GetTail();
 
         /// <summary>
         /// Длина списка

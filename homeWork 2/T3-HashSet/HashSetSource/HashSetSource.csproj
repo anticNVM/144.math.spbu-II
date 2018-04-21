@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\LinkedListSource\LinkedListSource.csproj" />
+    <ProjectReference Include="..\ListSource\ListSource.csproj" />
     <ProjectReference Include="..\UniqueListSource\UniqueListSource.csproj" />
   </ItemGroup>
 

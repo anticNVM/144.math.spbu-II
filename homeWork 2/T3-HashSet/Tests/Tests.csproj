@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LinkedListSource\LinkedListSource.csproj" />
+    <ProjectReference Include="..\ListSource\ListSource.csproj" />
     <ProjectReference Include="..\UniqueListSource\UniqueListSource.csproj" />
     <ProjectReference Include="..\HashSetSource\HashSetSource.csproj" />
   </ItemGroup>

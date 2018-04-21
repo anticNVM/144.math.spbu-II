@@ -6,7 +6,7 @@ namespace LinkedListSource
     /// <summary>
     /// Связный список
     /// </summary>
-    public class LinkedList : ILinkedList
+    public class List : IList
     {
         /// <summary>
         /// Голова списка
@@ -161,9 +161,9 @@ namespace LinkedListSource
 
         public bool IsEmpty() => Count == 0;
 
-        public ILinkedList Copy()
+        public IList Copy()
         {
-            var copyList = new LinkedList();
+            var copyList = new List();
             Node current = _head;
 
             while (current != null)
@@ -177,9 +177,9 @@ namespace LinkedListSource
 
         public int GetHead() => _head != null ? _head.Value : default(int);
 
-        public ILinkedList GetTail()
+        public IList GetTail()
         {
-            var tailList = this.Copy() as LinkedList;
+            var tailList = this.Copy() as List;
             if (!tailList.IsEmpty())
             {
                 tailList._head = _head.Next;

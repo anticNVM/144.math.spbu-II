@@ -5,14 +5,14 @@ using LinkedListSource;
 namespace Tests
 {
     [TestClass]
-    public class LinkedListTest
+    public class ListTest
     {
-        private ILinkedList _list;
+        private IList _list;
 
         [TestInitialize]
         public void Init()
         {
-            _list = new LinkedList();
+            _list = new List();
         }
 
         [TestMethod]
@@ -201,7 +201,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void CountShoulReturnAmountOfElemnts()
+        public void CountShouldxReturnAmountOfElements()
         {
             int nums = 10;
             for (int i = 0; i <= nums; ++i)

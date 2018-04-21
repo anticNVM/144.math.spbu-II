@@ -8,7 +8,7 @@ namespace Tests
     [TestClass]
     public class UniqueListTest
     {
-        private ILinkedList _uList;
+        private IList _uList;
 
         [TestInitialize]
         public void Init()
