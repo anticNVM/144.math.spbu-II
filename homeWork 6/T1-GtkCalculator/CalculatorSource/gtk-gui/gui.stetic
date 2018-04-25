@@ -13,12 +13,12 @@
     <property name="WindowPosition">CenterOnParent</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
-      <widget class="Gtk.VBox" id="vbox1">
+      <widget class="Gtk.VBox" id="MainBox">
         <property name="MemberName" />
         <property name="Spacing">5</property>
         <property name="BorderWidth">5</property>
         <child>
-          <widget class="Gtk.Entry" id="entry1">
+          <widget class="Gtk.Entry" id="EntryBox">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="IsEditable">True</property>
@@ -33,7 +33,7 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Table" id="table3">
+          <widget class="Gtk.Table" id="ControlPanel">
             <property name="MemberName" />
             <property name="NRows">5</property>
             <property name="NColumns">4</property>
@@ -48,6 +48,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">0</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">4</property>
@@ -71,6 +72,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">2</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">3</property>
@@ -97,6 +99,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">3</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">3</property>
@@ -123,6 +126,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">4</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">2</property>
@@ -146,6 +150,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">1</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">3</property>
@@ -169,6 +174,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">5</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">2</property>
@@ -195,6 +201,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">6</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">2</property>
@@ -221,6 +228,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">7</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">1</property>
@@ -244,6 +252,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">8</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">1</property>
@@ -270,6 +279,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">9</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">1</property>
@@ -296,6 +306,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">+</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">4</property>
@@ -322,6 +333,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">&lt;&lt;</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnBackspaceButtonClicked" />
               </widget>
               <packing>
                 <property name="LeftAttach">3</property>
@@ -344,6 +356,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">C</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnClearButtonClicked" />
               </widget>
               <packing>
                 <property name="AutoSize">False</property>
@@ -364,6 +377,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">)</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="LeftAttach">2</property>
@@ -387,6 +401,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">/</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">1</property>
@@ -439,6 +454,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">*</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">2</property>
@@ -465,6 +481,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">(</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="LeftAttach">1</property>
@@ -488,6 +505,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">.</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">4</property>
@@ -514,6 +532,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">-</property>
                 <property name="UseUnderline">True</property>
+                <signal name="Clicked" handler="OnNumButtonClicked" />
               </widget>
               <packing>
                 <property name="TopAttach">3</property>
