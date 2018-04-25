@@ -1,7 +1,7 @@
 ﻿using System;
 using Gtk;
 
-namespace GuiCalc
+namespace CalculatorSource
 {
     class MainClass
     {
