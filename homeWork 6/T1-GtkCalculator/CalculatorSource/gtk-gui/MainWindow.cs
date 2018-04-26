@@ -382,7 +382,6 @@ public partial class MainWindow
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
 		this.SubtractionButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
-		this.PointButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this.OpenBracketButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this.MultiplicationButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this.EvaluateButton.Clicked += new global::System.EventHandler(this.OnEvaluateButtonClicked);
