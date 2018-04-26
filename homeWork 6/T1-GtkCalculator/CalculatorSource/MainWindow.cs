@@ -1,5 +1,6 @@
 ﻿using System;
 using Gtk;
+using CalculatorSource;
 
 public partial class MainWindow : Gtk.Window
 {
@@ -31,5 +32,10 @@ public partial class MainWindow : Gtk.Window
         {
             EntryBox.Text = EntryBox.Text.Remove(EntryBox.Text.Length - 1);
         }
+    }
+
+    protected void OnEvaluateButtonClicked(object sender, EventArgs e)
+    {
+        EntryBox.Text = Calculator.Evaluate(EntryBox.Text).ToString();
     }
 }

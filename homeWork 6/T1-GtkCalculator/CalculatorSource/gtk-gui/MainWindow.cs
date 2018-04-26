@@ -385,6 +385,7 @@ public partial class MainWindow
 		this.PointButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this.OpenBracketButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this.MultiplicationButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
+		this.EvaluateButton.Clicked += new global::System.EventHandler(this.OnEvaluateButtonClicked);
 		this.DivisionButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this.CloseBracketButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this.ClearButton.Clicked += new global::System.EventHandler(this.OnClearButtonClicked);
