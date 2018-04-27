@@ -67,7 +67,6 @@ public partial class MainWindow : Gtk.Window
     [GLib.ConnectBefore]
     protected void OnEnterClicked(object o, KeyPressEventArgs args)
     {
-
         if (args.Event.Key == Gdk.Key.Return || args.Event.Key == Gdk.Key.KP_Enter)
         {
             Calculate();
@@ -91,7 +90,7 @@ public partial class MainWindow : Gtk.Window
     }
 
     /// <summary>
-    /// Message box. (Это просто скопированный из сети класс для демонстрации сообщения аля MessageBox в WinForms)
+    /// Message box. (Это скопированный из сети класс для демонстрации сообщений а-ля MessageBox в WinForms)
     /// </summary>
     private static class MessageBox
     {

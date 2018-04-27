@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CalculatorSource.Exceptions
 {
     /// <summary>
-    /// Исключение, бросаемое при неверном выражении
+    /// Исключение, бросаемое, если выражение некорректно     
     /// </summary>
     [System.Serializable]
     public class InvalidExpressionException : Exception

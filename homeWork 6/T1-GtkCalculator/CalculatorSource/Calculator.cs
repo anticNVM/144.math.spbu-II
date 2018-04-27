@@ -11,7 +11,7 @@ namespace CalculatorSource
     {
         private sealed class ArithmeticOperators : Dictionary<string, Func<double, double, double>> { }
         /// <summary>
-        /// Ассоциативный массив, который по оператору возвращает соответсвующую бинарную операцию
+        /// Ассоциативный массив, который по оператору возвращает соответствующую бинарную операцию
         /// </summary>
         private static ArithmeticOperators _operators = new ArithmeticOperators()
         {
@@ -31,7 +31,7 @@ namespace CalculatorSource
         };
 
         /// <summary>
-        /// Ассоциативный массив, который по оператору возвращает соответсвующий приоритет
+        /// Ассоциативный массив, который по оператору возвращает соответствующий приоритет операции
         /// </summary>
         private static Dictionary<string, int> _priorityOfOperators = new Dictionary<string, int>()
         {
