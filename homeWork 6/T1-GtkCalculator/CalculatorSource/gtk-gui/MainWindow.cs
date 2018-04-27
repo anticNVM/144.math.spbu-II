@@ -11,6 +11,8 @@ public partial class MainWindow
 
 	private global::Gtk.Button _0Button;
 
+	private global::Gtk.Button _1Button;
+
 	private global::Gtk.Button _2Button;
 
 	private global::Gtk.Button _3Button;
@@ -18,8 +20,6 @@ public partial class MainWindow
 	private global::Gtk.Button _4Button;
 
 	private global::Gtk.Button _5Button;
-
-	private global::Gtk.Button _5Button1;
 
 	private global::Gtk.Button _6Button;
 
@@ -92,6 +92,19 @@ public partial class MainWindow
 		w2.BottomAttach = ((uint)(5));
 		w2.XOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child ControlPanel.Gtk.Table+TableChild
+		this._1Button = new global::Gtk.Button();
+		this._1Button.WidthRequest = 30;
+		this._1Button.HeightRequest = 30;
+		this._1Button.CanFocus = true;
+		this._1Button.Name = "_1Button";
+		this._1Button.UseUnderline = true;
+		this._1Button.Label = global::Mono.Unix.Catalog.GetString("1");
+		this.ControlPanel.Add(this._1Button);
+		global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._1Button]));
+		w3.TopAttach = ((uint)(3));
+		w3.BottomAttach = ((uint)(4));
+		w3.XOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child ControlPanel.Gtk.Table+TableChild
 		this._2Button = new global::Gtk.Button();
 		this._2Button.WidthRequest = 30;
 		this._2Button.HeightRequest = 30;
@@ -100,13 +113,13 @@ public partial class MainWindow
 		this._2Button.UseUnderline = true;
 		this._2Button.Label = global::Mono.Unix.Catalog.GetString("2");
 		this.ControlPanel.Add(this._2Button);
-		global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._2Button]));
-		w3.TopAttach = ((uint)(3));
-		w3.BottomAttach = ((uint)(4));
-		w3.LeftAttach = ((uint)(1));
-		w3.RightAttach = ((uint)(2));
-		w3.XOptions = ((global::Gtk.AttachOptions)(4));
-		w3.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._2Button]));
+		w4.TopAttach = ((uint)(3));
+		w4.BottomAttach = ((uint)(4));
+		w4.LeftAttach = ((uint)(1));
+		w4.RightAttach = ((uint)(2));
+		w4.XOptions = ((global::Gtk.AttachOptions)(4));
+		w4.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child ControlPanel.Gtk.Table+TableChild
 		this._3Button = new global::Gtk.Button();
 		this._3Button.WidthRequest = 30;
@@ -116,13 +129,13 @@ public partial class MainWindow
 		this._3Button.UseUnderline = true;
 		this._3Button.Label = global::Mono.Unix.Catalog.GetString("3");
 		this.ControlPanel.Add(this._3Button);
-		global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._3Button]));
-		w4.TopAttach = ((uint)(3));
-		w4.BottomAttach = ((uint)(4));
-		w4.LeftAttach = ((uint)(2));
-		w4.RightAttach = ((uint)(3));
-		w4.XOptions = ((global::Gtk.AttachOptions)(4));
-		w4.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._3Button]));
+		w5.TopAttach = ((uint)(3));
+		w5.BottomAttach = ((uint)(4));
+		w5.LeftAttach = ((uint)(2));
+		w5.RightAttach = ((uint)(3));
+		w5.XOptions = ((global::Gtk.AttachOptions)(4));
+		w5.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child ControlPanel.Gtk.Table+TableChild
 		this._4Button = new global::Gtk.Button();
 		this._4Button.WidthRequest = 30;
@@ -132,10 +145,10 @@ public partial class MainWindow
 		this._4Button.UseUnderline = true;
 		this._4Button.Label = global::Mono.Unix.Catalog.GetString("4");
 		this.ControlPanel.Add(this._4Button);
-		global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._4Button]));
-		w5.TopAttach = ((uint)(2));
-		w5.BottomAttach = ((uint)(3));
-		w5.XOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._4Button]));
+		w6.TopAttach = ((uint)(2));
+		w6.BottomAttach = ((uint)(3));
+		w6.XOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child ControlPanel.Gtk.Table+TableChild
 		this._5Button = new global::Gtk.Button();
 		this._5Button.WidthRequest = 30;
@@ -143,22 +156,9 @@ public partial class MainWindow
 		this._5Button.CanFocus = true;
 		this._5Button.Name = "_5Button";
 		this._5Button.UseUnderline = true;
-		this._5Button.Label = global::Mono.Unix.Catalog.GetString("1");
+		this._5Button.Label = global::Mono.Unix.Catalog.GetString("5");
 		this.ControlPanel.Add(this._5Button);
-		global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._5Button]));
-		w6.TopAttach = ((uint)(3));
-		w6.BottomAttach = ((uint)(4));
-		w6.XOptions = ((global::Gtk.AttachOptions)(4));
-		// Container child ControlPanel.Gtk.Table+TableChild
-		this._5Button1 = new global::Gtk.Button();
-		this._5Button1.WidthRequest = 30;
-		this._5Button1.HeightRequest = 30;
-		this._5Button1.CanFocus = true;
-		this._5Button1.Name = "_5Button1";
-		this._5Button1.UseUnderline = true;
-		this._5Button1.Label = global::Mono.Unix.Catalog.GetString("5");
-		this.ControlPanel.Add(this._5Button1);
-		global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._5Button1]));
+		global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.ControlPanel[this._5Button]));
 		w7.TopAttach = ((uint)(2));
 		w7.BottomAttach = ((uint)(3));
 		w7.LeftAttach = ((uint)(1));
@@ -381,6 +381,7 @@ public partial class MainWindow
 		this.DefaultHeight = 280;
 		this.Show();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
+		this.KeyPressEvent += new global::Gtk.KeyPressEventHandler(this.OnEnterClicked);
 		this.SubtractionButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this.OpenBracketButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this.MultiplicationButton.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
@@ -394,11 +395,11 @@ public partial class MainWindow
 		this._8Button.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this._7Button.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this._6Button.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
-		this._5Button1.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this._5Button.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this._4Button.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this._3Button.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this._2Button.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
+		this._1Button.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 		this._0Button.Clicked += new global::System.EventHandler(this.OnNumButtonClicked);
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace CalculatorSource
 {
@@ -12,7 +11,16 @@ namespace CalculatorSource
             ["+"] = (double x, double y) => x + y,
             ["-"] = (double x, double y) => x - y,
             ["*"] = (double x, double y) => x * y,
-            ["/"] = (double x, double y) => x / y,
+            ["/"] = (double x, double y) => 
+            {
+                const double delta = 1E-6;
+                if (Math.Abs(y) < delta)
+                {
+                    throw new DivideByZeroException();
+                }
+
+                return x / y;
+            }
         };
 
         private static Dictionary<string, int> _priorityOfOperators = new Dictionary<string, int>()
@@ -34,6 +42,36 @@ namespace CalculatorSource
             return result;
         }
 
+        private static LinkedList<string> ParseExpression(string expression)
+        {
+            var tokens = new LinkedList<string>();
+            var length = expression.Length;
+            string num = "";
+
+            var i = 0;
+            while (i < length)
+            {
+                if (char.IsDigit(expression[i]))
+                {
+                    while (i < length && char.IsDigit(expression[i]))
+                    {
+                        num += expression[i];
+                        i++;
+                    }
+
+                    tokens.AddLast(num);
+                    num = string.Empty;
+                }
+                else
+                {
+                    tokens.AddLast(char.ToString(expression[i]));
+                    i++;
+                }
+            }
+
+            return tokens;
+        }
+
         private static LinkedList<string> SortingStation(LinkedList<string> tokens)
         {
             var postfixNotation = new LinkedList<string>();
@@ -41,7 +79,7 @@ namespace CalculatorSource
 
             foreach (var token in tokens)
             {
-                if (double.TryParse(token, out double value))
+                if (double.TryParse(token, out double _))
                 {
                     postfixNotation.AddLast(token);
                 }
@@ -138,36 +176,6 @@ namespace CalculatorSource
             }
 
             return result;
-        }
-
-        private static LinkedList<string> ParseExpression(string expression)
-        {
-            var tokens = new LinkedList<string>();
-            var length = expression.Length;
-            string num = "";
-
-            var i = 0;
-            while (i < length)
-            {
-                if (char.IsDigit(expression[i]))
-                {
-                    while (i < length && char.IsDigit(expression[i]))
-                    {
-                        num += expression[i];
-                        i++;
-                    }
-
-                    tokens.AddLast(num);
-                    num = string.Empty;
-                }
-                else
-                {
-                    tokens.AddLast(char.ToString(expression[i]));
-                    i++;
-                }
-            }
-
-            return tokens;
         }
     }
 }
