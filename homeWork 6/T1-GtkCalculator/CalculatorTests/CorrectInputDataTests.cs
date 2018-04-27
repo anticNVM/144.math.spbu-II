@@ -5,9 +5,15 @@ using CalculatorSource;
 
 namespace CalculatorTests
 {
+    /// <summary>
+    /// Correct input data tests.
+    /// </summary>
     [TestFixture()]
     public class CorrectInputDataTests
     {
+        /// <summary>
+        /// Тестовые данные
+        /// </summary>
         private static readonly List<TestCaseData> _data = new List<TestCaseData>()
         {
             new TestCaseData("", 0).SetName("Empty expression should evaluated in 0"),

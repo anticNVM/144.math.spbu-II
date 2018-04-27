@@ -3,9 +3,15 @@ using System.Collections.Generic;
 
 namespace CalculatorSource.Exceptions
 {
+    /// <summary>
+    /// Исключение, бросаемое при неверном выражении
+    /// </summary>
     [System.Serializable]
     public class InvalidExpressionException : Exception
     {
+        /// <summary>
+        /// Типы ошибок
+        /// </summary>
         public enum MessageTypes
         {
             MissedOpeningBracket,
@@ -16,6 +22,9 @@ namespace CalculatorSource.Exceptions
             DivisionByZero
         }
 
+        /// <summary>
+        /// Сообщения для соответствующих типов ошибок
+        /// </summary>
         public static readonly Dictionary<MessageTypes, string> _messages = new Dictionary<MessageTypes, string>()
         {
             [MessageTypes.MissedOpeningBracket] = "В выражении пропущена открывающаяя скобка",

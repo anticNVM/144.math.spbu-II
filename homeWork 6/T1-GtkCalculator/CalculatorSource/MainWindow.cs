@@ -15,17 +15,32 @@ public partial class MainWindow : Gtk.Window
         a.RetVal = true;
     }
 
+    /// <summary>
+    /// Ons the number button clicked.
+    /// </summary>
+    /// <param name="sender">Sender.</param>
+    /// <param name="e">E.</param>
     protected void OnNumButtonClicked(object sender, EventArgs e)
     {
         var button = sender as Button;
         EntryBox.Text += button.Label;
     }
 
+    /// <summary>
+    /// Ons the clear button clicked.
+    /// </summary>
+    /// <param name="sender">Sender.</param>
+    /// <param name="e">E.</param>
     protected void OnClearButtonClicked(object sender, EventArgs e)
     {
         EntryBox.Text = "";
     }
 
+    /// <summary>
+    /// Ons the backspace button clicked.
+    /// </summary>
+    /// <param name="sender">Sender.</param>
+    /// <param name="e">E.</param>
     protected void OnBackspaceButtonClicked(object sender, EventArgs e)
     {
         if (EntryBox.Text.Length > 0)
@@ -34,11 +49,21 @@ public partial class MainWindow : Gtk.Window
         }
     }
 
+    /// <summary>
+    /// Ons the evaluate button clicked.
+    /// </summary>
+    /// <param name="sender">Sender.</param>
+    /// <param name="e">E.</param>
     protected void OnEvaluateButtonClicked(object sender, EventArgs e)
     {
         Calculate();
     }
 
+    /// <summary>
+    /// Ons the enter clicked.
+    /// </summary>
+    /// <param name="o">O.</param>
+    /// <param name="args">Arguments.</param>
     [GLib.ConnectBefore]
     protected void OnEnterClicked(object o, KeyPressEventArgs args)
     {
@@ -49,6 +74,9 @@ public partial class MainWindow : Gtk.Window
         }
     }
 
+    /// <summary>
+    /// Calculate this instance.
+    /// </summary>
     private void Calculate()
     {
         try
@@ -62,6 +90,9 @@ public partial class MainWindow : Gtk.Window
         }
     }
 
+    /// <summary>
+    /// Message box. (Это просто скопированный из сети класс для демонстрации сообщения аля MessageBox в WinForms)
+    /// </summary>
     private static class MessageBox
     {
         public static void Show(Gtk.Window parent_window, DialogFlags flags, MessageType msgtype, ButtonsType btntype, string msg)
@@ -70,6 +101,7 @@ public partial class MainWindow : Gtk.Window
             md.Run();
             md.Destroy();
         }
+
         public static void Show(string msg)
         {
             MessageDialog md = new MessageDialog(null, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, msg);

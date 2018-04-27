@@ -6,9 +6,15 @@ using NUnit.Framework;
 
 namespace CalculatorTests
 {
+    /// <summary>
+    /// Incorrect input data tests.
+    /// </summary>
     [TestFixture()]
     public class IncorrectInputDataTests
     {
+        /// <summary>
+        /// Тестовые данные
+        /// </summary>
         private static readonly List<TestCaseData> _data = new List<TestCaseData>()
         {
             new TestCaseData("1.2", InvalidExpressionException._messages[
@@ -57,6 +63,8 @@ namespace CalculatorTests
         }
 
         [TestCaseSource("TestCaseData")]
+        // The compiler will emit a class that will hold this as a field to allow capturing of this closure.
+        // https://stackoverflow.com/questions/36271719/closure-allocations-in-c-sharp?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
         public void TestCase(string expression, string message)
         {
             var e = Assert.Throws<InvalidExpressionException>(() => Calculator.Evaluate(expression));

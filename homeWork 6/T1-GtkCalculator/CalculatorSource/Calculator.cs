@@ -4,9 +4,15 @@ using CalculatorSource.Exceptions;
 
 namespace CalculatorSource
 {
+    /// <summary>
+    /// Калькулятор
+    /// </summary>
     public static class Calculator
     {
         private sealed class ArithmeticOperators : Dictionary<string, Func<double, double, double>> { }
+        /// <summary>
+        /// Ассоциативный массив, который по оператору возвращает соответсвующую бинарную операцию
+        /// </summary>
         private static ArithmeticOperators _operators = new ArithmeticOperators()
         {
             ["+"] = (double x, double y) => x + y,
@@ -24,6 +30,9 @@ namespace CalculatorSource
             }
         };
 
+        /// <summary>
+        /// Ассоциативный массив, который по оператору возвращает соответсвующий приоритет
+        /// </summary>
         private static Dictionary<string, int> _priorityOfOperators = new Dictionary<string, int>()
         {
             ["("] = 0,
@@ -33,36 +42,49 @@ namespace CalculatorSource
             ["/"] = 2,
         };
 
+        /// <summary>
+        /// Считает выражение в инфиксной записи.
+        /// </summary>
+        /// <returns>Значение выражения</returns>
+        /// <param name="expression">Выражение для вычисления</param>
+        /// <exception cref="InvalidExpressionException">Бросается, если выражение некорректно</exception>
         public static double Evaluate(string expression)
         {
             expression = expression.Replace(" ", string.Empty);
             var tokens = ParseExpression(expression);
-            var posfix = SortingStation(tokens);
-            var result = Calculate(posfix);
+            var postfix = SortingStation(tokens);
+            var result = Calculate(postfix);
 
             return result;
         }
 
+        /// <summary>
+        /// Разделяет выражение по токенам
+        /// </summary>
+        /// <returns>Список токенов</returns>
+        /// <param name="expression">Выражение</param>
         private static LinkedList<string> ParseExpression(string expression)
         {
             var tokens = new LinkedList<string>();
             var length = expression.Length;
-            string num = "";
+            string tempNum = "";
 
             var i = 0;
             while (i < length)
             {
+                // цифры мб не однозначными
                 if (char.IsDigit(expression[i]))
                 {
                     while (i < length && char.IsDigit(expression[i]))
                     {
-                        num += expression[i];
+                        tempNum += expression[i];
                         i++;
                     }
 
-                    tokens.AddLast(num);
-                    num = string.Empty;
+                    tokens.AddLast(tempNum);
+                    tempNum = string.Empty;
                 }
+                // все остальные символы - однозначные
                 else
                 {
                     tokens.AddLast(char.ToString(expression[i]));
@@ -73,6 +95,12 @@ namespace CalculatorSource
             return tokens;
         }
 
+        /// <summary>
+        /// Преобразует выражение в инфиксной записи в выражение в постфиксной
+        /// </summary>
+        /// <returns>Список токенв в постфиксной записи</returns>
+        /// <param name="tokens">Список токенов в инфиксной записи</param>
+        /// <exception cref="InvalidExpressionException">Бросается, если выражение некорректно</exception>
         private static LinkedList<string> SortingStation(LinkedList<string> tokens)
         {
             var postfixNotation = new LinkedList<string>();
@@ -80,10 +108,12 @@ namespace CalculatorSource
 
             foreach (var token in tokens)
             {
+                // если операнд
                 if (double.TryParse(token, out double _))
                 {
                     postfixNotation.AddLast(token);
                 }
+                // если опретор
                 else if (_operators.ContainsKey(token))
                 {
                     while (stack.Count > 0 && _priorityOfOperators[token] <= _priorityOfOperators[stack.Peek()])
@@ -136,6 +166,12 @@ namespace CalculatorSource
             return postfixNotation;
         }
 
+        /// <summary>
+        /// Считает значение выражения в постфиксной записи
+        /// </summary>
+        /// <returns>Значение выражения</returns>
+        /// <param name="tokens">Список токенов</param>
+        /// <exception cref="InvalidExpressionException">Бросается, если выражение некорректно</exception>
         private static double Calculate(LinkedList<string> tokens)
         {
             var stack = new Stack<double>();
