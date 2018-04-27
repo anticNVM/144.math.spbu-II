@@ -3,19 +3,14 @@ using System;
 using System.Collections.Generic;
 using CalculatorSource;
 
-
 namespace CalculatorTests
 {
     [TestFixture()]
     public class CorrectInputDataTests
     {
-        //private sealed class DataSet : List<KeyValuePair<string, double>> { }
         private static readonly List<TestCaseData> _data = new List<TestCaseData>()
         {
-            //new TestCaseData(new Dictionary<string, double>() {
-            //    [""] = 1
-            //}).SetName("Empty expression should evaluated in 0"),
-
+            new TestCaseData("", 0).SetName("Empty expression should evaluated in 0"),
             new TestCaseData("25", 25).SetName("Single number should evaluated in itself"),
             new TestCaseData("1+2", 3).SetName("Simple smoke test"),
             new TestCaseData("119+1", 120).SetName("Smoke test with bigger numbers"),

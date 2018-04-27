@@ -1,9 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace CalculatorSource.Exceptions
 {
     [System.Serializable]
     public class InvalidExpressionException : Exception
     {
+        public enum MessageTypes
+        {
+            MissedOpeningBracket,
+            MissedClosingBracket,
+            UnsupportedCharacters,
+            OverOperands,
+            NotEnoughOperands,
+            DivisionByZero
+        }
+
+        public static readonly Dictionary<MessageTypes, string> _messages = new Dictionary<MessageTypes, string>()
+        {
+            [MessageTypes.MissedOpeningBracket] = "В выражении пропущена открывающаяя скобка",
+            [MessageTypes.UnsupportedCharacters] = "Неподдерживаемый символ",
+            [MessageTypes.MissedClosingBracket] = "В выражении пропущена закрывающая скобка",
+            [MessageTypes.OverOperands] = "Неверное число операндов (больше необходимого)",
+            [MessageTypes.NotEnoughOperands] = "Неверное число операндов (меньше необходимого)",
+            [MessageTypes.DivisionByZero] = "Деление на ноль",
+        };
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:MyException"/> class
         /// </summary>

@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CorrectInputDataTests.cs" />
+    <Compile Include="IncorrectInputDataTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

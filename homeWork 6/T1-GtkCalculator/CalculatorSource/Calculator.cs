@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CalculatorSource.Exceptions;
 
 namespace CalculatorSource
 {
@@ -11,9 +12,9 @@ namespace CalculatorSource
             ["+"] = (double x, double y) => x + y,
             ["-"] = (double x, double y) => x - y,
             ["*"] = (double x, double y) => x * y,
-            ["/"] = (double x, double y) => 
+            ["/"] = (double x, double y) =>
             {
-                const double delta = 1E-6;
+                const double delta = 1e-6;
                 if (Math.Abs(y) < delta)
                 {
                     throw new DivideByZeroException();
@@ -105,15 +106,18 @@ namespace CalculatorSource
 
                     if (stack.Count == 0)
                     {
-                        throw new Exceptions.InvalidExpressionException(
-                            "В выражении пропущена открывающаяя скобка");
+                        throw new InvalidExpressionException(
+                            InvalidExpressionException._messages[
+                            InvalidExpressionException.MessageTypes.MissedOpeningBracket]);
                     }
 
                     stack.Pop();
                 }
                 else
                 {
-                    throw new Exceptions.InvalidExpressionException("Неподдерживаемый символ");
+                    throw new InvalidExpressionException(
+                        InvalidExpressionException._messages[
+                        InvalidExpressionException.MessageTypes.UnsupportedCharacters]);
                 }
             }
 
@@ -121,8 +125,9 @@ namespace CalculatorSource
             {
                 if (stack.Peek() == "(")
                 {
-                    throw new Exceptions.InvalidExpressionException(
-                        "В выражении пропущена закрывающая скобка");
+                    throw new InvalidExpressionException(
+                        InvalidExpressionException._messages[
+                        InvalidExpressionException.MessageTypes.MissedClosingBracket]);
                 }
 
                 postfixNotation.AddLast(stack.Pop());
@@ -146,18 +151,20 @@ namespace CalculatorSource
                     try
                     {
                         var rightOperand = stack.Pop();
-                        double res = _operators[token](stack.Pop(),rightOperand);
+                        double res = _operators[token](stack.Pop(), rightOperand);
                         stack.Push(res);
                     }
                     catch (InvalidOperationException e)
                     {
-                        throw new Exceptions.InvalidExpressionException(
-                            "Неверное число операндов (меньше необходимого)", e);
+                        throw new InvalidExpressionException(
+                            InvalidExpressionException._messages[
+                            InvalidExpressionException.MessageTypes.NotEnoughOperands], e);
                     }
                     catch (DivideByZeroException e)
                     {
-                        throw new Exceptions.InvalidExpressionException(
-                            "Деление на ноль", e);
+                        throw new InvalidExpressionException(
+                            InvalidExpressionException._messages[
+                            InvalidExpressionException.MessageTypes.DivisionByZero], e);
                     }
                 }
             }
@@ -171,8 +178,9 @@ namespace CalculatorSource
             double result = stack.Pop();
             if (stack.Count > 0)
             {
-                throw new Exceptions.InvalidExpressionException(
-                    "Неверное число операндов (больше необходимого)");
+                throw new InvalidExpressionException(
+                    InvalidExpressionException._messages[
+                    InvalidExpressionException.MessageTypes.OverOperands]);
             }
 
             return result;
