@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace GenericListSource
 {
@@ -8,7 +9,7 @@ namespace GenericListSource
     /// Implements a generic list <see cref="IList{T}"/>
     /// </summary>
     /// <typeparam name="T">Type of elements in the list</typeparam>
-    public class GenericList<T> : IList<T>
+    public class GenericList<T> : IList<T>, IReadOnlyCollection<T>
     {
         /// <summary>
         /// Reference to the first element of the list
@@ -76,6 +77,9 @@ namespace GenericListSource
             _count++;
         }
 
+        /// <summary>
+        /// Удаляет все элементы из коллекции ICollection<T>.
+        /// </summary>
         public void Clear()
         {
             if (_isReadOnly)
@@ -90,6 +94,11 @@ namespace GenericListSource
             _count = 0;
         }
 
+        /// <summary>
+        /// Определяет, содержит ли коллекция ICollection<T> указанное значение.
+        /// </summary>
+        /// <param name="item">Значение для проверки</param>
+        /// <returns>true, если содержит, false иначе</returns>
         public bool Contains(T item)
         {
             foreach (var element in this)
@@ -104,6 +113,11 @@ namespace GenericListSource
             return false;
         }
 
+        /// <summary>
+        /// Копирует элементы коллекции ICollection<T> в массив Array, начиная с указанного индекса массива Array.
+        /// </summary>
+        /// <param name="array">Массив, куда производится копирование</param>
+        /// <param name="arrayIndex">Индекс, начиная с которого происходит копирование</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (array == null)
@@ -135,11 +149,20 @@ namespace GenericListSource
             }
         }
 
+        /// <summary>
+        /// Возвращает перечислитель, выполняющий перебор элементов в коллекции.
+        /// </summary>
+        /// <returns>Энумератор для списка</returns>
         public IEnumerator<T> GetEnumerator()
         {
             return new ListEnumerator(_head);
         }
 
+        /// <summary>
+        /// Определяет индекс заданного элемента в списке IList<T>.
+        /// </summary>
+        /// <param name="item">Элемент, индекс которого необходимо определить</param>
+        /// <returns>Индекс элемента, если он существует в списке, иначе -1</returns>
         public int IndexOf(T item)
         {
             var current = _head;
@@ -154,6 +177,11 @@ namespace GenericListSource
             return -1;
         }
 
+        /// <summary>
+        /// Вставляет элемент в список IList<T> по указанному индексу.
+        /// </summary>
+        /// <param name="index">Индекс, по которому производится вставка</param>
+        /// <param name="item">Вставляемый элемент</param>
         public void Insert(int index, T item)
         {
             if (_isReadOnly)
@@ -188,6 +216,11 @@ namespace GenericListSource
             _count++;
         }
 
+        /// <summary>
+        /// Удаляет первое вхождение указанного объекта из коллекции ICollection<T>
+        /// </summary>
+        /// <param name="item">Удалаяемое значение</param>
+        /// <returns>true если удаление прошло успешно, иначе false</returns>
         public bool Remove(T item)
         {
             if (_isReadOnly)
@@ -207,6 +240,10 @@ namespace GenericListSource
             return true;
         }
 
+        /// <summary>
+        /// Удаляет элемент IList<T>, расположенный по указанному индексу.
+        /// </summary>
+        /// <param name="index">Индекс удаляемого элемента</param>
         public void RemoveAt(int index)
         {
             if (_isReadOnly)
@@ -236,9 +273,10 @@ namespace GenericListSource
             else
             {
                 var previous = GetNodeOnIndex(index - 1);
-                previous.Next = previous.Next.Next;
+                var current = previous.Next;
+                previous.Next = current.Next;
                 // если в конце списка
-                if (previous.Next.Next == null)
+                if (previous.Next == null)
                 {
                     _tail = previous;
                 }
@@ -252,6 +290,17 @@ namespace GenericListSource
             return new ListEnumerator(_head);
         }
 
+        /// <summary>
+        /// Возвращает для текущей коллекции оболочку ReadOnlyCollection<T>, доступную только для чтения.
+        /// </summary>
+        /// <returns>Объект, который служит оболочкой, обеспечивающей доступность текущего списка List<T> только для чтения.</returns>
+        public ReadOnlyCollection<T> AsReadOnly() => new ReadOnlyCollection<T>(this);
+
+        /// <summary>
+        /// Возвращает узел списка по индексу
+        /// </summary>
+        /// <param name="index">Индекс необходимого узла</param>
+        /// <returns>Узел списка Node</returns>
         private Node GetNodeOnIndex(int index)
         {
             if (index < 0 || index >= _count)
