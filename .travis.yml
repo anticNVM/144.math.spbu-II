@@ -4,5 +4,10 @@ dist: trusty
 git:
   depth: 1
 
-mono: latest
+mono: none
 dotnet: 2.0.0
+
+script:
+    - cd ./homeWork 1/T1-factorial/
+    - dotnet restore
+    - dotnet build
