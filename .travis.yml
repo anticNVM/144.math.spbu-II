@@ -8,6 +8,6 @@ mono: none
 dotnet: 2.0.0
 
 script:
-    - cd ./homeWork 1/T1-factorial/
+    - cd ./homeWork\ 1/T1-factorial/
     - dotnet restore
     - dotnet build
