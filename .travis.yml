@@ -1,0 +1,8 @@
+language: csharp
+dist: trusty
+
+git:
+  depth: 1
+
+mono: latest
+dotnet: 2.0.0
