@@ -8,7 +8,7 @@ dotnet: 2.0.0
 
 matrix:
   include:
-    - solution: ./homeWork\ 5/T1-Funcs/T1-Funcs.sln
+    - solution: ./homeWork 5/T1-Funcs/T1-Funcs.sln
     - script:
         - cd ./homeWork\ 5/T1-Funcs/Tests/
         - dotnet test
