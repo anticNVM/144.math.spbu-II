@@ -8,10 +8,8 @@ dotnet: 2.0.0
 
 matrix:
   include:
+    - solution: ./homeWork\ 5/T1-Funcs/T1-Funcs.sln
     - script:
-      - dotnet restore ./homeWork\ 7/T1-GenericList/
-      - dotnet build ./homeWork\ 7/T1-GenericList/
-    - script:
-      - cd ./homeWork\ 7/T1-GenericList//Tests/
-      - dotnet test
+        - cd ./homeWork\ 5/T1-Funcs/Tests/
+        - dotnet test
 
