@@ -10,7 +10,7 @@ matrix:
   include:
     - script:
         - ls
-        - cd ./homeWork\ 5/T1-Funcs && dotnet restore && dotnet add
+        - cd ./homeWork\ 5/T1-Funcs && dotnet restore && dotnet build
     - script:
         - cd ./homeWork\ 5/T1-Funcs/Tests/
         - dotnet test
