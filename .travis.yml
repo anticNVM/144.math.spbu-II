@@ -6,14 +6,12 @@ git:
 mono: none
 dotnet: 2.0.0
 
-env: MYPATH="./homeWork\ 7/T1-GenericList/"
-
 matrix:
   include:
     - script:
-      - dotnet restore $MYPATH
-      - dotnet build $MYPATH
+      - dotnet restore ./homeWork\ 7/T1-GenericList/
+      - dotnet build ./homeWork\ 7/T1-GenericList/
     - script:
-      - cd $MYPATH/Tests/
+      - cd ./homeWork\ 7/T1-GenericList//Tests/
       - dotnet test
 
