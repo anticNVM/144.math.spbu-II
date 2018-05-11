@@ -6,7 +6,7 @@ git:
 mono: none
 dotnet: 2.0.0
 
-env: MYPATH=./homeWork\ 7/T1-GenericList/
+env: MYPATH="./homeWork\ 7/T1-GenericList/"
 
 matrix:
   include:
