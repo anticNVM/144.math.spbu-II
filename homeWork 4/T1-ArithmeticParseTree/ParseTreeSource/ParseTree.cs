@@ -1,8 +1,9 @@
-using System.Collections.Generic;
-using System;
-
 namespace ParseTreeSource
 {
+    using System;
+    using System.Collections.Generic;
+    using MapOfOperations = System.Collections.Generic.Dictionary<string, System.Func<int, int, int>>;
+
     /// <summary>
     /// Дерево разбора
     /// </summary>
@@ -13,11 +14,10 @@ namespace ParseTreeSource
         /// </summary>
         private Node _root;
 
-        private sealed class MapOfOperations : Dictionary<string, Func<int, int, int>> { }
         /// <summary>
         /// Словарь допустимых арифметических операций
         /// </summary>
-        private MapOfOperations _operations = new MapOfOperations{
+        private static MapOfOperations _operations = new MapOfOperations{
             {"+", (x, y) => x + y},
             {"-", (x, y) => x - y},
             {"*", (x, y) => x * y},
@@ -77,14 +77,6 @@ namespace ParseTreeSource
             {
                 yield return token;
             }
-        }
-    }
-
-    public static class EnumeratorExtension
-    {
-        public static string GetNext(this IEnumerator<string> iter)
-        {
-            return iter.MoveNext() ? iter.Current : null;
         }
     }
 }

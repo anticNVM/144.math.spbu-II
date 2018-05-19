@@ -21,9 +21,8 @@ namespace ParseTreeSource
 
             public Operator(string op)
             {
-                var bar = new ParseTree();
                 _operator = op;
-                _operation = bar._operations[op];
+                _operation = _operations[op];
             }
 
             public override int Evaluate() => _operation(base._leftNode.Evaluate(), base._rightNode.Evaluate());

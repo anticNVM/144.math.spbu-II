@@ -24,7 +24,7 @@ namespace ParseTreeTest
             yield return new object[] { "( - 30 ( / 25 5 ) )", 25 };
             // деление нуля
             yield return new object[] { "( / 0 1 )", 0 };
-            // юольшая вложенность операций
+            // большая вложенность операций
             yield return new object[] { "( + ( + ( + ( + 1 1 ) 1 ) 1 ) 1 )", 5 };
         }
 
@@ -43,7 +43,5 @@ namespace ParseTreeTest
             var tree = new ParseTree("( / 1 0 )");
             Assert.Throws<DivideByZeroException>(() => tree.Evaluate());
         }
-
-
     }
 }
