@@ -1,0 +1,12 @@
+{
+  "mapSize": {
+    "width": 8,
+    "height": 4
+  },
+  "keywords": {
+    "wall": "#",
+    "freespace": " ",
+    "playerAvatar": "@",
+    "destination": "X"
+  }
+}

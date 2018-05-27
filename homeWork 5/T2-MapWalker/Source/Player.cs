@@ -4,12 +4,16 @@ namespace Source
 
     public class Player
     {
-        private const string _avatar = "@";
         private readonly IMap _map;
         private Coordinates _currentCoordinates;
 
         public Player(IMap gameMap, Coordinates initialPlayerCoordinates)
         {
+            if (initialPlayerCoordinates == null)
+            {
+                throw new Exception("jq jq jq");
+            }
+            
             _map = gameMap;
             _currentCoordinates = initialPlayerCoordinates;
         }

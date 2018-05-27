@@ -1,16 +1,22 @@
 namespace Source
 {
+    using Newtonsoft.Json;
+    using System.IO;
+    using System.Linq;
+
     public class Game
     {
-        private string _pathToMap;
         private Player _player;
 
-        public Game(string path)
+        public Game(string pathToConfig, string pathToMap)
         {
-            _pathToMap = path;
+            var config = JsonConvert.DeserializeObject<MapConfig>(File.ReadAllText(pathToConfig));
+            var inputStream = new StreamReader(pathToMap);
 
-            var parsedMap = BuildMap();
-            _player = new Player(parsedMap.Item1, parsedMap.Item2);
+            Coordinates initialPlayerCoordinates = null;
+            var map = new Map(config, inputStream, out initialPlayerCoordinates);
+
+            _player = new Player(map, initialPlayerCoordinates);
         }
 
         public void Run()
@@ -19,11 +25,6 @@ namespace Source
 
             mainloop.MoveHandler += _player.OnMove;
             mainloop.Run();
-        }
-
-        private (IMap, Coordinates) BuildMap()
-        {
-
         }
     }
 }
