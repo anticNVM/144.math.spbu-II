@@ -4,7 +4,7 @@ namespace Source
 {
     public class EventLoop
     {
-        public event EventHandler<Coordinates> MoveHandler = (sender, args) => { };
+        public event EventHandler<Coordinates> ArrowPressed;
 
         public void Run()
         {
@@ -15,16 +15,16 @@ namespace Source
                 switch (key.Key)
                 {
                     case ConsoleKey.LeftArrow:
-                        MoveHandler(this, Coordinates.Left); 
+                        ArrowPressed(this, Coordinates.Left); 
                         break;
                     case ConsoleKey.RightArrow:
-                        MoveHandler(this, Coordinates.Right); 
+                        ArrowPressed(this, Coordinates.Right); 
                         break;
                     case ConsoleKey.UpArrow:
-                        MoveHandler(this, Coordinates.Up); 
+                        ArrowPressed(this, Coordinates.Up); 
                         break;
                     case ConsoleKey.DownArrow:
-                        MoveHandler(this, Coordinates.Down); 
+                        ArrowPressed(this, Coordinates.Down); 
                         break;
                     case ConsoleKey.Escape:
                         exit = true;

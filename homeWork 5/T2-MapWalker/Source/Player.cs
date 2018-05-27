@@ -4,8 +4,11 @@ namespace Source
 
     public class Player
     {
-        private readonly IMap _map;
+        private IMap _map;
         private Coordinates _currentCoordinates;
+        public event EventHandler<EventArgs> SuccessfulMovement = (sender, args) => { };
+        public event EventHandler<EventArgs> DestinationReached = (sender, args) => { };
+        public IMap Map { get => _map; } 
 
         public Player(IMap gameMap, Coordinates initialPlayerCoordinates)
         {
@@ -13,14 +16,27 @@ namespace Source
             {
                 throw new Exception("jq jq jq");
             }
-            
+
             _map = gameMap;
             _currentCoordinates = initialPlayerCoordinates;
         }
 
         public void OnMove(object sender, Coordinates args)
         {
-            
+            var nextCoord = _currentCoordinates + args;
+
+            if (_map[nextCoord] == FieldTypes.FreeSpace)
+            {
+                _map[_currentCoordinates] = FieldTypes.FreeSpace;
+                _map[nextCoord] = FieldTypes.Player;
+                _currentCoordinates = nextCoord;
+                SuccessfulMovement(this, EventArgs.Empty);
+            }
+
+            if (_map[nextCoord] == FieldTypes.Destination)
+            {
+                DestinationReached(this, EventArgs.Empty);
+            }
         }
     }
 }

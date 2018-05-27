@@ -1,5 +1,6 @@
 namespace Source
 {
+    using System;
     using Newtonsoft.Json;
     using System.IO;
     using System.Linq;
@@ -19,12 +20,27 @@ namespace Source
             _player = new Player(map, initialPlayerCoordinates);
         }
 
-        public void Run()
+        public void Start()
         {
             var mainloop = new EventLoop();
 
-            mainloop.MoveHandler += _player.OnMove;
+            mainloop.ArrowPressed += _player.OnMove;
+            _player.SuccessfulMovement += (object sender, EventArgs args) => DisplayMap();
+            _player.DestinationReached += (object sender, EventArgs args) => CongratulatePlayer();
+
             mainloop.Run();
+        }
+
+        // TODO
+        private void DisplayMap()
+        {
+            _player.Map.ToString();
+        }
+
+        // TODO
+        private void CongratulatePlayer()
+        {
+
         }
     }
 }

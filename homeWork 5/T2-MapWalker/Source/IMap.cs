@@ -5,6 +5,8 @@ namespace Source
     /// </summary>
     public interface IMap
     {
+        FieldTypes this[Coordinates coords] { get; set; }
+
         /// <summary>
         /// Параметры карты
         /// </summary>

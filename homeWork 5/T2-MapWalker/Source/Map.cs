@@ -1,13 +1,21 @@
 namespace Source
 {
     using System.IO;
+    using System.Text;
+    using System.Collections.Generic;
 
     public class Map : IMap
     {
         private MapConfig _params;
-        private FieldTypes[,] _map;
+        private FieldTypes[,] _board;
 
         public MapConfig Params => _params;
+
+        public FieldTypes this[Coordinates coords]
+        {
+            get => _board[coords.X, coords.Y];
+            set => _board[coords.X, coords.Y] = value;
+        }
 
         public Map(MapConfig config, StreamReader inputStream, out Coordinates initPlayerCoords)
         {
@@ -31,43 +39,50 @@ namespace Source
 
                     if (currentField == _params.Keywords["wall"])
                     {
-                        _map[i, j] = FieldTypes.TheWall;
+                        _board[i, j] = FieldTypes.TheWall;
                     }
                     else if (currentField == _params.Keywords["freespace"])
                     {
-                        _map[i, j] = FieldTypes.FreeSpace;
+                        _board[i, j] = FieldTypes.FreeSpace;
                     }
                     else if (currentField == _params.Keywords["playerAvatar"])
                     {
                         if (avatarIsExist)
                         {
-                            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                            throw new System.Exception();
+                            throw new InvalidNumberOfAvatarsException("Возможен лишь 1 аватар на поле");
                         }
 
-                        _map[i, j] = FieldTypes.Player;
+                        _board[i, j] = FieldTypes.Player;
                         avatarIsExist = true;
-                        initPlayerCoords = new Coordinates(i, j);  // поработать над координатами
+                        initPlayerCoords = new Coordinates(i, j);
                     }
                     else if (currentField == _params.Keywords["destnation"])
                     {
-                        _map[i, j] = FieldTypes.Destination;
+                        _board[i, j] = FieldTypes.Destination;
                         destinationIsExist = true;
                     }
-                    else 
+                    else
                     {
-                        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                        throw new System.Exception();
+
+                        throw new UnsupportedSymbolException(
+                            "Поле содержит неподдерживаемые символы. " +
+                            "Проверьте используемое поле в соответствии с файлом конфигурации");
                     }
                 }
 
                 inputStream.ReadLine();
             }
 
-            if (!destinationIsExist || !avatarIsExist)
+            if (!destinationIsExist)
             {
-                // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                throw new System.Exception();
+                throw new InvalidNumberOfDestinationsException(
+                    "Необходим хотя бы 1 пункт назначения на поле");
+            }
+
+            if (!avatarIsExist)
+            {
+                throw new InvalidNumberOfDestinationsException(
+                    "Единственный аватар обязан присутствовать на поле");
             }
         }
 
@@ -76,13 +91,48 @@ namespace Source
             var x = coordinates.X;
             var y = coordinates.Y;
 
-            if (x >= _params.MapSize["width"] || x < 0 || 
+            if (x >= _params.MapSize["width"] || x < 0 ||
                 y >= _params.MapSize["height"] || y < 0)
             {
                 return FieldTypes.BeyondMap;
             }
 
-            return _map[x, y];
+            return _board[x, y];
+        }
+
+        public override string ToString()
+        {
+            var board = new StringBuilder(
+                (_params.MapSize["height"] + 1) * _params.MapSize["width"]
+            );
+
+            for (int i = 0; i < _params.MapSize["height"]; i++)
+            {
+                for (int j = 0; j < _params.MapSize["width"]; j++)
+                {
+                    switch (_board[i, j])
+                    {
+                        case FieldTypes.TheWall:
+                            board.Append(_params.Keywords["wall"]);
+                            break;
+                        case FieldTypes.FreeSpace:
+                            board.Append(_params.Keywords["freespace"]);
+                            break;
+                        case FieldTypes.Player:
+                            board.Append(_params.Keywords["playersAvatar"]);
+                            break;
+                        case FieldTypes.Destination:
+                            board.Append(_params.Keywords["destination"]);
+                            break;
+                        default:
+                            break;                        
+                    }
+                }
+
+                board.AppendLine();
+            }
+
+            return board.ToString();
         }
     }
 }

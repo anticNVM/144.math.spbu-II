@@ -7,26 +7,26 @@ using Source;
 
 namespace Program
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            // if (args.Length == 0)
-            // {
-            //     Console.WriteLine("Укажите путь до директории");
-            //     return;
-            // }
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Укажите путь до директории");
+                return;
+            }
 
-            // var files = Directory.GetFiles(args[0]);
-            // var pathToConfig = files.First(file => new FileInfo(file).Extension == ".json");
-            // var pathToMap = files.First(file => new FileInfo(file).Extension == ".txt");
+            var files = Directory.GetFiles(args[0]);
+            var pathToConfig = files.First(file => new FileInfo(file).Extension == ".json");
+            var pathToMap = files.First(file => new FileInfo(file).Extension == ".txt");
 
-            // string preConfig = File.ReadAllText(pathToConfig);
-            // StreamReader preMap = new StreamReader(pathToMap);
+            string preConfig = File.ReadAllText(pathToConfig);
+            StreamReader preMap = new StreamReader(pathToMap);
 
-            // var game = new Game(pathToConfig, pathToMap);
+            var game = new Game(pathToConfig, pathToMap);
 
-            new Kek();
+            //new Kek();
         }
     }
 
