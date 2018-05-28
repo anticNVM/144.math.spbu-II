@@ -4,7 +4,17 @@ namespace Source
 {
     public class EventLoop
     {
-        public event EventHandler<Coordinates> ArrowPressed;
+        public event EventHandler<ArrowPressedEventArgs> ArrowPressed;
+
+        // это каноническое объявление событий)
+        protected virtual void OnArrowPressed(ArrowPressedEventArgs args)
+        {
+            // = ArrowPressed?.Invoke(this, args)
+            if (ArrowPressed != null)
+            {
+                ArrowPressed(this, args);
+            }
+        }
 
         public void Run()
         {
@@ -15,16 +25,16 @@ namespace Source
                 switch (key.Key)
                 {
                     case ConsoleKey.LeftArrow:
-                        ArrowPressed(this, Coordinates.Left); 
+                        OnArrowPressed(ArrowPressedEventArgs.Left);
                         break;
                     case ConsoleKey.RightArrow:
-                        ArrowPressed(this, Coordinates.Right); 
+                        OnArrowPressed(ArrowPressedEventArgs.Right); 
                         break;
                     case ConsoleKey.UpArrow:
-                        ArrowPressed(this, Coordinates.Up); 
+                        OnArrowPressed(ArrowPressedEventArgs.Up); 
                         break;
                     case ConsoleKey.DownArrow:
-                        ArrowPressed(this, Coordinates.Down); 
+                        OnArrowPressed(ArrowPressedEventArgs.Down); 
                         break;
                     case ConsoleKey.Escape:
                         exit = true;

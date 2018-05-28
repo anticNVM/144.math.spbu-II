@@ -24,7 +24,7 @@ namespace Source
         {
             var mainloop = new EventLoop();
 
-            mainloop.ArrowPressed += _player.OnMove;
+            mainloop.ArrowPressed += _player.MovePlayer;
             _player.SuccessfulMovement += (object sender, EventArgs args) => DisplayMap();
             _player.DestinationReached += (object sender, EventArgs args) => CongratulatePlayer();
 

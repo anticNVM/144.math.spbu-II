@@ -21,9 +21,9 @@ namespace Source
             _currentCoordinates = initialPlayerCoordinates;
         }
 
-        public void OnMove(object sender, Coordinates args)
+        public void MovePlayer(object sender, ArrowPressedEventArgs args)
         {
-            var nextCoord = _currentCoordinates + args;
+            var nextCoord = _currentCoordinates + args.Coordinates;
 
             if (_map[nextCoord] == FieldTypes.FreeSpace)
             {
