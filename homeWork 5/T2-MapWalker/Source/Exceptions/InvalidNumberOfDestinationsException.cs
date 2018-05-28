@@ -1,5 +1,8 @@
 ﻿namespace Source
 {
+    /// <summary>
+    /// Исключение, бросаемое при неверном количестве точек назначения на карте
+    /// </summary>
     [System.Serializable]
     public class InvalidNumberOfDestinationsException : System.Exception
     {

@@ -3,20 +3,35 @@ namespace Source
     using System;
     using System.IO;
     using System.Text;
-    using System.Collections.Generic;
 
     public class Map : IMap
     {
+        /// <summary>
+        /// Параметры карты
+        /// </summary>
         private MapConfig _params;
+
+        /// <summary>
+        /// Игровое поле
+        /// </summary>
         private FieldTypes[,] _board;
 
-        public MapConfig Params => _params;
-
+        /// <summary>
+        /// Создает карту и определяет начальные координаты игрока
+        /// </summary>
+        /// <param name="config">Настройки карты</param>
+        /// <param name="inputStream">Поток символов, для построения карты</param>
+        /// <param name="initPlayerCoords">Начальные координаты игрока</param>
         public Map(MapConfig config, StreamReader inputStream, out Coordinates initPlayerCoords)
         {
             ConfigureMap(config);
             BuildMap(inputStream, out initPlayerCoords);
         }
+
+        /// <summary>
+        /// Параметры карты
+        /// </summary>
+        public MapConfig Params => _params;
 
         public FieldTypes this[Coordinates coords]
         {

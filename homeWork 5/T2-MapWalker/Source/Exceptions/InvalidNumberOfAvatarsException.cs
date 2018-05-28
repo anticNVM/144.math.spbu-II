@@ -1,5 +1,8 @@
 ﻿namespace Source
 {
+    /// <summary>
+    /// Исключение, бросаемое при неверном числе аватаров игроков на карте
+    /// </summary>
     [System.Serializable]
     public class InvalidNumberOfAvatarsException : System.Exception
     {

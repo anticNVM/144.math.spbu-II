@@ -1,5 +1,8 @@
 ﻿namespace Source
 {
+    /// <summary>
+    /// Исключение, бросаемое, если введен неподдерживаемый символ
+    /// </summary>
     [System.Serializable]
     public class UnsupportedSymbolException : System.Exception
     {
