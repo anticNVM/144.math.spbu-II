@@ -12,12 +12,5 @@ namespace Source
         /// </summary>
         /// <returns></returns>
         MapConfig Params { get; }
-
-        /// <summary>
-        /// Значение поле по соответствующей координате
-        /// </summary>
-        /// <param name="coordinates"></param>
-        /// <returns></returns>
-        FieldTypes GetFieldTypeOn(Coordinates coordinates);
     }
 }

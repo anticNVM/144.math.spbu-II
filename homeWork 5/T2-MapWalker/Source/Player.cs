@@ -14,7 +14,7 @@ namespace Source
         {
             if (initialPlayerCoordinates == null)
             {
-                throw new Exception("jq jq jq");
+                throw new Exception("ой ой ой");
             }
 
             _map = gameMap;

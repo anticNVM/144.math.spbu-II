@@ -1,5 +1,6 @@
 namespace Source
 {
+    using System;
     using System.IO;
     using System.Text;
     using System.Collections.Generic;
@@ -11,22 +12,41 @@ namespace Source
 
         public MapConfig Params => _params;
 
-        public FieldTypes this[Coordinates coords]
-        {
-            get => _board[coords.X, coords.Y];
-            set => _board[coords.X, coords.Y] = value;
-        }
-
         public Map(MapConfig config, StreamReader inputStream, out Coordinates initPlayerCoords)
         {
             ConfigureMap(config);
             BuildMap(inputStream, out initPlayerCoords);
         }
 
+        public FieldTypes this[Coordinates coords]
+        {
+            get
+            {
+                if (coords.X < 0 || coords.Y < 0)
+                {
+                    return FieldTypes.BeyondMap;
+                }
+
+                return _board[coords.X, coords.Y];
+            }
+
+            set
+            {
+                if (coords.X < 0 || coords.Y < 0)
+                {
+                    throw new IndexOutOfRangeException("Координаты не могут быть отрицательны");
+                }
+
+                _board[coords.X, coords.Y] = value;
+            }
+        }
+
         private void ConfigureMap(MapConfig config) => _params = config;
 
         private void BuildMap(StreamReader inputStream, out Coordinates initPlayerCoords)
         {
+            _board = new FieldTypes[_params.MapSize["height"], _params.MapSize["width"]];
+
             bool avatarIsExist = false;
             bool destinationIsExist = false;
             initPlayerCoords = null;
@@ -56,14 +76,13 @@ namespace Source
                         avatarIsExist = true;
                         initPlayerCoords = new Coordinates(i, j);
                     }
-                    else if (currentField == _params.Keywords["destnation"])
+                    else if (currentField == _params.Keywords["destination"])
                     {
                         _board[i, j] = FieldTypes.Destination;
                         destinationIsExist = true;
                     }
                     else
                     {
-
                         throw new UnsupportedSymbolException(
                             "Поле содержит неподдерживаемые символы. " +
                             "Проверьте используемое поле в соответствии с файлом конфигурации");
@@ -86,20 +105,6 @@ namespace Source
             }
         }
 
-        public FieldTypes GetFieldTypeOn(Coordinates coordinates)
-        {
-            var x = coordinates.X;
-            var y = coordinates.Y;
-
-            if (x >= _params.MapSize["width"] || x < 0 ||
-                y >= _params.MapSize["height"] || y < 0)
-            {
-                return FieldTypes.BeyondMap;
-            }
-
-            return _board[x, y];
-        }
-
         public override string ToString()
         {
             var board = new StringBuilder(
@@ -119,13 +124,13 @@ namespace Source
                             board.Append(_params.Keywords["freespace"]);
                             break;
                         case FieldTypes.Player:
-                            board.Append(_params.Keywords["playersAvatar"]);
+                            board.Append(_params.Keywords["playerAvatar"]);
                             break;
                         case FieldTypes.Destination:
                             board.Append(_params.Keywords["destination"]);
                             break;
                         default:
-                            break;                        
+                            break;
                     }
                 }
 

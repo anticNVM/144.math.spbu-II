@@ -4,22 +4,14 @@ namespace Source
 {
     public class EventLoop
     {
-        public event EventHandler<ArrowPressedEventArgs> ArrowPressed;
+        private bool _exit = false;
 
-        // это каноническое объявление событий)
-        protected virtual void OnArrowPressed(ArrowPressedEventArgs args)
-        {
-            // = ArrowPressed?.Invoke(this, args)
-            if (ArrowPressed != null)
-            {
-                ArrowPressed(this, args);
-            }
-        }
+        public event EventHandler<ArrowPressedEventArgs> ArrowPressed;
+        protected virtual void OnArrowPressed(ArrowPressedEventArgs args) => ArrowPressed?.Invoke(this, args);
 
         public void Run()
         {
-            bool exit = false;
-            while (!exit)
+            while (!_exit)
             {
                 var key = Console.ReadKey();
                 switch (key.Key)
@@ -37,12 +29,14 @@ namespace Source
                         OnArrowPressed(ArrowPressedEventArgs.Down); 
                         break;
                     case ConsoleKey.Escape:
-                        exit = true;
+                        Exit();
                         break;
                     default:
                         break;
                 }
             }
         }
+
+        public void Exit() => _exit = true;        
     }
 }

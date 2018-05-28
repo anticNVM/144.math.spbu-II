@@ -13,35 +13,18 @@ namespace Program
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("Укажите путь до директории");
+                Console.WriteLine("Укажите путь до директории.");
                 return;
             }
 
-            var files = Directory.GetFiles(args[0]);
-            var pathToConfig = files.First(file => new FileInfo(file).Extension == ".json");
-            var pathToMap = files.First(file => new FileInfo(file).Extension == ".txt");
+            var pathToConfig = args[0];
+            if (new FileInfo(pathToConfig).Extension != ".json")
+            {
+                Console.WriteLine("Укажите путь до файла .json");
+            }
 
-            string preConfig = File.ReadAllText(pathToConfig);
-            StreamReader preMap = new StreamReader(pathToMap);
-
-            var game = new Game(pathToConfig, pathToMap);
-
-            //new Kek();
-        }
-    }
-
-    public class Kek
-    {
-        public Kek()
-        {
-            string dirname = @"../Resources/ExampleMap/";
-
-            //Directory.GetFiles(dirname).ToList().ForEach(str => System.Console.WriteLine(new FileInfo(str).Extension));
-            //Directory.GetFiles(dirname).ToList().ForEach(str )
-
-            var strConfig = Directory.GetFiles(dirname).First(file => (new FileInfo(file)).Extension == ".json");
-            var conf = JsonConvert.DeserializeObject<MapConfig>(File.ReadAllText(strConfig));
-            System.Console.WriteLine(conf.Keywords["wall"]);
+            var game = new Game(pathToConfig);
+            game.Start();
         }
     }
 }

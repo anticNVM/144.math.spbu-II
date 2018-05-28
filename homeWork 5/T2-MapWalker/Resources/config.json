@@ -1,0 +1,15 @@
+{
+  "mapConfig": {
+    "mapSize": {
+      "width": 8,
+      "height": 4
+    },
+    "keywords": {
+      "wall": "#",
+      "freespace": " ",
+      "playerAvatar": "@",
+      "destination": "X"
+    }
+  },
+  "pathToMap": "/home/guardian/git/144.math.spbu-II/homeWork 5/T2-MapWalker/Resources/map.txt" 
+}
