@@ -1,5 +1,6 @@
 {
-  "mapConfig": {
+  "mapConfig": 
+  {
     "mapSize": {
       "width": 8,
       "height": 4
@@ -11,5 +12,6 @@
       "destination": "X"
     }
   },
-  "pathToMap": "/home/guardian/git/144.math.spbu-II/homeWork 5/T2-MapWalker/Resources/map.txt" 
+
+  "pathToMap": "../Resources/map.txt" 
 }
