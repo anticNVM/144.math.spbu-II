@@ -10,6 +10,11 @@ namespace Source
     public class Game
     {
         /// <summary>
+        /// Назавание игры
+        /// </summary>
+        private static string _title = "SUPER_MEGA_RPG_4";
+
+        /// <summary>
         /// Игрок)
         /// </summary>
         private Player _player;
@@ -28,31 +33,36 @@ namespace Source
         }
 
         /// <summary>
-        /// Метод, запускающий игру в консоль
+        /// Метод, запускающий игру в консоле
         /// </summary>
         public void Start()
         {
             var mainloop = new EventLoop();
 
             mainloop.ArrowPressed += _player.MovePlayer;
-            _player.SuccessfulMovement += (object sender, EventArgs args) => 
-                {
-                    Console.Clear();
-                    DisplayMap();
-                };
+            _player.SuccessfulMovement += (object sender, EventArgs args) => ClearConsoleAndDispalyMap();
             _player.DestinationReached += (object sender, EventArgs args) => CongratulatePlayer();
             _player.DestinationReached += (object sender, EventArgs args) => mainloop.Exit();
 
-            DisplayMap();
+            ConsoleSettings.SetCustom();
+            ClearConsoleAndDispalyMap();
             mainloop.Run();
+
+            ConsoleSettings.SetDefault();
         }
 
         /// <summary>
         /// Печатает карту в консоль
         /// </summary>
-        private void DisplayMap()
+        private void DisplayMap() => System.Console.WriteLine(_player.Map.ToString());
+
+        /// <summary>
+        /// Очищает консоль и печатает карту
+        /// </summary>
+        private void ClearConsoleAndDispalyMap()
         {
-            System.Console.WriteLine(_player.Map.ToString());
+            Console.Clear();
+            DisplayMap();
         }
 
         /// <summary>
@@ -61,6 +71,23 @@ namespace Source
         private void CongratulatePlayer()
         {
             System.Console.WriteLine("!!!!");
+        }
+
+        /// <summary>
+        /// Класс с настройками консоли
+        /// </summary>
+        private static class ConsoleSettings
+        {
+            public static void SetCustom()
+            {
+                Console.CursorVisible = false;
+                Console.Title = _title;
+            }
+
+            public static void SetDefault()
+            {
+                Console.CursorVisible = true;
+            }
         }
     }
 }
