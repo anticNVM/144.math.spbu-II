@@ -14,25 +14,25 @@
 * (66-69) Переменные не в CamelCase формате
   ```cpp
   int first_size_x;
-	int first_size_y;
-	int current_size_x;
-	int current_size_y;
+  int first_size_y;
+  int current_size_x;
+  int current_size_y;
   ```
 * (72-74, 78-79) Плохие имена переменных 
   ```cpp
   int i;
-	int j;
+  int j;
   int sep;
   ```
   ```cpp
   QString s1;
-	QString s2;
+  QString s2;
   ```
 * ? Разве не надо инициализовывать переменные значениями по умолчанию ?
 * (92-93) ? Что за const за сигнатурой метода ?
   ```cpp
   bool checkShowConditions(const QDomElement &element, bool isIcon) const;
-	bool checkCondition(const QDomElement &condition) const;
+   bool checkCondition(const QDomElement &condition) const;
   ```
 * (100) Имя метода не в CamelCase формате
   ```cpp
@@ -45,14 +45,14 @@
 * Именна не в CamelCase формате
   ```cpp
   void path_draw(QDomElement &element);
-	void stylus_draw(QDomElement &element);
-	void curve_draw(QDomElement &element);
-	void image_draw(QDomElement &element);
-	float x1_def(QDomElement &element);
-	float y1_def(QDomElement &element);
-	float x2_def(QDomElement &element);
-	float y2_def(QDomElement &element);
-	float coord_def(QDomElement &element, QString coordName, int current_size, int first_size);
+  void stylus_draw(QDomElement &element);
+  void curve_draw(QDomElement &element);
+  void image_draw(QDomElement &element);
+  float x1_def(QDomElement &element);
+  float y1_def(QDomElement &element);
+  float x2_def(QDomElement &element);
+  float y2_def(QDomElement &element);
+  float coord_def(QDomElement &element, QString coordName, int current_size, int first_size);
   ```
 * (115) Строки в аргументах не по константной ссылке передаются
   ```cpp
@@ -61,7 +61,7 @@
 * (117-118) Лишний комментарий
   ```cpp
   /// checks that str[i] is not L, C, M or Z
-	/// @todo Not so helpful comment
+  /// @todo Not so helpful comment
   ```
 * (152) Приватный конструктор) (А зачем вообще коструктор, если все методы статические)
   ```cpp
