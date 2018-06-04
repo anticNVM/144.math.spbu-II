@@ -1,11 +1,12 @@
 ## Code Review of [sdfRenderer.cpp](https://github.com/qreal/qreal/blob/master/qrgui/plugins/pluginManager/sdfRenderer.cpp)
+##### Если комментарий обрамлен вопросами (вот так ? ... ?), это значит, что я не понял какую-то кострукцию или никогда не встречал такого синтаксиса (т.е. это не замечание) :)
 
 * (27-28) Локальные файлы лучше подключать через кавычки
   ```cpp
   #include <qrutils/imagesCache.h>
   #include <metaMetaModel/elementRepoInterface.h>
   ```
-* (60) ?Что значит эта строка?
+* (60) ? Что значит эта строка ? (т.е. тут побитовое ИЛИ?)
   ```cpp
   if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
   ```
@@ -25,7 +26,7 @@
   ```cpp
   const QDomElement docElem = doc.firstChildElement("picture");
   first_size_x = docElem.attribute("sizex").toInt();
-	first_size_y = docElem.attribute("sizey").toInt();
+  first_size_y = docElem.attribute("sizey").toInt();
   ```
 * (175) Тут правильнее было бы nullptr присваивать
   ```cpp
@@ -87,6 +88,11 @@
 				logger ("loggerZ.txt", "DONE");
 			}
   ```
+* (607-608) Тут тоже одно и то же для 2 координат -> можно вынести
+	```cpp
+	start.setX(elem.attribute("startx").toDouble() * current_size_x / first_size_x);
+	start.setY(elem.attribute("starty").toDouble() * current_size_y / first_size_y);
+	```
 * (658-669) Это тоже можно было в словарь положить
   ```cpp
   if (elem.attribute("stroke-style") == "solid")
@@ -102,6 +108,7 @@
 			if (elem.attribute("stroke-style") == "none")
 				pen.setStyle(Qt::NoPen);
   ```
+* (739-761) Тут elif`ы можно не писать, так все равно в кждой ветве return
 * (784-790) Тут сдвинулось) 
   ```cpp
   void SdfRenderer::logger(QString path, QString string)
@@ -112,7 +119,13 @@
 	  log.close();
   }
   ```
-* (820-821) ?тут я тоже не понимаю, что происходит и почему нет ; ?
+* (799-801) Опять копипастъ
+	```cpp
+	mRenderer.load(file);
+	mRenderer.noScale();
+	mSize = QSize(mRenderer.pictureWidth(), mRenderer.pictureHeight());
+	```
+* (820-821) ? тут я тоже не понимаю, что происходит и почему нет ; ?
   ```cpp
   Q_UNUSED(mode)
 	Q_UNUSED(state)
@@ -125,8 +138,14 @@
 	int ph = mRenderer.pictureHeight();
 	int pw = mRenderer.pictureWidth();
   ```
+* (845-848) Полезно)
+	```cpp
+	QIconEngine *SdfIconEngineV2::clone() const
+	{
+		return nullptr;
+	}
+	```
 * Кстати комментов тоже нигде нет, а хотелось хоть какие-нибудь
   
-P.S. Мб ревью получилось не очень содержательным, тк непонятно, что тут вообще происходит(
+P.S. Мб ревью получилось не очень содержательным, тк довольно сложно понять, что тут происходит(
   
- 
