@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using CalculatorSource.Exceptions;
-
-namespace CalculatorSource
+﻿namespace CalculatorSource
 {
+    using System;
+    using System.Collections.Generic;
+    using CalculatorSource.Exceptions;
+    using ArithmeticOperators = System.Collections.Generic.Dictionary<string, System.Func<double, double, double>>;
+
     /// <summary>
     /// Калькулятор
     /// </summary>
     public static class Calculator
     {
-        private sealed class ArithmeticOperators : Dictionary<string, Func<double, double, double>> { }
         /// <summary>
         /// Ассоциативный массив, который по оператору возвращает соответствующую бинарную операцию
         /// </summary>
         private static ArithmeticOperators _operators = new ArithmeticOperators()
         {
-            ["+"] = (double x, double y) => x + y,
-            ["-"] = (double x, double y) => x - y,
-            ["*"] = (double x, double y) => x * y,
-            ["/"] = (double x, double y) =>
+            ["+"] = (x, y) => x + y,
+            ["-"] = (x, y) => x - y,
+            ["*"] = (x, y) => x * y,
+            ["/"] = (x, y) =>
             {
                 const double delta = 1e-6;
                 if (Math.Abs(y) < delta)

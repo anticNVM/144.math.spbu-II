@@ -94,9 +94,9 @@ public partial class MainWindow : Gtk.Window
     /// </summary>
     private static class MessageBox
     {
-        public static void Show(Gtk.Window parent_window, DialogFlags flags, MessageType msgtype, ButtonsType btntype, string msg)
+        public static void Show(Gtk.Window parentWindow, DialogFlags flags, MessageType msgtype, ButtonsType btntype, string msg)
         {
-            MessageDialog md = new MessageDialog(parent_window, flags, msgtype, btntype, msg);
+            MessageDialog md = new MessageDialog(parentWindow, flags, msgtype, btntype, msg);
             md.Run();
             md.Destroy();
         }
