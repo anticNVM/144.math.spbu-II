@@ -2,10 +2,9 @@ namespace ParseTreeSource
 {
     using System;
     using System.Collections.Generic;
-    using MapOfOperations = System.Collections.Generic.Dictionary<string, System.Func<int, int, int>>;
 
     /// <summary>
-    /// Дерево разбора
+    /// Дерево разбора, вычисляющее значение арифметического выражения по его представлению в виде дерева 
     /// </summary>
     public partial class ParseTree : IParseTree
     {
@@ -15,16 +14,9 @@ namespace ParseTreeSource
         private Node _root;
 
         /// <summary>
-        /// Словарь допустимых арифметических операций
+        /// Таблица арифметических опереторов для данного дерева разбора
         /// </summary>
-        private static MapOfOperations _operations = new MapOfOperations{
-            {"+", (x, y) => x + y},
-            {"-", (x, y) => x - y},
-            {"*", (x, y) => x * y},
-            {"/", (x, y) => x / y},
-        };
-
-        public ParseTree() { }
+        private TableOfOperations _table;
 
         public ParseTree(string expression)
         {
@@ -34,22 +26,30 @@ namespace ParseTreeSource
                 return;
             }
 
+            _table = new TableOfOperations();
+
             var tokens = expression.Split(' ');
-            var iter = GetEnumerator(tokens);
+            var iter = GetSequence(tokens);
             BuildTree(ref _root, iter);
         }
 
+        /// <summary>
+        /// Считает значение выражения, хранимого в дереве
+        /// </summary>
+        /// <returns>Значение арифметического выражения</returns>
         public int Evaluate() => _root.Evaluate();
 
+        /// <summary>
+        /// Строковое значение выражения
+        /// </summary>
+        /// <returns>Выражение в инфиксной записи</returns>
         public override string ToString() => _root.ToString();
 
         /// <summary>
-        /// Добавляет оператор в список доопустимых операций
+        /// Рекурсивно строит дерево по корректной последовательности символов
         /// </summary>
-        /// <param name="op">Добавляемый оператор</param>
-        /// <param name="operation">Функция оператора</param>
-        public void AddOperation(string op, Func<int, int, int> operation) => _operations.Add(op, operation);
-
+        /// <param name="node"></param>
+        /// <param name="iter"></param>
         private void BuildTree(ref Node node, IEnumerator<string> iter)
         {
             var current = iter.GetNext();
@@ -60,9 +60,9 @@ namespace ParseTreeSource
             // если (, тогда след за ним это оператор
             if (current == "(")
             {
-                node = new Operator(iter.GetNext());
-                BuildTree(ref node._leftNode, iter);
-                BuildTree(ref node._rightNode, iter);
+                node = new Operator(iter.GetNext(), _table);
+                BuildTree(ref (node as Operator)._leftNode, iter);
+                BuildTree(ref (node as Operator)._rightNode, iter);
             }
             // тогда это число
             else if (int.TryParse(current, out int value))
@@ -71,12 +71,82 @@ namespace ParseTreeSource
             }
         }
 
-        private IEnumerator<string> GetEnumerator(string[] tokens)
+
+        private IEnumerator<string> GetSequence(string[] tokens)
         {
             foreach (var token in tokens)
             {
                 yield return token;
             }
+        }
+
+        /// <summary>
+        /// Узел дерева (абстрактный класс)
+        /// </summary>
+        private abstract class Node
+        {
+            /// <summary>
+            /// Считает значение выражения в поддереве
+            /// </summary>
+            /// <returns>Значение выражения в поддереве</returns>
+            public abstract int Evaluate(); // Абстрактный метод неявно представляет собой виртуальный метод!!
+        }
+
+        /// <summary>
+        /// Класс Операнда (лист дерева)
+        /// </summary>
+        private class Operand : Node
+        {
+            /// <summary>
+            /// Целочисленное значение, хранимое в узле
+            /// </summary>
+            private int _value;
+
+            public Operand(int value) => _value = value;
+
+            public override int Evaluate() => _value;
+
+            public override string ToString() => _value.ToString();
+        }
+
+        /// <summary>
+        /// Класс оператора
+        /// </summary>
+        private class Operator : Node
+        {
+            /// <summary>
+            /// Строковый символ оператора
+            /// </summary>
+            private string _operator;
+
+            /// <summary>
+            /// Ссылка на таблицу арифметических опереторов для данного дерева разбора
+            /// </summary>
+            private TableOfOperations _table;
+
+            /// <summary>
+            /// Левый сын текущего узда
+            /// </summary>
+            public Node _leftNode;
+
+            /// <summary>
+            /// Правый сын текущего узла
+            /// </summary>
+            public Node _rightNode;
+
+            public Operator(string op, TableOfOperations table)
+            {
+                _operator = op;
+                _table = table;
+            }
+
+            public override int Evaluate() => _table[_operator](_leftNode.Evaluate(), _rightNode.Evaluate());
+
+            /// <summary>
+            /// Представляет выражение в поддереве в инфиксной форме
+            /// </summary>
+            /// <returns>Строковое представление выражения</returns>
+            public override string ToString() => $"({_leftNode} {_operator} {_rightNode})";
         }
     }
 }
