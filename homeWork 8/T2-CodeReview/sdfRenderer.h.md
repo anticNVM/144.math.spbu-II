@@ -1,4 +1,5 @@
 ## Code Review of [sdfRenderer.h](https://github.com/qreal/qreal/blob/master/qrgui/plugins/pluginManager/sdfRenderer.h)
+##### Если комментарий обрамлен вопросами (вот так ? ... ?), это значит, что я не понял какую-то кострукцию или никогда не встречал такого синтаксиса (т.е. это не замечание) :)
 
 * Во всем файле совершенно отстутствуют комментарии, а там, где они есть, не в oxygen формате
 * (28, 29) Файлы локальные, поэтому правильнее было бы писать include`ы в кавычках
@@ -32,13 +33,13 @@
 * (92-93) ? Что за const за сигнатурой метода ?
   ```cpp
   bool checkShowConditions(const QDomElement &element, bool isIcon) const;
-   bool checkCondition(const QDomElement &condition) const;
+  bool checkCondition(const QDomElement &condition) const;
   ```
 * (100) Имя метода не в CamelCase формате
   ```cpp
   void draw_text(QDomElement &element);
   ```
-* (104) Лищний пробел между именем метода и скобкой
+* (104) Лишний пробел между именем метода и скобкой
   ```cpp
   void point (QDomElement &element);
   ```
@@ -63,7 +64,7 @@
   /// checks that str[i] is not L, C, M or Z
   /// @todo Not so helpful comment
   ```
-* (152) Приватный конструктор) (А зачем вообще коструктор, если все методы статические)
+* (139 - 157) С этим классом вообще что-то странное ,имхо. Во-первых, приватный конструктор, что само по себе не очень     полезно, а во-вторых, мне кажется, этот класс можно было б сделать статическим. Судя по реализации, instance() создает экземпляр объекта для доступа к полям mLoadedIcons и mPreferedSizes, что как бы намекет.  
   ```cpp
-  SdfIconLoader();
+  class SdfIconLoader ...
   ```
