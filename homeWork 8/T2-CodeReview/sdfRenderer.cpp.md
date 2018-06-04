@@ -40,9 +40,9 @@
 * Эти строки повторяются в нескольких методах подряд
   ```cpp
   float x1 = x1_def(element);
-	float y1 = y1_def(element);
-	float x2 = x2_def(element);
-	float y2 = y2_def(element);
+  float y1 = y1_def(element);
+  float x2 = x2_def(element);
+  float y2 = y2_def(element);
   ```
 * (315) JUST DO IT! (Лишний коммент)
   ```cpp
@@ -55,23 +55,23 @@
 * (364-400) Мне кажется этот кусок ниже повторяется, но для координаты y (можно вынести в отдельный метод) + последний else не в {}
   ```cpp
   QString xnum = elem.attribute(QString("x").append(str));
-		if (xnum.endsWith("%"))
-		{
-			xnum.chop(1);
-			x = current_size_x * xnum.toFloat() / 100 + mStartX;
-		}
-		else if (xnum.endsWith("a") && mNeedScale)
-		{
-			xnum.chop(1);
-			x = xnum.toFloat() + mStartX;
-		}
-		else if (xnum.endsWith("a") && !mNeedScale)
-		{
-			xnum.chop(1);
-			x = xnum.toFloat() * current_size_x / first_size_x + mStartX;
-		}
-		else
-			x = xnum.toFloat() * current_size_x / first_size_x + mStartX;
+	if (xnum.endsWith("%"))
+	{
+		xnum.chop(1);
+		x = current_size_x * xnum.toFloat() / 100 + mStartX;
+	}
+	else if (xnum.endsWith("a") && mNeedScale)
+	{
+		xnum.chop(1);
+		x = xnum.toFloat() + mStartX;
+	}
+	else if (xnum.endsWith("a") && !mNeedScale)
+	{
+		xnum.chop(1);
+		x = xnum.toFloat() * current_size_x / first_size_x + mStartX;
+	}
+	else
+		x = xnum.toFloat() * current_size_x / first_size_x + mStartX;
   ```
 * (423 и далее)
   1) Тут какая то супер большая вложенность, внешний if можно было бы убрать просто проверкой на null 
@@ -147,5 +147,5 @@
 	```
 * Кстати комментов тоже нигде нет, а хотелось хоть какие-нибудь
   
-P.S. Мб ревью получилось не очень содержательным, тк довольно сложно понять, что тут происходит(
+##### P.S. Мб ревью получилось не очень содержательным, тк довольно сложно понять, что тут происходит(
   
