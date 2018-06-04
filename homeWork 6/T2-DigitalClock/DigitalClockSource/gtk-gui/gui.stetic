@@ -8,7 +8,13 @@
     <widget-library name="../bin/Debug/DigitalClockSource.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="405 300">
-    <action-group name="Default" />
+    <action-group name="Default">
+      <action id="krkkrAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">krkkr</property>
+        <property name="ShortLabel" translatable="yes">krkkr</property>
+      </action>
+    </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
