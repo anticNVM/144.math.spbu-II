@@ -21,13 +21,20 @@ namespace PrimeGeneratorSource
         /// Возвращает <see cref="IEnumerable"/> простых чисел размера <paramref name="amount"/>
         /// </summary>
         /// <param name="amount">Количество чисел, начиная с 2</param>
-        /// <returns>Коллекция простых чисел</returns>
-        public static IEnumerable<int> GenerateOf(int amount)
+        /// <returns>Коллекция простых чисел, состоящая из первых <paramref name="amount"/> чисел</returns>
+        public static IEnumerable<int> GenerateFirst(int amount)
         {
             var list = new List<int>(amount);
+            var count = 0;
             foreach (var prime in Generate())
             {
+                if (count >= amount)
+                {
+                    break;
+                }
+
                 list.Add(prime);
+                count++;
             }
 
             return list;
@@ -39,7 +46,7 @@ namespace PrimeGeneratorSource
         /// <returns></returns>
         private static IEnumerable<int> GenerateInts()
         {
-            int current = 0;
+            int current = 1;
             while (true)
             {
                 yield return current++;
