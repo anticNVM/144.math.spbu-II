@@ -115,7 +115,7 @@ namespace Source
 
             if (!avatarIsExist)
             {
-                throw new InvalidNumberOfDestinationsException(
+                throw new InvalidNumberOfAvatarsException(
                     "Единственный аватар обязан присутствовать на поле");
             }
         }

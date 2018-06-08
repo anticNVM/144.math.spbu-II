@@ -21,8 +21,23 @@ namespace Program
                 return;
             }
 
-            var game = new Game(pathToConfig);
-            game.Start();
+            Game game;
+            try
+            {
+                game = new Game(pathToConfig);
+            }
+            catch (Exception e) when (
+                e is InvalidNumberOfAvatarsException ||
+                e is InvalidNumberOfDestinationsException ||
+                e is UnsupportedSymbolException ||
+                e is FileNotFoundException
+            )
+            {
+                Console.WriteLine(e.Message);
+                return;
+            }
+
+            game?.Start(); 
         }
     }
 }

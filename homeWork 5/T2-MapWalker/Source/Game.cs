@@ -19,6 +19,8 @@ namespace Source
         /// </summary>
         private Player _player;
 
+        protected IMap CurrentMap => _player.Map;
+
         /// <summary>
         /// Создает новую игру, с настройками из <paramref name="pathToGameConfig"/>
         /// </summary>
@@ -70,7 +72,8 @@ namespace Source
         /// </summary>
         private void CongratulatePlayer()
         {
-            System.Console.WriteLine("!!!!");
+            System.Console.WriteLine(
+                "Congratulations! You win! \n");
         }
 
         /// <summary>

@@ -1,8 +1,8 @@
 {
     "mapConfig": {
         "mapSize": {
-            "width": 8,
-            "height": 4
+            "width": 5,
+            "height": 3
         },
         "keywords": {
             "wall": "#",
@@ -11,5 +11,5 @@
             "destination": "X"
         }
     },
-    "pathToMap": "../Resources/map.txt"
+    "pathToMap": "/home/guardian/git/144.math.spbu-II/homeWork 5/T2-MapWalker/Tests/TestResources/2Avatars/map.txt"
 }
