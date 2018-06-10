@@ -11,5 +11,5 @@
             "destination": "X"
         }
     },
-    "pathToMap": "/home/guardian/git/144.math.spbu-II/homeWork 5/T2-MapWalker/Tests/TestResources/0Destinations/map.txt"
+    "pathToMap": "TestResources/0Destinations/map.txt"
 }

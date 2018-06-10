@@ -21,11 +21,11 @@ namespace Tests
     {
         private TestGame _game;
 
-        private string _pathToMapWith2Avatars = @"/home/guardian/git/144.math.spbu-II/homeWork 5/T2-MapWalker/Tests/TestResources/0Destinations/map.txt";
-        private string _pathToMapWith0Avatars = @"/home/guardian/git/144.math.spbu-II/homeWork 5/T2-MapWalker/Tests/TestResources/0Avatars/config.json";
-        private string _pathToMapWith0Destinations = @"/home/guardian/git/144.math.spbu-II/homeWork 5/T2-MapWalker/Tests/TestResources/0Destinations/map.txt";
-        private string _pathToMapWithUnsupportedSymbols = @"/home/guardian/git/144.math.spbu-II/homeWork 5/T2-MapWalker/Tests/TestResources/0Destinations/map.txt";
-        private string _pathToCorrectMap = @"/home/guardian/git/144.math.spbu-II/homeWork 5/T2-MapWalker/Tests/TestResources/0Destinations/map.txt";
+        private string _pathToMapWith2Avatars = @"TestResources/2Avatars/config.json";
+        private string _pathToMapWith0Avatars = @"TestResources/0Avatars/config.json";
+        private string _pathToMapWith0Destinations = @"TestResources/0Destinations/config.json";
+        private string _pathToMapWithUnsupportedSymbols = @"TestResources/UnsupportedSymbols/config.json";
+        private string _pathToCorrectMap = @"TestResources/CorrectMap/config.json";
 
         /// <summary>
         /// Создание карты с 2 аватврами должно бросать исключение
