@@ -11,24 +11,19 @@
     {
         public event EventHandler<MotionVectorEventArgs> Motion;
         protected virtual void OnManualCommand(MotionVectorEventArgs args) => Motion?.Invoke(this, args);    
-
         /// <summary>
         /// Последовательность символьных команд
         /// </summary>
         private IEnumerable<char> _sequence;
-
         private Dictionary<char, MotionVectorEventArgs> _commands = new Dictionary<char, MotionVectorEventArgs> {
             ['w'] = MotionVectorEventArgs.Up,
             ['a'] = MotionVectorEventArgs.Left,
             ['s'] = MotionVectorEventArgs.Down,
             ['d'] = MotionVectorEventArgs.Right
         };
-        
         private bool _exit = false;
 
         public CommandsEventLoop(IEnumerable<char> sequence) => _sequence = sequence;
-
-        public void Exit() => _exit = true;
 
         public void Run()
         {
@@ -38,5 +33,7 @@
                 OnManualCommand(_commands[command]);
             }
         }
+
+        public void Exit() => _exit = true;        
     }
 }

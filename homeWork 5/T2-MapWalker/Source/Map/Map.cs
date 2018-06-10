@@ -10,6 +10,7 @@ namespace Source
         /// Параметры карты
         /// </summary>
         private MapConfig _params;
+        public MapConfig Params => _params;        
 
         /// <summary>
         /// Игровое поле
@@ -27,11 +28,6 @@ namespace Source
             ConfigureMap(config);
             BuildMap(inputStream, out initPlayerCoords);
         }
-
-        /// <summary>
-        /// Параметры карты
-        /// </summary>
-        public MapConfig Params => _params;
 
         private bool IsCoordinatesAreCorrect(Coordinates coords) => 
             coords.X < 0 || coords.Y < 0 ||
