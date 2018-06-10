@@ -8,11 +8,13 @@ namespace Source
         /// У игрока есть карты, что логично
         /// </summary>
         private IMap _map;
+        public IMap Map => _map;     
 
         /// <summary>
         /// Текущие координаты игрока на карте
         /// </summary>
         private Coordinates _currentCoordinates;
+        public Coordinates CurrentCoordinates => _currentCoordinates;
 
         /// <summary>
         /// Событие, возникающее при успешном перемещении игрока
@@ -26,8 +28,6 @@ namespace Source
         /// </summary>
         /// <returns></returns>
         public event EventHandler<EventArgs> DestinationReached = (sender, args) => { };
-
-        public IMap Map { get => _map; }
 
         /// <summary>
         /// Создает нового игрока

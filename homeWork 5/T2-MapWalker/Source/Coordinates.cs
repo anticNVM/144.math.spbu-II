@@ -1,5 +1,7 @@
 namespace Source
 {
+    using System;
+
     /// <summary>
     /// Класс предстовляющий собой координату вектора на плоскости
     /// </summary>
@@ -36,5 +38,13 @@ namespace Source
         /// <returns>Координаты результирующего вектора a + b</returns>
         public static Coordinates operator +(Coordinates a, Coordinates b) => 
             new Coordinates(a.X + b.X, a.Y + b.Y);
+
+        public override bool Equals(object obj)
+        {
+            var another = obj as Coordinates;
+            if (another == null) return false;
+
+            return X == another.X && Y == another.Y;
+        }
     }
 }
