@@ -4,28 +4,17 @@ using System;
 
 namespace Tests
 {
-    /// <summary>
-    /// Класс облегчающий тестирование игры.
-    /// </summary>
-    public class TestGame : Game
-    {
-        public TestGame(string pathToGameConfig) : base(pathToGameConfig)
-        {
-        }
-
-        public IMap GetMap() => base.CurrentMap;
-    }
-
     [TestClass]
     public class MapCorrectnessTest
     {
-        private TestGame _game;
+        private GameClassForTest _game;
 
-        private string _pathToMapWith2Avatars = @"TestResources/2Avatars/config.json";
-        private string _pathToMapWith0Avatars = @"TestResources/0Avatars/config.json";
-        private string _pathToMapWith0Destinations = @"TestResources/0Destinations/config.json";
-        private string _pathToMapWithUnsupportedSymbols = @"TestResources/UnsupportedSymbols/config.json";
-        private string _pathToCorrectMap = @"TestResources/CorrectMap/config.json";
+        private const string _pathToMapWith2Avatars = @"TestResources/2Avatars/config.json";
+        private const string _pathToMapWith0Avatars = @"TestResources/0Avatars/config.json";
+        private const string _pathToMapWith0Destinations = @"TestResources/0Destinations/config.json";
+        private const string _pathToMapWithUnsupportedSymbols = @"TestResources/UnsupportedSymbols/config.json";
+        private const string _pathToCorrectMap = @"TestResources/CorrectMap/config.json";
+        private const string _pathToMapWithIncorrectSize = @"TestResources/IncorrectSize/config.json";
 
         /// <summary>
         /// Создание карты с 2 аватврами должно бросать исключение
@@ -34,7 +23,7 @@ namespace Tests
         [ExpectedException(typeof(InvalidNumberOfAvatarsException))]
         public void MapWith2AvatarsShoulsThrowExceptionWhileBuilding()
         {
-            _game = new TestGame(_pathToMapWith2Avatars);
+            _game = new GameClassForTest(_pathToMapWith2Avatars);
         }
 
         /// <summary>
@@ -44,7 +33,7 @@ namespace Tests
         [ExpectedException(typeof(InvalidNumberOfAvatarsException))]
         public void MapWith0AvatarsShoulsThrowExceptionWhileBuilding()
         {
-            _game = new TestGame(_pathToMapWith0Avatars);
+            _game = new GameClassForTest(_pathToMapWith0Avatars);
         }
 
         /// <summary>
@@ -54,7 +43,7 @@ namespace Tests
         [ExpectedException(typeof(InvalidNumberOfDestinationsException))]
         public void MapWith0DestinationsShoulsThrowExceptionWhileBuilding()
         {
-            _game = new TestGame(_pathToMapWith0Destinations);
+            _game = new GameClassForTest(_pathToMapWith0Destinations);
         }
 
         /// <summary>
@@ -64,7 +53,21 @@ namespace Tests
         [ExpectedException(typeof(UnsupportedSymbolException))]
         public void MapWithUnsupportedSymbolsShoulsThrowExceptionWhileBuilding()
         {
-            _game = new TestGame(_pathToMapWithUnsupportedSymbols);
+            _game = new GameClassForTest(_pathToMapWithUnsupportedSymbols);
+        }
+
+        [TestMethod]
+        public void BuildingCorrectMapShouldNotCrash()
+        {
+            _game = new GameClassForTest(_pathToCorrectMap);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(UnsupportedSymbolException))]
+        public void MapWithIncorrectSizeShouldThrowException()
+        {
+            // непонятно почему такое исключение и не все тест case`ы покрыты
+            _game = new GameClassForTest(_pathToMapWithIncorrectSize);
         }
 
         /// <summary>
@@ -74,19 +77,22 @@ namespace Tests
         [ExpectedException(typeof(IndexOutOfRangeException))]
         public void TryingSetFieldOnWrongCoordinatesShouldThrowException()
         {
-            _game = new TestGame(_pathToCorrectMap);
+            _game = new GameClassForTest(_pathToCorrectMap);
+
             var map = _game.GetMap();
 
             map[new Coordinates(-1, 0)] = FieldTypes.Player;
         }
 
         [TestMethod]
-        public void Kek()
+        public void GetValueFromWrongCoordinatesShouldReturnCorrectValue()
         {
-            _game = new TestGame(_pathToCorrectMap);
+            _game = new GameClassForTest(_pathToCorrectMap);
             var map = _game.GetMap();
 
-            var foo = map[new Coordinates(map.Params.MapSize["height"], map.Params.MapSize["width"])];
+            var actual = map[new Coordinates(map.Params.MapSize["height"], map.Params.MapSize["width"])];
+
+            Assert.AreEqual(FieldTypes.BeyondMap, actual);
         }
     }
 }

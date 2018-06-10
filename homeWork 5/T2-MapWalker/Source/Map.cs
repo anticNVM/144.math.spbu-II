@@ -33,11 +33,15 @@ namespace Source
         /// </summary>
         public MapConfig Params => _params;
 
+        private bool IsCoordinatesAreCorrect(Coordinates coords) => 
+            coords.X < 0 || coords.Y < 0 ||
+            coords.X >= _params.MapSize["height"] || coords.Y >= _params.MapSize["width"];
+
         public FieldTypes this[Coordinates coords]
         {
             get
             {
-                if (coords.X < 0 || coords.Y < 0)
+                if (IsCoordinatesAreCorrect(coords))
                 {
                     return FieldTypes.BeyondMap;
                 }
@@ -47,9 +51,9 @@ namespace Source
 
             set
             {
-                if (coords.X < 0 || coords.Y < 0)
+                if (IsCoordinatesAreCorrect(coords))
                 {
-                    throw new IndexOutOfRangeException("Координаты не могут быть отрицательны");
+                    throw new IndexOutOfRangeException("Неверные координаты (not exist)");
                 }
 
                 _board[coords.X, coords.Y] = value;
@@ -104,7 +108,7 @@ namespace Source
                     }
                 }
 
-                inputStream.ReadLine();
+                inputStream.ReadLine(); // съедает символ конца строки
             }
 
             if (!destinationIsExist)

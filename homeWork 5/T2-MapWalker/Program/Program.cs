@@ -24,13 +24,14 @@ namespace Program
             Game game;
             try
             {
-                game = new Game(pathToConfig);
+                game = new Game(pathToConfig, new ArrowPressEventLoop());
             }
             catch (Exception e) when (
                 e is InvalidNumberOfAvatarsException ||
                 e is InvalidNumberOfDestinationsException ||
                 e is UnsupportedSymbolException ||
-                e is FileNotFoundException
+                e is FileNotFoundException ||
+                e is DirectoryNotFoundException
             )
             {
                 Console.WriteLine(e.Message);

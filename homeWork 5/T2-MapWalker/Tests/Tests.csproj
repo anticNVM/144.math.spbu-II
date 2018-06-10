@@ -47,6 +47,12 @@
     <Content Include="TestResources/UnsupportedSymbols/config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestResources/IncorrectSize/map.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestResources/IncorrectSize/config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup> 
 
 </Project>

@@ -27,7 +27,7 @@ namespace Source
         /// <returns></returns>
         public event EventHandler<EventArgs> DestinationReached = (sender, args) => { };
 
-        public IMap Map { get => _map; } 
+        public IMap Map { get => _map; }
 
         /// <summary>
         /// Создает нового игрока
@@ -47,26 +47,34 @@ namespace Source
         }
 
         /// <summary>
-        /// Обработчик события <see cref="EventLoop.ArrowPressed"/>
+        /// Обработчик события <see cref="ArrowPressEventLoop.ArrowPressed"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args">Координаты вектора перемещения</param>
-        public void MovePlayer(object sender, ArrowPressedEventArgs args)
+        public bool MoveOnVector(Coordinates vector)
         {
-            var nextCoord = _currentCoordinates + args.Coordinates;
+            var nextCoord = _currentCoordinates + vector;
+            bool success = false;
 
-            if (_map[nextCoord] == FieldTypes.FreeSpace)
+            switch (_map[nextCoord])
             {
-                _map[_currentCoordinates] = FieldTypes.FreeSpace;
-                _map[nextCoord] = FieldTypes.Player;
-                _currentCoordinates = nextCoord;
-                SuccessfulMovement(this, EventArgs.Empty);
+                case FieldTypes.FreeSpace:
+                    _map[_currentCoordinates] = FieldTypes.FreeSpace;
+                    _map[nextCoord] = FieldTypes.Player;
+                    _currentCoordinates = nextCoord;
+                    success = true;
+                    SuccessfulMovement(this, EventArgs.Empty);
+                    break;
+
+                case FieldTypes.Destination:
+                    DestinationReached(this, EventArgs.Empty);
+                    break;
+
+                default:
+                    break;
             }
 
-            if (_map[nextCoord] == FieldTypes.Destination)
-            {
-                DestinationReached(this, EventArgs.Empty);
-            }
+            return success;
         }
     }
 }

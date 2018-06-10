@@ -17,21 +17,22 @@ namespace Source
         /// <summary>
         /// Игрок)
         /// </summary>
-        private Player _player;
+        protected Player _player;
 
-        protected IMap CurrentMap => _player.Map;
+        private IMotionEventLoop _mainloop;
 
         /// <summary>
         /// Создает новую игру, с настройками из <paramref name="pathToGameConfig"/>
         /// </summary>
         /// <param name="pathToGameConfig">Путь до файла в формате json с параметрами игры в требуемом формате</param>
-        public Game(string pathToGameConfig)
+        public Game(string pathToGameConfig, IMotionEventLoop loop)
         {
             // парсинг настроек из фала в GameConfig
             var gameConfig = JsonConvert.DeserializeObject<GameConfig>(File.ReadAllText(pathToGameConfig));
             var inputStream = new StreamReader(gameConfig.pathToMap);
             var map = new Map(gameConfig.MapConfig, inputStream, out Coordinates initialPlayerCoordinates);
             _player = new Player(map, initialPlayerCoordinates);
+            _mainloop = loop;
         }
 
         /// <summary>
@@ -39,16 +40,14 @@ namespace Source
         /// </summary>
         public void Start()
         {
-            var mainloop = new EventLoop();
-
-            mainloop.ArrowPressed += _player.MovePlayer;
+            _mainloop.Motion += (object sender, MotionVectorEventArgs args) => _player.MoveOnVector(args.Coordinates);
             _player.SuccessfulMovement += (object sender, EventArgs args) => ClearConsoleAndDispalyMap();
             _player.DestinationReached += (object sender, EventArgs args) => CongratulatePlayer();
-            _player.DestinationReached += (object sender, EventArgs args) => mainloop.Exit();
+            _player.DestinationReached += (object sender, EventArgs args) => _mainloop.Exit();
 
             ConsoleSettings.SetCustom();
             ClearConsoleAndDispalyMap();
-            mainloop.Run();
+            _mainloop.Run();
 
             ConsoleSettings.SetDefault();
         }
