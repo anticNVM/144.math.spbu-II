@@ -19,6 +19,9 @@ namespace Source
         /// </summary>
         protected Player _player;
 
+        /// <summary>
+        /// Цикл, генерирующий события для перемещения игрока
+        /// </summary>
         private IMotionEventLoop _mainloop;
 
         /// <summary>

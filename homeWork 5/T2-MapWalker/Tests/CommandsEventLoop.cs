@@ -1,23 +1,32 @@
-namespace Tests
+﻿namespace Tests
 {
     using Source;
     using System;
     using System.Collections.Generic;
 
-    public class ManualCommandsEventLoop : IMotionEventLoop
+    /// <summary>
+    /// Цикл генерирующий собите <see cref="Motion"/> на основе последовательности команд
+    /// </summary>
+    public class CommandsEventLoop : IMotionEventLoop
     {
         public event EventHandler<MotionVectorEventArgs> Motion;
         protected virtual void OnManualCommand(MotionVectorEventArgs args) => Motion?.Invoke(this, args);    
+
+        /// <summary>
+        /// Последовательность символьных команд
+        /// </summary>
         private IEnumerable<char> _sequence;
+
         private Dictionary<char, MotionVectorEventArgs> _commands = new Dictionary<char, MotionVectorEventArgs> {
             ['w'] = MotionVectorEventArgs.Up,
             ['a'] = MotionVectorEventArgs.Left,
             ['s'] = MotionVectorEventArgs.Down,
             ['d'] = MotionVectorEventArgs.Right
         };
+        
         private bool _exit = false;
 
-        public ManualCommandsEventLoop(IEnumerable<char> sequence) => _sequence = sequence;
+        public CommandsEventLoop(IEnumerable<char> sequence) => _sequence = sequence;
 
         public void Exit() => _exit = true;
 

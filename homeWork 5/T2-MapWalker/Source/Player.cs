@@ -47,10 +47,10 @@ namespace Source
         }
 
         /// <summary>
-        /// Обработчик события <see cref="ArrowPressEventLoop.ArrowPressed"/>
+        /// Перемещает персонажа на вектор <paramref name="vector"/>, если это возможно
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args">Координаты вектора перемещения</param>
+        /// <param name="vector">Вектор перемещения</param>
+        /// <returns>.true, если перемещение удалось, иначе false</returns>
         public bool MoveOnVector(Coordinates vector)
         {
             var nextCoord = _currentCoordinates + vector;

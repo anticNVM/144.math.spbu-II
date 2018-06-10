@@ -4,6 +4,9 @@ using System;
 
 namespace Tests
 {
+    /// <summary>
+    /// Тесты для проверки корректности создаваемых карт
+    /// </summary>
     [TestClass]
     public class MapCorrectnessTest
     {
@@ -56,12 +59,18 @@ namespace Tests
             _game = new GameClassForTest(_pathToMapWithUnsupportedSymbols);
         }
 
+        /// <summary>
+        /// Полностью корректная карта не должна ронять программу
+        /// </summary>
         [TestMethod]
         public void BuildingCorrectMapShouldNotCrash()
         {
             _game = new GameClassForTest(_pathToCorrectMap);
         }
 
+        /// <summary>
+        /// Тут по идее обрабатывается случай, когда строк/столбцов меньше необходимого
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(UnsupportedSymbolException))]
         public void MapWithIncorrectSizeShouldThrowException()
@@ -84,6 +93,9 @@ namespace Tests
             map[new Coordinates(-1, 0)] = FieldTypes.Player;
         }
 
+        /// <summary>
+        /// Поле вне границ карты должно иметь тип <see cref="FieldTypes.BeyondMap"/>
+        /// </summary>
         [TestMethod]
         public void GetValueFromWrongCoordinatesShouldReturnCorrectValue()
         {

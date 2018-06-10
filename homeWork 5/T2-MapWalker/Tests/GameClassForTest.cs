@@ -3,6 +3,10 @@ namespace Tests
     using Source;
     using System;
 
+    /// <summary>
+    /// Класс, который расширяет функциональность <see cref="Source.Game"/> для тестирования
+    /// (через этот класс можно по поправить инкапсуляцию в Game, но это не точно)
+    /// </summary>
     public class GameClassForTest : Game
     {
         public GameClassForTest(string pathToGameConfig, IMotionEventLoop loop) : base(pathToGameConfig, loop)

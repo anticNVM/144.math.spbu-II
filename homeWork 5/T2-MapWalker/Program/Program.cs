@@ -4,8 +4,15 @@ using Source;
 
 namespace Program
 {
+    /// <summary>
+    /// Класс, реализующий создание и запуск игры 
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Точка входа в консольную программу
+        /// </summary>
+        /// <param name="args">Входные параметры (1 - путь до файла конфигурации)</param>
         public static void Main(string[] args)
         {
             if (args.Length == 0)
@@ -38,7 +45,16 @@ namespace Program
                 return;
             }
 
-            game?.Start(); 
+            try
+            {
+                game?.Start();
+            }
+            catch (Exception e) when (
+                e is PlatformNotSupportedException
+            )
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
