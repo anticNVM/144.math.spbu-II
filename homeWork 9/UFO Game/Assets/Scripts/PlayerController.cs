@@ -6,12 +6,34 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    /// <summary>
+    /// Тело игрока
+    /// </summary>
     private Rigidbody2D _playersRB;
+
+    /// <summary>
+    /// Количество собранных пикапов на данный момент
+    /// </summary>
     private int _count;
+
+    /// <summary>
+    /// Количество пикапов всего на карте в начале игры
+    /// </summary>
 	private int _amountOfPickups;
 
-    public float _speed;
+    /// <summary>
+    /// Скорость игрока
+    /// </summary>
+    private float _speed = 10;
+
+    /// <summary>
+    /// Текст с текущим счетом
+    /// </summary>
     public Text _scoreText;
+
+    /// <summary>
+    /// Текст при победе
+    /// </summary>
 	public Text _winText;
 
     /// <summary>
@@ -21,7 +43,7 @@ public class PlayerController : MonoBehaviour
     public void Start()
     {
         _playersRB = GetComponent<Rigidbody2D>();
-		_amountOfPickups = GameObject.FindGameObjectsWithTag("PickUp").Length;
+        _amountOfPickups = GameObject.FindGameObjectsWithTag("PickUp").Length;
     }
 
     /// <summary>
@@ -54,9 +76,9 @@ public class PlayerController : MonoBehaviour
     private void UpdateScoreText()
     {
         _scoreText.text = "Score: " + _count.ToString();
-		if (_count >= _amountOfPickups)
-		{
-			_winText.text = "You Win!!!";
-		}
+        if (_count >= _amountOfPickups)
+        {
+            _winText.text = "You Win!!!";
+        }
     }
 }

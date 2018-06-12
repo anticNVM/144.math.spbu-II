@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PickupRotator : MonoBehaviour 
 {
-	// Update is called once per frame
-	void Update () 
+	/// <summary>
+	/// Update is called every frame, if the MonoBehaviour is enabled.
+	/// </summary>
+	public void Update()
 	{
-		this.transform.Rotate(new Vector3(0, 0, 45) * Time.deltaTime);
+		this.transform.Rotate(new Vector3(0, 0, 45) * Time.deltaTime);		
 	}
 }
