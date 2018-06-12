@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Аргументы события <see cref="IMotionEventLoop.Motion"/>
+    /// Аргументы события <see cref="MotionEventLoop.Motion"/>
     /// (представляет собой вектор перемещения)
     /// </summary>
     public class MotionVectorEventArgs : EventArgs

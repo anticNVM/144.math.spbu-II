@@ -7,9 +7,9 @@
     /// <summary>
     /// Цикл генерирующий собите <see cref="Motion"/> на основе последовательности команд
     /// </summary>
-    public class CommandsEventLoop : IMotionEventLoop
+    public class CommandsEventLoop : MotionEventLoop
     {
-        public event EventHandler<MotionVectorEventArgs> Motion;
+        public override event EventHandler<MotionVectorEventArgs> Motion;
         protected virtual void OnManualCommand(MotionVectorEventArgs args) => Motion?.Invoke(this, args);    
         /// <summary>
         /// Последовательность символьных команд
@@ -21,11 +21,10 @@
             ['s'] = MotionVectorEventArgs.Down,
             ['d'] = MotionVectorEventArgs.Right
         };
-        private bool _exit = false;
 
         public CommandsEventLoop(IEnumerable<char> sequence) => _sequence = sequence;
 
-        public void Run()
+        protected override void Run()
         {
             foreach (var command in _sequence)
             {
@@ -33,7 +32,5 @@
                 OnManualCommand(_commands[command]);
             }
         }
-
-        public void Exit() => _exit = true;        
     }
 }

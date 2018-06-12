@@ -1,5 +1,7 @@
 namespace Source
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Класс с настройками игры
     /// </summary>
@@ -15,6 +17,6 @@ namespace Source
         /// Путь до карты
         /// </summary>
         /// <returns></returns>
-        public string pathToMap { get; set; }
+        public string PathToMap { get; set; }
     }
 }

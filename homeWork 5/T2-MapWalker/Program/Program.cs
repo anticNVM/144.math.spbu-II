@@ -28,10 +28,11 @@ namespace Program
                 return;
             }
 
+            var mainloop = new ArrowPressEventLoop();
             Game game;
             try
             {
-                game = new Game(pathToConfig, new ArrowPressEventLoop());
+                game = new Game(pathToConfig, mainloop);
             }
             catch (Exception e) when (
                 e is InvalidNumberOfAvatarsException ||
@@ -45,6 +46,7 @@ namespace Program
                 return;
             }
 
+            mainloop.Register(game);
             try
             {
                 game?.Start();

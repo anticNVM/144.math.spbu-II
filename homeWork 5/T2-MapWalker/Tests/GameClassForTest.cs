@@ -9,7 +9,7 @@ namespace Tests
     /// </summary>
     public class GameClassForTest : Game
     {
-        public GameClassForTest(string pathToGameConfig, IMotionEventLoop loop) : base(pathToGameConfig, loop)
+        public GameClassForTest(string pathToGameConfig, MotionEventLoop loop) : base(pathToGameConfig, loop)
         {
         }
 

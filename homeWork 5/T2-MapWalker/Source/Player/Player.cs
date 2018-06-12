@@ -2,6 +2,9 @@ namespace Source
 {
     using System;
 
+    /// <summary>
+    /// Игрок)
+    /// </summary>
     public class Player
     {
         /// <summary>

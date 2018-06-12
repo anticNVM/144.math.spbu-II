@@ -46,5 +46,7 @@ namespace Source
 
             return X == another.X && Y == another.Y;
         }
+
+        public override int GetHashCode() => (X | Y) & (X * Y);
     }
 }

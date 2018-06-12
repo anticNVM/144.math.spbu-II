@@ -7,7 +7,7 @@ namespace Source
     /// <summary>
     /// Класс, реализующий логику игры
     /// </summary>
-    public class Game
+    public class Game : IContinuationProcess
     {
         /// <summary>
         /// Назавание игры
@@ -19,23 +19,21 @@ namespace Source
         /// </summary>
         protected Player _player;
 
-        /// <summary>
-        /// Цикл, генерирующий события для перемещения игрока
-        /// </summary>
-        private IMotionEventLoop _mainloop;
+        public event EventHandler<EventArgs> Started = (sender, args) => { };
+        public event EventHandler<EventArgs> Finished = (sender, args) => { };
 
         /// <summary>
         /// Создает новую игру, с настройками из <paramref name="pathToGameConfig"/>
         /// </summary>
         /// <param name="pathToGameConfig">Путь до файла в формате json с параметрами игры в требуемом формате</param>
-        public Game(string pathToGameConfig, IMotionEventLoop loop)
+        public Game(string pathToGameConfig, MotionEventLoop loop)
         {
             // парсинг настроек из фала в GameConfig
             var gameConfig = JsonConvert.DeserializeObject<GameConfig>(File.ReadAllText(pathToGameConfig));
-            var inputStream = new StreamReader(gameConfig.pathToMap);
+            var inputStream = new StreamReader(gameConfig.PathToMap);
             var map = new Map(gameConfig.MapConfig, inputStream, out Coordinates initialPlayerCoordinates);
             _player = new Player(map, initialPlayerCoordinates);
-            _mainloop = loop;
+            loop.Motion += (object sender, MotionVectorEventArgs args) => _player.MoveOnVector(args.Coordinates);
         }
 
         /// <summary>
@@ -43,14 +41,14 @@ namespace Source
         /// </summary>
         public void Start()
         {
-            _mainloop.Motion += (object sender, MotionVectorEventArgs args) => _player.MoveOnVector(args.Coordinates);
             _player.SuccessfulMovement += (object sender, EventArgs args) => ClearConsoleAndDispalyMap();
             _player.DestinationReached += (object sender, EventArgs args) => CongratulatePlayer();
-            _player.DestinationReached += (object sender, EventArgs args) => _mainloop.Exit();
+            _player.DestinationReached += (object sender, EventArgs args) => Finished(this, EventArgs.Empty);
 
             ConsoleSettings.SetCustom();
             ClearConsoleAndDispalyMap();
-            _mainloop.Run();
+            
+            Started(this, EventArgs.Empty);
 
             ConsoleSettings.SetDefault();
         }

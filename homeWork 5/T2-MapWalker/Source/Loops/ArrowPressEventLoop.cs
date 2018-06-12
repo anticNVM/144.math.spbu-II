@@ -5,10 +5,8 @@ namespace Source
     /// <summary>
     /// Цикл, генерирующий события по нажатию
     /// </summary>
-    public class ArrowPressEventLoop : IMotionEventLoop
+    public class ArrowPressEventLoop : MotionEventLoop
     {
-        private bool _exit = false;
-
         /// <summary>
         /// Событие, возникающее при нажатии на стрелки 
         /// <see cref="ConsoleKey.LeftArrow"/>
@@ -16,7 +14,7 @@ namespace Source
         /// <see cref="ConsoleKey.UpArrow"/>
         /// <see cref="ConsoleKey.DownArrow"/>
         /// </summary>
-        public event EventHandler<MotionVectorEventArgs> Motion;
+        public override event EventHandler<MotionVectorEventArgs> Motion;
 
         /// <summary>
         /// Метод, вызывающий событие <see cref="ArrowPressed"/>
@@ -27,7 +25,7 @@ namespace Source
         /// <summary>
         /// Метод, запускающий бесконечный цикл, регистрирующий нажатия стрелок и <see cref="ConsoleKey.Escape"/>
         /// </summary>
-        public void Run()
+        protected override void Run()
         {
             while (!_exit)
             {
@@ -53,11 +51,6 @@ namespace Source
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        /// Метод, который останавливает (выходит из) <see cref="ArrowPressEventLoop"/>
-        /// </summary>
-        public void Exit() => _exit = true;        
+        }       
     }
 }
