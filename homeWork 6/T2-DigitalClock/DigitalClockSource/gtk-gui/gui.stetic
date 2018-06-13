@@ -20,11 +20,11 @@
     <property name="WindowPosition">CenterOnParent</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
-      <widget class="Gtk.VBox" id="vbox3">
+      <widget class="Gtk.VBox" id="vbox">
         <property name="MemberName" />
         <property name="Spacing">6</property>
         <child>
-          <widget class="Gtk.Label" id="label6">
+          <widget class="Gtk.Label" id="clockLabel">
             <property name="MemberName" />
             <property name="LabelProp" translatable="yes">label6</property>
           </widget>

@@ -5,9 +5,11 @@ public partial class MainWindow
 {
 	private global::Gtk.UIManager UIManager;
 
-	private global::Gtk.VBox vbox3;
+	private global::Gtk.Action krkkrAction;
 
-	private global::Gtk.Label label6;
+	private global::Gtk.VBox vbox;
+
+	private global::Gtk.Label clockLabel;
 
 	protected virtual void Build()
 	{
@@ -15,23 +17,26 @@ public partial class MainWindow
 		// Widget MainWindow
 		this.UIManager = new global::Gtk.UIManager();
 		global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup("Default");
+		this.krkkrAction = new global::Gtk.Action("krkkrAction", global::Mono.Unix.Catalog.GetString("krkkr"), null, null);
+		this.krkkrAction.ShortLabel = global::Mono.Unix.Catalog.GetString("krkkr");
+		w1.Add(this.krkkrAction, null);
 		this.UIManager.InsertActionGroup(w1, 0);
 		this.AddAccelGroup(this.UIManager.AccelGroup);
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString("MainWindow");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 		// Container child MainWindow.Gtk.Container+ContainerChild
-		this.vbox3 = new global::Gtk.VBox();
-		this.vbox3.Name = "vbox3";
-		this.vbox3.Spacing = 6;
-		// Container child vbox3.Gtk.Box+BoxChild
-		this.label6 = new global::Gtk.Label();
-		this.label6.Name = "label6";
-		this.label6.LabelProp = global::Mono.Unix.Catalog.GetString("label6");
-		this.vbox3.Add(this.label6);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.label6]));
+		this.vbox = new global::Gtk.VBox();
+		this.vbox.Name = "vbox";
+		this.vbox.Spacing = 6;
+		// Container child vbox.Gtk.Box+BoxChild
+		this.clockLabel = new global::Gtk.Label();
+		this.clockLabel.Name = "clockLabel";
+		this.clockLabel.LabelProp = global::Mono.Unix.Catalog.GetString("label6");
+		this.vbox.Add(this.clockLabel);
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox[this.clockLabel]));
 		w2.Position = 0;
-		this.Add(this.vbox3);
+		this.Add(this.vbox);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
