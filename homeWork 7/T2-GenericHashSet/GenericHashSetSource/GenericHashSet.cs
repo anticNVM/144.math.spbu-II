@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GenericHashSetSource
 {
-    public class GenericHashSet<T> : ISet<T> where T : class
+    public class GenericHashSet<T> : ISet<T>
     {
         private const int _defaultCapacity = 20;
+        private const float _criticalFactor = 1f;
 
-        private const float _criticalFactor = 0.7f;
-
-        private T[] _buckets;
-
-        private bool[] _deleted;
+        private List<T>[] _buckets;
 
         private int _capacity;
 
@@ -22,8 +20,7 @@ namespace GenericHashSetSource
 
         public GenericHashSet()
         {
-            _buckets = new T[_defaultCapacity];
-            _deleted = new bool[_defaultCapacity];
+            _buckets = InitBuckets(_defaultCapacity);
             _capacity = _defaultCapacity;
         }
 
@@ -34,6 +31,17 @@ namespace GenericHashSetSource
             {
                 this.Add(item);
             }
+        }
+
+        private List<T>[] InitBuckets(int capacity)
+        {
+            var buckets = new List<T>[capacity];
+            for (var i = 0; i < _buckets.Length; ++i)
+            {
+                buckets[i] = new List<T>();
+            }
+
+            return buckets;
         }
 
         /// <summary>
@@ -61,27 +69,14 @@ namespace GenericHashSetSource
                 throw new NotSupportedException("Объект ICollection<T> доступен только для чтения.");
             }
 
-            var hashValue = GetHashOf(item);
-            var hashStep = GetAnotherHashOf(item);
-            for (int i = 0; i < _capacity; i++)
+            var index = GetHashOf(item);
+            if (_buckets[index].Contains(item))
             {
-                if (_buckets[hashValue].Equals(item))
-                {
-                    return false;
-                }
-
-                if (_buckets[hashValue].Equals(default(T)))
-                {
-                    _buckets[hashValue] = item;
-                    _count++;
-                    return true;
-                }
-                else
-                {
-                    hashValue = (hashValue + hashStep) % _capacity;
-                }
+                return false;
             }
 
+            _buckets[index].Add(item);
+            _count++;
             if (Factor > _criticalFactor)
             {
                 this.Resize();
@@ -92,7 +87,16 @@ namespace GenericHashSetSource
 
         private void Resize()
         {
-            throw new NotImplementedException();
+            int factor = 2;
+            _capacity *= factor;
+            var newBuckets = InitBuckets(_capacity);
+            foreach (var item in this)
+            {
+                int index = GetHashOf(item);
+                newBuckets[index].Add(item);
+            }
+
+            _buckets = newBuckets;
         }
 
         /// <summary>
@@ -105,36 +109,9 @@ namespace GenericHashSetSource
                 throw new NotSupportedException("Объект ICollection<T> доступен только для чтения.");
             }
 
-            _buckets = new T[_defaultCapacity];
-            _deleted = new bool[_defaultCapacity];
+            _buckets = InitBuckets(_defaultCapacity);
             _capacity = _defaultCapacity;
             _count = 0;
-        }
-
-        private bool GetRealIndexOf(T item, out int index)
-        {
-            index = 0;
-            var hashValue = GetHashOf(item);
-            var hashStep = GetAnotherHashOf(item);
-
-            for (int i = 0; i < _capacity; i++)
-            {
-                if (_buckets[hashValue] == null && !_deleted[hashValue])
-                {
-                    break;
-                }
-                else if (_buckets[hashValue].Equals(item))
-                {
-                    index = hashValue;
-                    return true;
-                }
-                else
-                {
-                    hashValue = (hashValue + hashStep) % _capacity;
-                }
-            }
-
-            return false;
         }
 
         /// <summary>
@@ -144,9 +121,16 @@ namespace GenericHashSetSource
         /// <returns>.true если содержит, .false иначе</returns>
         public bool Contains(T item)
         {
-            return GetRealIndexOf(item, out int _);
+            var index = GetHashOf(item);
+            return _buckets[index].Contains(item);
         }
 
+        /// <summary>
+        /// Копирует элементы коллекции ICollection<T> в массив Array, начиная с указанного индекса массива Array.
+        /// </summary>
+        /// <param name="array">Одномерный массив Array, в который копируются элементы из интерфейса ICollection<T>. 
+        /// Массив Array должен иметь индексацию, начинающуюся с нуля.</param>
+        /// <param name="arrayIndex">Отсчитываемый от нуля индекс в массиве array, указывающий начало копирования.</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (array == null)
@@ -174,11 +158,8 @@ namespace GenericHashSetSource
             var currentIndex = arrayIndex;
             foreach (var item in this)
             {
-                if (item != null)
-                {
-                    array[currentIndex] = item;
-                    currentIndex++;
-                }
+                array[currentIndex] = item;
+                currentIndex++;
             }
         }
 
@@ -201,7 +182,13 @@ namespace GenericHashSetSource
 
         public IEnumerator<T> GetEnumerator()
         {
-            return (IEnumerator<T>)_buckets.GetEnumerator();
+            foreach (var bucket in _buckets)
+            {
+                foreach (var item in bucket)
+                {
+                    yield return item;
+                }
+            }
         }
 
         /// <summary>
@@ -215,26 +202,11 @@ namespace GenericHashSetSource
                 throw new ArgumentNullException("Свойство other имеет значение null.");
             }
 
-            var covering = new bool[_capacity];
-            foreach (var item in other)
+            var included = other.Where(item => this.Contains(item));
+            this.Clear();
+            foreach (var item in included)
             {
-                if (this.GetRealIndexOf(item, out int index))
-                {
-                    covering[index] = true;
-                }
-            }
-
-            for (int i = 0; i < covering.Length; i++)
-            {
-                if (!covering[i])
-                {
-                    if (_buckets[i] != null)
-                    {
-                        _buckets[i] = null;
-                        _deleted[i] = true;
-                        _count--;
-                    }
-                }
+                this.Add(item);
             }
         }
 
@@ -268,13 +240,7 @@ namespace GenericHashSetSource
         public bool IsProperSubsetOf(IEnumerable<T> other)
         {
             var info = GetInfoAbout(other);
-
-            if (info.covering == _count && info.otherSize > _count)
-            {
-                return true;
-            }
-
-            return false;
+            return info.covering == _count && info.otherSize > _count;
         }
 
         /// <summary>
@@ -285,13 +251,7 @@ namespace GenericHashSetSource
         public bool IsProperSupersetOf(IEnumerable<T> other)
         {
             var info = GetInfoAbout(other);
-
-            if (info.covering == info.otherSize && info.otherSize < _count)
-            {
-                return true;
-            }
-
-            return false;
+            return info.covering == info.otherSize && info.otherSize < _count;
         }
 
         /// <summary>
@@ -302,14 +262,7 @@ namespace GenericHashSetSource
         public bool IsSubsetOf(IEnumerable<T> other)
         {
             var info = GetInfoAbout(other);
-
-
-            if (info.covering == _count && info.otherSize >= _count)
-            {
-                return true;
-            }
-
-            return false;
+            return info.covering == _count && info.otherSize >= _count;
         }
 
         /// <summary>
@@ -320,13 +273,7 @@ namespace GenericHashSetSource
         public bool IsSupersetOf(IEnumerable<T> other)
         {
             var info = GetInfoAbout(other);
-
-            if (info.covering == info.otherSize && info.otherSize <= _count)
-            {
-                return true;
-            }
-
-            return false;
+            return info.covering == info.otherSize && info.otherSize <= _count;
         }
 
         /// <summary>
@@ -337,13 +284,7 @@ namespace GenericHashSetSource
         public bool Overlaps(IEnumerable<T> other)
         {
             var info = GetInfoAbout(other);
-
-            if (info.covering == 0)
-            {
-                return true;
-            }
-
-            return false;
+            return info.covering == 0;
         }
 
         /// <summary>
@@ -361,15 +302,14 @@ namespace GenericHashSetSource
                 throw new NotSupportedException("Объект ICollection<T> доступен только для чтения.");
             }
 
-            if (GetRealIndexOf(item, out int index))
+            var index = GetHashOf(item);
+            if (!_buckets[index].Contains(item))
             {
-                _buckets[index] = null;
-                _deleted[index] = true;
-                _count--;
-                return true;
+                return false;
             }
 
-            return false;
+            _buckets[index].Remove(item);
+            return true;
         }
 
         /// <summary>
@@ -380,16 +320,8 @@ namespace GenericHashSetSource
         public bool SetEquals(IEnumerable<T> other)
         {
             var info = GetInfoAbout(other);
-
-            if (info.covering == _count && info.otherSize == _count)
-            {
-                return true;
-            }
-
-            return false;
+            return info.covering == _count && info.otherSize == _count;
         }
-
-//////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Изменяет текущий набор таким образом, чтобы он содержал только элементы, 
@@ -404,10 +336,8 @@ namespace GenericHashSetSource
             }
 
             var otherSet = new GenericHashSet<T>(other);
-            
-        }
 
-/////////////////////////////////////////////////////////////////////////////////////////
+        }
 
         /// <summary>
         /// Изменяет текущий набор так, чтобы он содержал все элементы, которые имеются в текущем наборе, в указанной коллекции либо в них обоих.
@@ -431,12 +361,8 @@ namespace GenericHashSetSource
             this.Add(item);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _buckets.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         private int GetHashOf(T item) => Math.Abs(item.GetHashCode()) % _capacity;
-        private int GetAnotherHashOf(T item) => Math.Abs(item.GetHashCode()) % _capacity;
     }
 }
