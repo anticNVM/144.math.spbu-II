@@ -29,9 +29,7 @@ namespace Tests
         [DataRow("ssdddww", 1, 4)]
         public void PlayerMovementsTest(string sequenceOfCommands, int expectedX, int expectedY)
         {
-            var loop = new CommandsEventLoop(sequenceOfCommands);
-            var game = new GameClassForTest(_pathToCorrectMap, loop);
-            loop.Register(game);
+            var game = new GameClassForTest(_pathToCorrectMap, new CommandsEventLoop(sequenceOfCommands));
             game.Start();
 
             var expected = new Coordinates(expectedX, expectedY);
@@ -49,9 +47,7 @@ namespace Tests
         public void WhenDestinationReachedEventShouldCalled()
         {
             string sequenceOfCommands = "ssdddww";
-            var loop = new CommandsEventLoop(sequenceOfCommands);
-            var game = new GameClassForTest(_pathToCorrectMap, loop);
-            loop.Register(game);
+            var game = new GameClassForTest(_pathToCorrectMap, new CommandsEventLoop(sequenceOfCommands));
             bool flag = false;
             game.GetPlayer().DestinationReached += (object sender, EventArgs args) => flag = true;
             game.Start();

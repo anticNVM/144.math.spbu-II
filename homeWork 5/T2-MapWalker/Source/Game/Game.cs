@@ -17,7 +17,12 @@ namespace Source
         /// <summary>
         /// Игрок)
         /// </summary>
-        protected Player _player;
+        private Player _player;
+        protected Player Player
+        {
+            get => _player;
+            private set => _player = value;
+        }
 
         public event EventHandler<EventArgs> Started = (sender, args) => { };
         public event EventHandler<EventArgs> Finished = (sender, args) => { };
@@ -34,6 +39,7 @@ namespace Source
             var map = new Map(gameConfig.MapConfig, inputStream, out Coordinates initialPlayerCoordinates);
             _player = new Player(map, initialPlayerCoordinates);
             loop.Motion += (object sender, MotionVectorEventArgs args) => _player.MoveOnVector(args.Coordinates);
+            loop.Register(this);
         }
 
         /// <summary>
@@ -47,7 +53,7 @@ namespace Source
 
             ConsoleSettings.SetCustom();
             ClearConsoleAndDispalyMap();
-            
+
             Started(this, EventArgs.Empty);
 
             ConsoleSettings.SetDefault();

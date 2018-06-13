@@ -17,8 +17,8 @@ namespace Tests
         {
         }
 
-        public IMap GetMap() => _player.Map;
+        public IMap GetMap() => Player.Map;
 
-        public Player GetPlayer() => _player;
+        public Player GetPlayer() => Player;
     }
 }
