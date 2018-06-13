@@ -2,8 +2,16 @@
 using Gtk;
 using CalculatorSource;
 
+/// <summary>
+/// Main window.
+/// </summary>
 public partial class MainWindow : Gtk.Window
 {
+    /// <summary>
+    /// Is expression is calculated
+    /// </summary>
+    private bool _calculated;
+
     public MainWindow() : base(Gtk.WindowType.Toplevel)
     {
         Build();
@@ -22,6 +30,12 @@ public partial class MainWindow : Gtk.Window
     /// <param name="e">E.</param>
     protected void OnNumButtonClicked(object sender, EventArgs e)
     {
+        if (_calculated)
+        {
+            EntryBox.Text = "";
+            _calculated = false;
+        }
+
         var button = sender as Button;
         EntryBox.Text += button.Label;
     }
@@ -81,6 +95,7 @@ public partial class MainWindow : Gtk.Window
         try
         {
             EntryBox.Text = Calculator.Evaluate(EntryBox.Text).ToString();
+            _calculated = true;
         }
         catch (CalculatorSource.Exceptions.InvalidExpressionException ex)
         {
