@@ -1,0 +1,15 @@
+{
+    "mapConfig": {
+        "mapSize": {
+            "width": 5,
+            "height": 3
+        },
+        "keywords": {
+            "wall": "#",
+            "freespace": " ",
+            "playerAvatar": "@",
+            "destination": "X"
+        }
+    },
+    "pathToMap": "TestResources/0Avatars/map.txt"
+}
